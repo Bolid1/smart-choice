@@ -1,0 +1,55 @@
+version: '3.4'
+
+services:
+  php:
+    build:
+      context: ./api
+      target: php
+      args:
+        APP_ENV: dev
+    image: ${PHP_IMAGE:-smart-choice/php}
+    healthcheck:
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      - db
+    volumes:
+      - ./api:/srv:rw,cached
+      - ./api/docker/php/conf.d/dev.ini:/usr/local/etc/php/conf.d/app.ini
+      - ./api/var:/srv/var:rw
+
+  api:
+    build:
+      context: ./api
+      target: nginx
+      args:
+        APP_ENV: dev
+    image: ${NGINX_IMAGE:-smart-choice/nginx}
+    depends_on:
+      - php
+    volumes:
+      - ./api/public:/srv/public:ro
+    ports:
+        - target: 80
+          published: 80
+          protocol: tcp
+
+  db:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_DB=api
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+    # volumes:
+    # - db-data:/var/lib/postgresql/data:rw
+    # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+    # - ./api/docker/db/data:/var/lib/postgresql/data:rw
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp
+
+volumes:
+  db-data: {}

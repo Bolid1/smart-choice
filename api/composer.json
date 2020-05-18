@@ -1,0 +1,69 @@
+{
+    "name": "smart-choice/api",
+    "description": "API for project smart-choice",
+    "type": "project",
+    "minimum-stability": "stable",
+    "license": "UNLICENSED",
+    "authors": [
+        {
+            "name": "Valery Vargin",
+            "email": "vdvugad@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": "^7.4",
+        "symfony/flex": "^1.6",
+        "api-platform/api-pack": "^1.2",
+        "symfony/yaml": "^5.0",
+        "symfony/dotenv": "^5.0",
+        "doctrine/doctrine-migrations-bundle": "^2.1",
+        "symfony/monolog-bundle": "^3.5"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "style:check": "./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run",
+        "style:fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes",
+        "fixtures:load": "bin/console hautelook:fixtures:load -n",
+        "test": [
+            "@fixtures:load",
+            "./bin/phpunit"
+        ],
+        "coverage:html": [
+            "@fixtures:load",
+            "rm -fr var/coverage/html",
+            "php bin/phpunit --coverage-html=var/coverage/html"
+        ],
+        "coverage:clover": [
+            "@fixtures:load",
+            "rm -f var/coverage/clover.xml",
+            "php bin/phpunit --coverage-clover=var/coverage/clover.xml"
+        ],
+        "coverage:all": [
+            "@coverage:html",
+            "@coverage:clover"
+        ]
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master",
+        "symfony/maker-bundle": "^1.18",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "symfony/profiler-pack": "^1.0",
+        "hautelook/alice-bundle": "^2.7",
+        "symfony/test-pack": "^1.0",
+        "symfony/http-client": "^5.0",
+        "justinrainbow/json-schema": "^5.2"
+    }
+}

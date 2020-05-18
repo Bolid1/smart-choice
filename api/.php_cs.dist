@@ -1,0 +1,39 @@
+<?php
+
+use PhpCsFixer\Fixer\FunctionNotation\NativeFunctionInvocationFixer;
+
+$finder = PhpCsFixer\Finder::create();
+$finder
+    ->in(__DIR__)
+    ->exclude('var')
+    ->exclude('vendor')
+    ->notPath('bin/phpunit/')
+;
+
+$config = PhpCsFixer\Config::create();
+
+return $config
+    ->setRules(
+        [
+            '@Symfony' => true,
+            '@Symfony:risky' => true,
+            'array_syntax' => ['syntax' => 'short'],
+            'phpdoc_align' => false,
+            'no_superfluous_phpdoc_tags' => false,
+            'declare_strict_types' => true,
+            'cast_spaces' => ['space' => 'none'],
+            'global_namespace_import' => [
+                'import_classes' => true,
+                'import_constants' => false,
+                'import_functions' => false,
+            ],
+            'single_line_throw' => false,
+            'native_function_invocation' => [
+                'include' => [NativeFunctionInvocationFixer::SET_ALL],
+                'scope' => 'all',
+                'strict' => true,
+            ],
+        ]
+    )
+    ->setFinder($finder)
+    ;
