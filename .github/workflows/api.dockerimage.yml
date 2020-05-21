@@ -1,10 +1,9 @@
 name: Docker Image CI
 
 on:
-  push:
+  pull_request:
     branches:
       - master
-      - feature/workflows
 
 jobs:
   build:
@@ -13,6 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the php image
-      run: docker build ./api --tag smart-choice/php:master --target php
-    - name: Build the nginx image
-      run: docker build ./api --tag smart-choice/nginx:master --target nginx
+      run: docker build ./api --tag smart-choice/php:master --target php --build-arg "APP_ENV=dev"
+    - name: Check code style
+      run: docker run --rm smart-choice/php:master composer run style:check
