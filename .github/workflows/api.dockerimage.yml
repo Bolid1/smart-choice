@@ -13,6 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the php image
-      run: docker build . --file api/Dockerfile --tag smart-choice/php:master --target php
+      run: docker build ./api --tag smart-choice/php:master --target php
     - name: Build the nginx image
-      run: docker build . --file api/Dockerfile --tag smart-choice/nginx:master --target nginx
+      run: docker build ./api --tag smart-choice/nginx:master --target nginx
