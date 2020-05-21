@@ -32,11 +32,7 @@ jobs:
         key: ${{ runner.OS }}-build-${{ hashFiles('**/api/composer.lock') }}
 
     - name: Init composer
-      uses: php-actions/composer@v1
-      with:
-        command: install --no-interaction --working-dir api
+      run: composer install --no-interaction --working-dir api
 
     - name: Check code style
-      uses: php-actions/composer@v1
-      with:
-          command: run style:check --working-dir api
+      run: composer run style:check --working-dir api --no-interaction
