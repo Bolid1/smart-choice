@@ -34,9 +34,9 @@ jobs:
     - name: Init composer
       uses: php-actions/composer@v1
       with:
-        command: install -d api
+        command: install --no-interaction --working-dir api
 
     - name: Check code style
       uses: php-actions/composer@v1
       with:
-        command: run style:check -d api
+          command: run style:check --working-dir api
