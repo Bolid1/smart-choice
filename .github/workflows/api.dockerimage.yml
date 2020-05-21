@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Api checks
 
 on:
   pull_request:
@@ -14,4 +14,4 @@ jobs:
     - name: Build the php image
       run: docker build ./api --tag smart-choice/php:master --target php --build-arg "APP_ENV=dev"
     - name: Check code style
-      run: docker run --rm smart-choice/php:master composer run style:check
+      run: docker run --rm smart-choice/php:master sh -c 'composer install && composer run style:check'
