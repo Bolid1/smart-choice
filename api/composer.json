@@ -22,6 +22,7 @@
     },
     "require": {
         "php": "^7.4",
+        "ext-json": "*",
         "symfony/flex": "^1.6",
         "api-platform/api-pack": "^1.2",
         "symfony/yaml": "^5.0",
