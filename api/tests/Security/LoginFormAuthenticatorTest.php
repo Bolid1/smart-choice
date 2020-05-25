@@ -24,7 +24,7 @@ class LoginFormAuthenticatorTest extends TestCase
     private UserPasswordEncoderInterface $passwordEncoder;
     private LoginFormAuthenticator $authenticator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->csrfTokenManager = $this->createMock(CsrfTokenManagerInterface::class);
@@ -91,7 +91,6 @@ class LoginFormAuthenticatorTest extends TestCase
         );
 
         $request->setSession($session = $this->createMock(SessionInterface::class));
-        /* @noinspection PhpParamsInspection */
         $session
             ->expects($this->once())
             ->method('set')
@@ -126,7 +125,6 @@ class LoginFormAuthenticatorTest extends TestCase
             ->willReturn(true)
         ;
 
-        /* @noinspection PhpParamsInspection */
         $userProvider
             ->expects($this->once())
             ->method('loadUserByUsername')
@@ -149,7 +147,6 @@ class LoginFormAuthenticatorTest extends TestCase
         ];
         $user = new User();
 
-        /* @noinspection PhpParamsInspection */
         $this->passwordEncoder
             ->expects($this->once())
             ->method('isPasswordValid')
@@ -171,7 +168,6 @@ class LoginFormAuthenticatorTest extends TestCase
         $token = $this->createMock(TokenInterface::class);
         $providerKey = 'foo';
 
-        /* @noinspection PhpParamsInspection */
         $this->urlGenerator
             ->expects($this->once())
             ->method('generate')
