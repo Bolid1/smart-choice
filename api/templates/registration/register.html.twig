@@ -3,10 +3,48 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-        {{ form_row(registrationForm.submit) }}
-    {{ form_end(registrationForm) }}
+    <form method="post" class="container align-self-center">
+        <div class="form-group">
+            <label for="registration_form_email" class="required">
+                {% trans %}Email{% endtrans %}
+            </label>
+            {{ form_widget(registrationForm.email) }}
+            {{ form_errors(registrationForm.email) }}
+        </div>
+
+        <div class="form-group">
+            <label for="registration_form_plainPassword" class="required">
+                {% trans %}Password{% endtrans %}
+            </label>
+            {{ form_widget(registrationForm.plainPassword) }}
+            {{ form_errors(registrationForm.plainPassword) }}
+        </div>
+
+        <div class="form-group">
+            <div class="form-check">
+                <input
+                        class="form-check-input"
+                        id="agree"
+                        type="checkbox"
+                        value="{{ registrationForm.agreeTerms.vars.value }}"
+                        name="{{ registrationForm.agreeTerms.vars.full_name }}"
+                />
+                <label class="form-check-label required" for="agree">
+                    {% trans %}I agree with terms{% endtrans %}
+                </label>
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+        </div>
+
+        {{ form_widget(registrationForm._token) }}
+
+        <div class="form-group">
+            <button id="submit" class="btn btn-lg btn-primary" type="submit">
+                {% trans %}Register{% endtrans %}
+            </button>
+            <a class="btn btn-lg btn-secondary" href="{{ path('app_login') }}">
+                {% trans %}or login{% endtrans %}
+            </a>
+        </div>
+    </form>
 {% endblock %}

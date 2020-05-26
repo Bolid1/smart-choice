@@ -129,6 +129,7 @@
       <path value="$PROJECT_DIR$/api/vendor/symfony/intl" />
       <path value="$PROJECT_DIR$/api/vendor/dama/doctrine-test-bundle" />
       <path value="$PROJECT_DIR$/api/vendor/doctrine/doctrine-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/translation" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

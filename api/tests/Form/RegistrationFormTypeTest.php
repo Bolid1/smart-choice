@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,7 +24,7 @@ class RegistrationFormTypeTest extends TestCase
         $builder = $this->createMock(FormBuilderInterface::class);
 
         $builder
-            ->expects($this->exactly(4))
+            ->expects($this->exactly(3))
             ->method('add')
             ->withConsecutive(
                 [
@@ -41,11 +40,6 @@ class RegistrationFormTypeTest extends TestCase
                 [
                     $this->equalTo('agreeTerms'),
                     $this->equalTo(CheckboxType::class),
-                    $this->anything(),
-                ],
-                [
-                    $this->equalTo('submit'),
-                    $this->equalTo(SubmitType::class),
                     $this->anything(),
                 ],
             )

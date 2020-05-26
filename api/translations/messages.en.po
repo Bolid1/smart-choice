@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Remember me"
+msgstr "Remember me"
+
+msgid "Sign in"
+msgstr "Sign in"
+
+msgid "I agree with terms"
+msgstr "I agree with terms"
+
+msgid "Register"
+msgstr "Register"
+
+msgid "or register"
+msgstr "or register"
+
+msgid "or login"
+msgstr "or login"

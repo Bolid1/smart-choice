@@ -19,7 +19,7 @@ class RegistrationControllerTest extends WebTestCase
 
         static::assertResponseStatusCodeSame(200);
 
-        $client->submitForm('registration_form_submit', [
+        $client->submitForm('submit', [
             'registration_form[email]' => 'register@registration.tests',
             'registration_form[plainPassword]' => 'password',
             'registration_form[agreeTerms]' => '1',
