@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use LogicException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +16,7 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
+     * @Security("not is_granted('ROLE_USER')")
      *
      * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils
      *
@@ -35,6 +38,7 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/logout", name="app_logout")
+     * @IsGranted("ROLE_USER")
      */
     public function logout(): void
     {

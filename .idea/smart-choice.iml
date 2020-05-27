@@ -61,6 +61,7 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/sebastian/diff" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/sebastian/exporter" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/sebastian/recursion-context" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/sensio/framework-extra-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/asset" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/browser-kit" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/cache" />

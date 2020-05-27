@@ -57,7 +57,7 @@ class UserViewControllerTest extends ApiTestCase
         $client = static::createClient();
         $client->request('GET', $this->findIriBy(User::class, ['email' => UserFixtures::EMAIL]));
 
-        static::assertResponseStatusCodeSame(404);
+        static::assertResponseStatusCodeSame(403);
         static::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
     }
 }

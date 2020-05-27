@@ -7,9 +7,11 @@ namespace App\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
@@ -120,5 +122,26 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     protected function getLoginUrl(): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @throws \Throwable Can't redirect.
+     */
+    public function start(Request $request, AuthenticationException $authException = null): Response
+    {
+        if (!\in_array('text/html', $request->getAcceptableContentTypes(), true)) {
+            $exception = null;
+            if ($authException) {
+                $exception = $authException->getPrevious() ?: $authException;
+            } else {
+                $exception = new AccessDeniedHttpException('Access denied');
+            }
+
+            throw $exception;
+        }
+
+        return parent::start($request, $authException);
     }
 }

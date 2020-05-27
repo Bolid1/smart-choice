@@ -20,16 +20,27 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     iri="https://schema.org/Person",
  *     normalizationContext={"groups"={"user:read"}},
+ *     attributes={
+ *         "security"="is_granted('ROLE_USER')",
+ *         "security_message"="Only for registered users."
+ *     },
  *     collectionOperations={
  *         "get",
  *         "post"={
- *             "denormalization_context"={"groups"={"user:create"}}
+ *             "denormalization_context"={"groups"={"user:create"}},
+ *             "security"="not is_granted('ROLE_USER')",
+ *             "security_message"="You're already registered."
  *         },
  *     },
  *     itemOperations={
- *         "get",
+ *         "get"={
+ *             "security"="is_granted('ROLE_USER') and object == user",
+ *             "security_message"="You can view only self props."
+ *         },
  *         "patch"={
- *             "denormalization_context"={"groups"={"user:patch"}}
+ *             "denormalization_context"={"groups"={"user:patch"}},
+ *             "security"="is_granted('ROLE_USER') and object == user",
+ *             "security_message"="You can change only self props."
  *         },
  *     }
  * )
@@ -42,6 +53,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @HasLifecycleCallbacks
+ *
+ * @uses \App\Doctrine\Security\UserExtension::applyToCollection()
  */
 class User implements UserInterface
 {

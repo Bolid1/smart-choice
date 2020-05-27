@@ -87,7 +87,7 @@ class UserPatchControllerTest extends ApiTestCase
             ]
         );
 
-        static::assertResponseStatusCodeSame(404);
+        static::assertResponseStatusCodeSame(403);
         static::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
     }
 
