@@ -21,6 +21,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Throwable;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -125,9 +126,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
-     * @throws \Throwable Can't redirect.
+     * @throws Throwable can't redirect
      */
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
