@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Alice fixtures load" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/api/bin/console" scriptParameters="hautelook:fixtures:load -n">
+    <CommandLine>
+      <PhpTestInterpreterSettings>
+        <option name="interpreterName" value="php" />
+      </PhpTestInterpreterSettings>
+    </CommandLine>
+    <method v="2" />
+  </configuration>
+</component>

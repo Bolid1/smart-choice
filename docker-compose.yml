@@ -8,6 +8,8 @@ services:
       args:
         APP_ENV: dev
     image: ${PHP_IMAGE:-smart-choice/php}
+    environment:
+      SYMFONY_PHPUNIT_VERSION: 8.5
     healthcheck:
       interval: 10s
       timeout: 3s

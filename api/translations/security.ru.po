@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+
+msgid "An authentication exception occurred."
+msgstr "Ошибка аутентификации."
+
+msgid "Authentication credentials could not be found."
+msgstr "Аутентификационные данные не найдены."
+
+msgid "Authentication request could not be processed due to a system problem."
+msgstr "Запрос аутентификации не может быть обработан в связи с проблемой в системе."
+
+msgid "Invalid credentials."
+msgstr "Недействительные аутентификационные данные."
+
+msgid "Cookie has already been used by someone else."
+msgstr "Cookie уже был использован кем-то другим."
+
+msgid "Not privileged to request the resource."
+msgstr "Отсутствуют права на запрос этого ресурса."
+
+msgid "Invalid CSRF token."
+msgstr "Недействительный токен CSRF."
+
+msgid "No authentication provider found to support the authentication token."
+msgstr "Не найден провайдер аутентификации, поддерживающий токен аутентификации."
+
+msgid "No session available, it either timed out or cookies are not enabled."
+msgstr "Сессия не найдена, ее время истекло, либо cookies не включены."
+
+msgid "No token could be found."
+msgstr "Токен не найден."
+
+msgid "Username could not be found."
+msgstr "Имя пользователя не найдено."
+
+msgid "Account has expired."
+msgstr "Время действия учетной записи истекло."
+
+msgid "Credentials have expired."
+msgstr "Время действия аутентификационных данных истекло."
+
+msgid "Account is disabled."
+msgstr "Учетная запись отключена."
+
+msgid "Account is locked."
+msgstr "Учетная запись заблокирована."

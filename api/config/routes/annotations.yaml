@@ -1,6 +1,9 @@
 controllers:
   resource: ../../src/Controller/
   type: annotation
+  prefix:
+    ru: ''
+    en: '/en' # don't prefix URLs for Russian, the default locale
 
 kernel:
   resource: ../../src/Kernel.php

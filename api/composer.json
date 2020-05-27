@@ -22,12 +22,17 @@
     },
     "require": {
         "php": "^7.4",
+        "ext-json": "*",
         "symfony/flex": "^1.6",
         "api-platform/api-pack": "^1.2",
         "symfony/yaml": "^5.0",
         "symfony/dotenv": "^5.0",
         "doctrine/doctrine-migrations-bundle": "^2.1",
-        "symfony/monolog-bundle": "^3.5"
+        "symfony/monolog-bundle": "^3.5",
+        "ramsey/uuid-doctrine": "^1.6",
+        "symfony/form": "^5.0",
+        "symfony/translation": "^5.0",
+        "sensio/framework-extra-bundle": "^5.5"
     },
     "scripts": {
         "auto-scripts": {
@@ -36,18 +41,23 @@
         },
         "style:check": "./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run",
         "style:fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes",
-        "fixtures:load": "bin/console hautelook:fixtures:load -n",
+        "doctrine:fixtures:load": "bin/console doctrine:fixtures:load -n",
+        "translation:extract": [
+            "bin/console translation:update --clean --sort=asc --force --output-format=po en",
+            "bin/console translation:update --clean --sort=asc --force --output-format=po ru"
+        ],
         "test": [
-            "@fixtures:load",
+            "@doctrine:fixtures:load",
             "./bin/phpunit"
         ],
+        "test:local": "./bin/phpunit --testsuite \"Database free tests\" --configuration phpunit.xml.dist",
         "coverage:html": [
-            "@fixtures:load",
+            "@doctrine:fixtures:load",
             "rm -fr var/coverage/html",
             "php bin/phpunit --coverage-html=var/coverage/html"
         ],
         "coverage:clover": [
-            "@fixtures:load",
+            "@doctrine:fixtures:load",
             "rm -f var/coverage/clover.xml",
             "php bin/phpunit --coverage-clover=var/coverage/clover.xml"
         ],
@@ -64,6 +74,9 @@
         "hautelook/alice-bundle": "^2.7",
         "symfony/test-pack": "^1.0",
         "symfony/http-client": "^5.0",
-        "justinrainbow/json-schema": "^5.2"
+        "justinrainbow/json-schema": "^5.2",
+        "dama/doctrine-test-bundle": "^6.3",
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "symfony/css-selector": "^5.0"
     }
 }

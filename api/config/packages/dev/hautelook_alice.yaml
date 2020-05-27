@@ -1,2 +1,5 @@
 hautelook_alice:
   fixtures_path: fixtures
+
+services:
+  App\DataFixtures\Processor\UserProcessor: ~

@@ -8,7 +8,9 @@
       <excludeFolder url="file://$MODULE_DIR$/api/var" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/api-platform/api-pack" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/api-platform/core" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/dama/doctrine-test-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/collections" />
@@ -16,6 +18,7 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/data-fixtures" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/dbal" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/doctrine-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/doctrine-fixtures-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/doctrine-migrations-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/event-manager" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/inflector" />
@@ -51,10 +54,14 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/psr/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/psr/link" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/ramsey/collection" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/ramsey/uuid-doctrine" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/sebastian/comparator" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/sebastian/diff" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/sebastian/exporter" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/sebastian/recursion-context" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/sensio/framework-extra-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/asset" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/browser-kit" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/cache" />
@@ -73,12 +80,14 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/filesystem" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/finder" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/flex" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/form" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/framework-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/http-client" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/http-client-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/http-foundation" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/http-kernel" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/inflector" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/intl" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/maker-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/mime" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/monolog-bridge" />
@@ -86,6 +95,7 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/options-resolver" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/phpunit-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-intl-icu" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-intl-idn" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-mbstring" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-php70" />
@@ -105,6 +115,7 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/service-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/stopwatch" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/test-pack" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/translation" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/translation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/twig-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/twig-bundle" />
@@ -122,5 +133,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="jquery-3.5.1.slim" level="application" />
+    <orderEntry type="library" name="popper.js" level="application" />
   </component>
 </module>
