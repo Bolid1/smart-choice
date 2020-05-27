@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Tests Local Only" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <CommandLine>
+      <PhpTestInterpreterSettings>
+        <option name="interpreterName" value="PHP 7.4" />
+      </PhpTestInterpreterSettings>
+      <envs>
+        <env name="SYMFONY_PHPUNIT_VERSION" value="8.5" />
+      </envs>
+    </CommandLine>
+    <TestRunner configuration_file="$PROJECT_DIR$/api/phpunit.xml.dist" scope="XML" options="--testsuite &quot;Database free tests&quot;" />
+    <method v="2" />
+  </configuration>
+</component>

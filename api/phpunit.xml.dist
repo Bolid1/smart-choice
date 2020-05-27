@@ -18,6 +18,15 @@
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
         </testsuite>
+        <testsuite name="Database aware tests">
+            <directory>tests/Controller</directory>
+            <directory>tests/Repository</directory>
+        </testsuite>
+        <testsuite name="Database free tests">
+            <directory>tests/Entity</directory>
+            <directory>tests/Form</directory>
+            <directory>tests/Security</directory>
+        </testsuite>
     </testsuites>
 
     <filter>

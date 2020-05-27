@@ -209,6 +209,7 @@
   <component name="PhpUnit">
     <phpunit_settings>
       <phpunit_by_interpreter interpreter_id="1a555d24-53fc-4237-ac45-967ffa97f37b" load_method="PHPUNIT_PHAR" configuration_file_path="/srv/phpunit.xml.dist" custom_loader_path="api/bin/.phpunit/.phpunit-7.5-0/vendor/autload.php" phpunit_phar_path="/srv/bin/phpunit" use_configuration_file="true" />
+      <PhpUnitSettings load_method="PHPUNIT_PHAR" configuration_file_path="$PROJECT_DIR$/api/phpunit.xml.dist" custom_loader_path="" phpunit_phar_path="$PROJECT_DIR$/api/bin/phpunit" use_configuration_file="true" />
     </phpunit_settings>
   </component>
 </project>
