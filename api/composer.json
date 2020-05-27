@@ -50,6 +50,7 @@
             "@doctrine:fixtures:load",
             "./bin/phpunit"
         ],
+        "test:local": "./bin/phpunit --testsuite \"Database free tests\" --configuration phpunit.xml.dist",
         "coverage:html": [
             "@doctrine:fixtures:load",
             "rm -fr var/coverage/html",
