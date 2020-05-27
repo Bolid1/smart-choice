@@ -19,30 +19,39 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ApiResource(
  *     iri="https://schema.org/Person",
- *     normalizationContext={"groups"={"user:read"}},
+ *     normalizationContext={
+ *         "groups"={"user:read"},
+ *         "swagger_definition_name": "Read",
+ *     },
  *     attributes={
  *         "security"="is_granted('ROLE_USER')",
- *         "security_message"="Only for registered users."
+ *         "security_message"="Only for registered users.",
  *     },
  *     collectionOperations={
  *         "get",
  *         "post"={
- *             "denormalization_context"={"groups"={"user:create"}},
+ *             "denormalization_context"={
+ *                 "groups"={"user:create"},
+ *                 "swagger_definition_name": "Create",
+ *             },
  *             "security"="not is_granted('ROLE_USER')",
- *             "security_message"="You're already registered."
+ *             "security_message"="You're already registered.",
  *         },
  *     },
  *     itemOperations={
  *         "get"={
  *             "security"="is_granted('ROLE_USER') and object == user",
- *             "security_message"="You can view only self props."
+ *             "security_message"="You can view only self props.",
  *         },
  *         "patch"={
- *             "denormalization_context"={"groups"={"user:patch"}},
+ *             "denormalization_context"={
+ *                 "groups"={"user:patch"},
+ *                 "swagger_definition_name": "Edit",
+ *             },
  *             "security"="is_granted('ROLE_USER') and object == user",
- *             "security_message"="You can change only self props."
+ *             "security_message"="You can change only self props.",
  *         },
- *     }
+ *     },
  * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(
