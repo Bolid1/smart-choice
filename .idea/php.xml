@@ -132,6 +132,9 @@
       <path value="$PROJECT_DIR$/api/vendor/symfony/translation" />
       <path value="$PROJECT_DIR$/api/vendor/sensio/framework-extra-bundle" />
       <path value="$PROJECT_DIR$/api/vendor/doctrine/sql-formatter" />
+      <path value="$PROJECT_DIR$/api/vendor/gedmo/doctrine-extensions" />
+      <path value="$PROJECT_DIR$/api/vendor/stof/doctrine-extensions-bundle" />
+      <path value="$PROJECT_DIR$/api/vendor/behat/transliterator" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

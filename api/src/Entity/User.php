@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -77,11 +78,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="datetimetz_immutable", options={"comment": "User registration date"})
+     * @Gedmo\Timestampable(on="create")
      */
     private ?DateTimeImmutable $createdAt = null;
 
     /**
      * @ORM\Column(type="datetimetz_immutable", options={"comment": "User was last updated at date"})
+     * @Gedmo\Timestampable(on="update")
      */
     private ?DateTimeImmutable $updatedAt = null;
 
@@ -220,30 +223,8 @@ class User implements UserInterface
         return $this->createdAt;
     }
 
-    /**
-     * Set timestamp for "created_at" column.
-     *
-     * @ORM\PreFlush
-     */
-    public function setActualCreatedAt(): void
-    {
-        if (null === $this->createdAt) {
-            $this->createdAt = new DateTimeImmutable();
-        }
-    }
-
     public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set timestamp for "updated_at" column.
-     *
-     * @ORM\PreFlush
-     */
-    public function setActualUpdatedAt(): void
-    {
-        $this->updatedAt = new DateTimeImmutable();
     }
 }
