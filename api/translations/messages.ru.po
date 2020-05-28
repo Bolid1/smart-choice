@@ -27,3 +27,15 @@ msgstr "или зарегистрироваться"
 
 msgid "or login"
 msgstr "или войти"
+
+msgid "Toggle navigation"
+msgstr "Переключить навигацию"
+
+msgid "navigation.login"
+msgstr "Вход"
+
+msgid "navigation.registration"
+msgstr "Регистрация"
+
+msgid "logout"
+msgstr "выйти"

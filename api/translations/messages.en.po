@@ -27,3 +27,15 @@ msgstr "or register"
 
 msgid "or login"
 msgstr "or login"
+
+msgid "Toggle navigation"
+msgstr "Toggle navigation"
+
+msgid "navigation.login"
+msgstr "Login"
+
+msgid "navigation.registration"
+msgstr "Registration"
+
+msgid "logout"
+msgstr "logout"
