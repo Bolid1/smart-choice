@@ -1,22 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in{% endblock %}
 
-{% block body %}
-    <form method="post" class="container align-self-center">
+{% block main %}
+    <form method="post" class="container">
         {% if error %}
             <div class="row">
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             </div>
         {% endif %}
-
-        <div class="form-group">
-            {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                </div>
-            {% endif %}
-        </div>
 
         <div class="form-group">
             <label for="inputEmail">{% trans %}Email{% endtrans %}</label>
