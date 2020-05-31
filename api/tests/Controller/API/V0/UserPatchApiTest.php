@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
-use App\DataFixtures\UserFixtures;
+use App\DataFixtures\TestsFixtures;
 use App\Entity\User;
+use App\Test\ApiTestCase;
 
-class UserPatchControllerTest extends ApiTestCase
+class UserPatchApiTest extends ApiTestCase
 {
     /**
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
@@ -20,20 +20,9 @@ class UserPatchControllerTest extends ApiTestCase
     public function testPatchUser(): void
     {
         // The client implements Symfony HttpClient's `HttpClientInterface`, and the response `ResponseInterface`
-        $client = static::createClient();
-        $client->request(
-            'POST',
-            '/api/v0/auth/json',
-            [
-                'json' => [
-                    'email' => UserFixtures::EMAIL,
-                    'password' => UserFixtures::PASSWORD,
-                ],
-            ],
-        );
-        $client->request(
+        static::createCompanyAdminClient()->request(
             'PATCH',
-            $this->findIriBy(User::class, ['email' => UserFixtures::EMAIL]),
+            $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]),
             [
                 'json' => [
                     'plainPassword' => $password = 'my_new_password',
@@ -41,20 +30,14 @@ class UserPatchControllerTest extends ApiTestCase
             ]
         );
 
-        static::assertResponseIsSuccessful();
-        static::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
-
-        static::assertJsonContains(
+        static::assertResponseIsSuccessfulItemJsonSchema(
             [
                 '@context' => '/api/v0/contexts/User',
                 '@type' => 'https://schema.org/Person',
-                'email' => UserFixtures::EMAIL,
-            ]
+                'email' => TestsFixtures::ADMIN_EMAIL,
+            ],
+            User::class
         );
-
-        // Asserts that the returned JSON is validated by the JSON Schema generated for this resource by API Platform
-        // This generated JSON Schema is also used in the OpenAPI spec!
-        static::assertMatchesResourceCollectionJsonSchema(User::class);
 
         // Try to use new password
         static::createClient()->request(
@@ -62,11 +45,12 @@ class UserPatchControllerTest extends ApiTestCase
             '/api/v0/auth/json',
             [
                 'json' => [
-                    'email' => UserFixtures::EMAIL,
+                    'email' => TestsFixtures::ADMIN_EMAIL,
                     'password' => $password,
                 ],
             ],
-        );
+        )
+        ;
 
         static::assertResponseIsSuccessful();
     }
@@ -76,10 +60,9 @@ class UserPatchControllerTest extends ApiTestCase
      */
     public function testPatchUserAnonymous(): void
     {
-        $client = static::createClient();
-        $client->request(
+        static::createClient()->request(
             'PATCH',
-            $this->findIriBy(User::class, ['email' => UserFixtures::EMAIL]),
+            $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]),
             [
                 'json' => [
                     'plainPassword' => 'my_new_password',
@@ -87,8 +70,7 @@ class UserPatchControllerTest extends ApiTestCase
             ]
         );
 
-        static::assertResponseStatusCodeSame(403);
-        static::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        static::assertResponseIsForbidden();
     }
 
     /**
@@ -100,21 +82,9 @@ class UserPatchControllerTest extends ApiTestCase
      */
     public function testPatchUserInvalid(): void
     {
-        // The client implements Symfony HttpClient's `HttpClientInterface`, and the response `ResponseInterface`
-        $client = static::createClient();
-        $client->request(
-            'POST',
-            '/api/v0/auth/json',
-            [
-                'json' => [
-                    'email' => UserFixtures::EMAIL,
-                    'password' => UserFixtures::PASSWORD,
-                ],
-            ],
-        );
-        $client->request(
+        static::createCompanyAdminClient()->request(
             'PATCH',
-            $this->findIriBy(User::class, ['email' => UserFixtures::EMAIL]),
+            $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]),
             [
                 'json' => [
                     'plainPassword' => 'short',
@@ -122,10 +92,7 @@ class UserPatchControllerTest extends ApiTestCase
             ]
         );
 
-        static::assertResponseStatusCodeSame(400);
-        static::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
-
-        static::assertJsonContains(
+        static::assertResponseIsInvalidParams(
             [
                 '@context' => '/api/v0/contexts/ConstraintViolationList',
                 '@type' => 'ConstraintViolationList',

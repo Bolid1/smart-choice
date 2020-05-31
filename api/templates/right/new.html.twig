@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Right{% endblock %}
+
+{% block main %}
+    <main class="container">
+        <h1>Create new Right</h1>
+
+        {{ include('right/_form.html.twig') }}
+
+        <a href="{{ path('rights_list') }}">back to list</a>
+    </main>
+{% endblock %}

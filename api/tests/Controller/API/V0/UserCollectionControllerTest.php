@@ -8,7 +8,7 @@ use App\DataFixtures\TestsFixtures;
 use App\Entity\User;
 use App\Test\ApiTestCase;
 
-class UserViewControllerTest extends ApiTestCase
+class UserCollectionControllerTest extends ApiTestCase
 {
     /**
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
@@ -17,15 +17,21 @@ class UserViewControllerTest extends ApiTestCase
      * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function testViewUser(): void
+    public function testGetUserCollection(): void
     {
-        static::createCompanyAdminClient()->request('GET', $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]));
-
-        static::assertResponseIsSuccessfulItemJsonSchema(
+        static::createCompanyAdminClient()->request('GET', '/api/v0/users');
+        static::assertResponseIsSuccessfulCollectionJsonSchema(
             [
                 '@context' => '/api/v0/contexts/User',
-                '@type' => 'https://schema.org/Person',
-                'email' => TestsFixtures::ADMIN_EMAIL,
+                '@id' => '/api/v0/users',
+                '@type' => 'hydra:Collection',
+                // We are logged in, so we can see self properties
+                'hydra:member' => [
+                    [
+                        'email' => TestsFixtures::ADMIN_EMAIL,
+                    ],
+                ],
+                'hydra:totalItems' => 1,
             ],
             User::class
         );
@@ -34,9 +40,10 @@ class UserViewControllerTest extends ApiTestCase
     /**
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function testViewUserAnonymous(): void
+    public function testGetCollectionAnonymous(): void
     {
-        static::createClient()->request('GET', $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]));
+        // The client implements Symfony HttpClient's `HttpClientInterface`, and the response `ResponseInterface`
+        static::createClient()->request('GET', '/api/v0/users');
         static::assertResponseIsForbidden();
     }
 }

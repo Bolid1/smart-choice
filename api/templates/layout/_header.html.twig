@@ -27,11 +27,19 @@
                         <a class="nav-link" href="{{ path('app_register') }}">{% trans %}navigation.registration{% endtrans %}</a>
                     </li>
                 {% endif %}
+                {% if app.user %}
+                    <li class="nav-item {% if route_name == 'companies_list' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('companies_list') }}">{% trans %}navigation.companies{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item {% if route_name == 'rights_list' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('rights_list') }}">{% trans %}navigation.rights{% endtrans %}</a>
+                    </li>
+                {% endif %}
             </ul>
 
             {% if app.user %}
                 <div class="navbar-text ml-md-auto">
-                    {{ app.user.username }}, <a href="{{ path('app_logout') }}">{% trans %}logout{% endtrans %}</a>
+                    {{ app.user.username }} <a href="{{ path('app_logout') }}">{% trans %}logout{% endtrans %}</a>
                 </div>
             {% else %}
                 <ul class="navbar-nav navbar-expand-sm ml-md-auto">

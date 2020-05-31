@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\User;
+use App\Test\ApiTestCase;
 
-class UserCreateControllerTest extends ApiTestCase
+class UserCreateApiTest extends ApiTestCase
 {
     /**
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
@@ -31,20 +31,14 @@ class UserCreateControllerTest extends ApiTestCase
         )
         ;
 
-        static::assertResponseIsSuccessful();
-        static::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
-
-        static::assertJsonContains(
+        static::assertResponseIsSuccessfulItemJsonSchema(
             [
                 '@context' => '/api/v0/contexts/User',
                 '@type' => 'https://schema.org/Person',
                 'email' => $email,
-            ]
+            ],
+            User::class
         );
-
-        // Asserts that the returned JSON is validated by the JSON Schema generated for this resource by API Platform
-        // This generated JSON Schema is also used in the OpenAPI spec!
-        static::assertMatchesResourceCollectionJsonSchema(User::class);
 
         // Check that user can authenticate later
         static::createClient()->request(
@@ -84,10 +78,7 @@ class UserCreateControllerTest extends ApiTestCase
         )
         ;
 
-        static::assertResponseStatusCodeSame(400);
-        static::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
-
-        static::assertJsonContains(
+        static::assertResponseIsInvalidParams(
             [
                 '@context' => '/api/v0/contexts/ConstraintViolationList',
                 '@type' => 'ConstraintViolationList',

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\UserFixtures;
+use App\DataFixtures\TestsFixtures;
 use JsonException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -28,8 +28,8 @@ class AuthJsonControllerTest extends WebTestCase
             ],
             \json_encode(
                 [
-                    'email' => UserFixtures::EMAIL,
-                    'password' => UserFixtures::PASSWORD,
+                    'email' => TestsFixtures::ADMIN_EMAIL,
+                    'password' => TestsFixtures::ADMIN_PASSWORD,
                 ],
                 JSON_THROW_ON_ERROR
             )
@@ -45,6 +45,6 @@ class AuthJsonControllerTest extends WebTestCase
 
         $this->assertIsArray($data);
         $this->assertArrayHasKey('email', $data);
-        $this->assertEquals(UserFixtures::EMAIL, $data['email']);
+        $this->assertEquals(TestsFixtures::ADMIN_EMAIL, $data['email']);
     }
 }

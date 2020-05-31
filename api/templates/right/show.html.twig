@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Right{% endblock %}
+
+{% block main %}
+    <main class="container">
+        <h1>Right</h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Admin</th>
+                <td>{{ right.admin ? 'Yes' : 'No' }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('rights_list') }}">back to list</a>
+
+        <a href="{{ path('rights_edit', {'user': right.user.id, 'company': right.company.id}) }}">edit</a>
+
+        {{ include('right/_delete_form.html.twig') }}
+    </main>
+{% endblock %}

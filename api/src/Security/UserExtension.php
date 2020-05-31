@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Doctrine\Security;
+namespace App\Security;
 
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
@@ -39,7 +39,7 @@ final class UserExtension implements QueryCollectionExtensionInterface
 
         if ($user = $this->security->getUser()) {
             $queryBuilder
-                ->andWhere($queryBuilder->expr()->eq("{$rootAlias}.id", ':current_user'))
+                ->andWhere("{$rootAlias}.id = :current_user")
                 ->setParameter('current_user', $user)
             ;
         }/* else {

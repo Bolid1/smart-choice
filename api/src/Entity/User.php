@@ -7,8 +7,9 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
@@ -62,9 +63,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     }
  * )
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- * @HasLifecycleCallbacks
  *
- * @uses \App\Doctrine\Security\UserExtension::applyToCollection()
+ * @uses \App\Security\UserExtension::applyToCollection()
+ * @uses \App\DataPersister\UserDataPersister
  */
 class User implements UserInterface
 {
@@ -116,26 +117,25 @@ class User implements UserInterface
     private ?string $plainPassword = null;
 
     /**
-     * @return UuidInterface|null
+     * @ORM\OneToMany(targetEntity=Right::class, mappedBy="user", orphanRemoval=true)
      */
+    private Collection $rights;
+
+    public function __construct()
+    {
+        $this->rights = new ArrayCollection();
+    }
+
     public function getId(): ?UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     *
-     * @return $this
-     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -153,27 +153,16 @@ class User implements UserInterface
         return (string)$this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         return ['ROLE_USER'];
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param string $password
-     *
-     * @return $this
-     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -181,19 +170,11 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
 
-    /**
-     * @param string|null $plainPassword
-     *
-     * @return User
-     */
     public function setPlainPassword(?string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
@@ -201,18 +182,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getSalt(): ?string
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
         return null;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
         $this->plainPassword = null;
@@ -226,5 +201,64 @@ class User implements UserInterface
     public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return Collection|Right[]
+     */
+    public function getRights(): Collection
+    {
+        return $this->rights;
+    }
+
+    /**
+     * @return Collection|Company[]
+     */
+    public function getCompanies(): Collection
+    {
+        return $this
+            ->getRights()
+            ->map(
+                static function (Right $right) {
+                    return $right->getCompany();
+                }
+            )
+            ;
+    }
+
+    /**
+     * @return bool Does user has reached the quota for memberships in companies?
+     */
+    public function isLimitForCompaniesReached(): bool
+    {
+        return $this->getRights()->count() >= Right::MAX_FOR_USER;
+    }
+
+    public function addRight(Right $right): self
+    {
+        if (!$this->rights->contains($right)) {
+            $this->rights[] = $right;
+            $right->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRight(Right $right): self
+    {
+        if ($this->rights->contains($right)) {
+            $this->rights->removeElement($right);
+            // set the owning side to null (unless already changed)
+            if ($right->getUser() === $this) {
+                $right->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string)$this->email;
     }
 }

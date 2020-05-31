@@ -1,0 +1,20 @@
+App\Entity\User:
+  my_admin:
+    email: 'my@email.com'
+    plainPassword: 'password'
+  my_user:
+    email: 'other@email.com'
+    plainPassword: 'password'
+
+App\Entity\Company:
+  my_company:
+    name: 'My company'
+
+App\Entity\Right:
+  my_admin_company:
+    user: '@my_admin'
+    company: '@my_company'
+    admin: true
+  my_user_company:
+    user: '@my_user'
+    company: '@my_company'

@@ -1,4 +1,0 @@
-App\Entity\User:
-  my_user:
-    email: 'my@email.com'
-    plainPassword: 'password'

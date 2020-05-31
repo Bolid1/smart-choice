@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Entity;
 
 use App\Entity\User;
-use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -76,33 +75,20 @@ class UserTest extends TestCase
 
     /**
      * @covers \App\Entity\User::getCreatedAt
-     * @covers \App\Entity\User::setActualCreatedAt
      */
     public function testCreatedAt(): void
     {
         $user = $this->createUser();
         $this->assertNull($user->getCreatedAt());
-        $user->setActualCreatedAt();
-        $createdAt = $user->getCreatedAt();
-        $this->assertInstanceOf(DateTimeImmutable::class, $createdAt);
-        $user->setActualCreatedAt();
-        $this->assertSame($createdAt, $user->getCreatedAt());
     }
 
     /**
      * @covers \App\Entity\User::getUpdatedAt
-     * @covers \App\Entity\User::setActualUpdatedAt
      */
     public function testUpdatedAt(): void
     {
         $user = $this->createUser();
         $this->assertNull($user->getUpdatedAt());
-        $user->setActualUpdatedAt();
-        $updatedAt = $user->getUpdatedAt();
-        $this->assertInstanceOf(DateTimeImmutable::class, $updatedAt);
-        $user->setActualUpdatedAt();
-        $this->assertNotSame($updatedAt, $newUpdatedAt = $user->getUpdatedAt());
-        $this->assertInstanceOf(DateTimeImmutable::class, $newUpdatedAt);
     }
 
     private function createUser(): User
