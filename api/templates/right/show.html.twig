@@ -15,7 +15,7 @@
             </tbody>
         </table>
 
-        <a href="{{ path('rights_list') }}">back to list</a>
+        <a href="{{ path('rights_list', {'company': company.id}) }}">back to list</a>
 
         <a href="{{ path('rights_edit', {'user': right.user.id, 'company': right.company.id}) }}">edit</a>
 

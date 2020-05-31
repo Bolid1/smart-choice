@@ -13,7 +13,44 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navigation">
-            <a class="navbar-brand" href="/">SmartChoice</a>
+            {% if app.user and app.user.rights.count > 1 %}
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown active">
+                        <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbar-current-company"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                        >
+                            {% if company.name %}
+                                {{ company.name }}
+                            {% else %}
+                                Smart Choice
+                            {% endif %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbar-current-company">
+                            {% for right in app.user.rights %}
+                                {% if is_granted('view', right.company) %}
+                                    <a
+                                            class="dropdown-item"
+                                            href="{{ path('company_dashboard', {company: right.company.id}) }}"
+                                    >{{ right.company }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+            {% elseif app.user and app.user.rights.count and is_granted('view', app.user.rights.first.company) %}
+                {% set right = app.user.rights.first %}
+                <a class="navbar-brand" href="{{ path('company_dashboard', {company: right.company.id}) }}">
+                    {{ right.company }}
+                </a>
+            {% else %}
+                <a class="navbar-brand" href="/">Smart Choice</a>
+            {% endif %}
 
             {% set route_name = app.request.attributes.get('_route') %}
             <ul class="navbar-nav">
@@ -24,15 +61,16 @@
                 {% endif %}
                 {% if route_name == 'app_register' %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('app_register') }}">{% trans %}navigation.registration{% endtrans %}</a>
+                        <a class="nav-link" href="{{ path('app_register') }}">
+                            {% trans %}navigation.registration{% endtrans %}
+                        </a>
                     </li>
                 {% endif %}
-                {% if app.user %}
-                    <li class="nav-item {% if route_name == 'companies_list' %}active{% endif %}">
-                        <a class="nav-link" href="{{ path('companies_list') }}">{% trans %}navigation.companies{% endtrans %}</a>
-                    </li>
+                {% if app.user and company.id %}
                     <li class="nav-item {% if route_name == 'rights_list' %}active{% endif %}">
-                        <a class="nav-link" href="{{ path('rights_list') }}">{% trans %}navigation.rights{% endtrans %}</a>
+                        <a class="nav-link" href="{{ path('rights_list', {'company': company.id}) }}">
+                            {% trans %}navigation.rights{% endtrans %}
+                        </a>
                     </li>
                 {% endif %}
             </ul>

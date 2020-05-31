@@ -8,6 +8,6 @@
 
         {{ include('right/_form.html.twig') }}
 
-        <a href="{{ path('rights_list') }}">back to list</a>
+        <a href="{{ path('rights_list', {'company': company.id}) }}">back to list</a>
     </main>
 {% endblock %}

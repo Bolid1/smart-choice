@@ -13,7 +13,6 @@ class RightType extends AbstractType
     {
         $builder
             ->add('user')
-            ->add('company')
             ->add('admin')
         ;
     }

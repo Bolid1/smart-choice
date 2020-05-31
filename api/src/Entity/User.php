@@ -217,7 +217,7 @@ class User implements UserInterface
     public function getCompanies(): Collection
     {
         return $this
-            ->getRights()
+            ->rights
             ->map(
                 static function (Right $right) {
                     return $right->getCompany();
@@ -231,7 +231,7 @@ class User implements UserInterface
      */
     public function isLimitForCompaniesReached(): bool
     {
-        return $this->getRights()->count() >= Right::MAX_FOR_USER;
+        return $this->rights->count() >= Right::MAX_FOR_USER;
     }
 
     public function addRight(Right $right): self
