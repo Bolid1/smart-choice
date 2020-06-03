@@ -1,1 +1,16 @@
+<form method="post" action="{{ path('company_edit', {'id': company.id}) }}" method="post">
+    <div class="form-group">
+        <label for="{{ form.name.vars.id }}" class="required">
+            {% trans %}Company name{% endtrans %}
+        </label>
+        {{ form_widget(form.name) }}
+    </div>
 
+    {{ form_widget(form._token) }}
+
+    <div class="form-group">
+        <button id="submit" class="btn btn-primary" type="submit">
+            {% trans %}Save company{% endtrans %}
+        </button>
+    </div>
+</form>

@@ -5,6 +5,7 @@ namespace App\Controller\Company;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator;
 use App\DataPersister\RightDataPersister;
 use App\Entity\Company;
+use App\Form\RightEditType;
 use App\Security\RightExtension;
 use App\Entity\Right;
 use App\Form\RightType;
@@ -119,7 +120,7 @@ class RightController extends AbstractController
      */
     public function edit(Company $company, Request $request, Right $right, RightDataPersister $persister): Response
     {
-        $form = $this->createForm(RightType::class, $right);
+        $form = $this->createForm(RightEditType::class, $right);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

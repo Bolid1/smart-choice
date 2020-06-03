@@ -4,7 +4,7 @@
 
 {% block main %}
     <main class="container">
-        <h1>Edit Right</h1>
+        <h1>Edit right of {{ right.user }}</h1>
 
         {{ include('right/_form.html.twig', {'button_label': 'Update'}) }}
 
