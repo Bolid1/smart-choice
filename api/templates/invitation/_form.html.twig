@@ -1,0 +1,14 @@
+<form method="post">
+    {{ form_row(form.email, {label: 'Email'|trans}) }}
+    {{ form_row(form.plainSecret, {label: 'Secret word'|trans}) }}
+    {{ form_row(form.admin, {label: 'Invited as administrator'|trans}) }}
+
+    {{ form_rest(form) }}
+
+    <div class="form-group">
+        <button id="submit" class="btn btn-lg btn-primary" type="submit">
+            {% trans %}Invite user{% endtrans %}
+        </button>
+    </div>
+</form>
+

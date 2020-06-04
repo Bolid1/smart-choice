@@ -36,7 +36,6 @@ class RightVoter extends Voter
             return false;
         }
 
-        // you know $subject is a Post object, thanks to `supports()`
         /** @var Right $right */
         $right = $subject;
 

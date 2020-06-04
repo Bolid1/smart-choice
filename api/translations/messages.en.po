@@ -31,11 +31,62 @@ msgstr "or login"
 msgid "Toggle navigation"
 msgstr "Toggle navigation"
 
-msgid "navigation.login"
-msgstr "Login"
-
-msgid "navigation.registration"
-msgstr "Registration"
-
 msgid "logout"
 msgstr "logout"
+
+msgid "Company users"
+msgstr "Company users"
+
+msgid "My access"
+msgstr "My access"
+
+msgid "You can manage rights of other users to company."
+msgstr "You can manage rights of other users to company."
+
+msgid "Invitations"
+msgstr "Invitations"
+
+msgid "Also you can invite users by email."
+msgstr "Also you can invite users by email."
+
+msgid "nobody invited"
+msgstr "nobody invited"
+
+msgid "invite user"
+msgstr "invite user"
+
+msgid "Your company has reached the limit on the number of invitations."
+msgstr "Your company has reached the limit on the number of invitations."
+
+msgid "Are you sure you want to exclude this user from company?"
+msgstr "Are you sure you want to exclude this user from company?"
+
+msgid "Secret word"
+msgstr "Secret word"
+
+msgid "Invited as administrator"
+msgstr "Invited as administrator"
+
+msgid "Invite user"
+msgstr "Invite user"
+
+msgid "Invitation to the company"
+msgstr "Invitation to the company"
+
+msgid "Invite a user to the company."
+msgstr "Invite a user to the company."
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Company name"
+msgstr "Company name"
+
+msgid "Save company"
+msgstr "Save company"
+
+msgid "You can delete a company when only one user remains in it."
+msgstr "You can delete a company when only one user remains in it."
+
+msgid "Users"
+msgstr "Users"

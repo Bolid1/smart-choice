@@ -96,9 +96,15 @@ class Company
      */
     private Collection $rights;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Invitation::class, mappedBy="toCompany", orphanRemoval=true, cascade={"persist"})
+     */
+    private Collection $invitations;
+
     public function __construct()
     {
         $this->rights = new ArrayCollection();
+        $this->invitations = new ArrayCollection();
     }
 
     public function getId(): ?UuidInterface
@@ -186,5 +192,21 @@ class Company
     public function __toString(): string
     {
         return (string)$this->name;
+    }
+
+    /**
+     * @return Collection|Invitation[]
+     */
+    public function getInvitations(): Collection
+    {
+        return $this->invitations;
+    }
+
+    /**
+     * @return bool Does company has reached the quota for invitations count?
+     */
+    public function isLimitForInvitationsReached(): bool
+    {
+        return $this->getInvitations()->count() >= Invitation::MAX_IN_COMPANIES;
     }
 }

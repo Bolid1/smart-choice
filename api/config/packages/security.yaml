@@ -16,6 +16,11 @@ security:
       # This value auto-selects the best possible hashing algorithm
       # (i.e. Sodium when available).
       algorithm: auto
+    App\Entity\Invitation:
+      # Use native password encoder
+      # This value auto-selects the best possible hashing algorithm
+      # (i.e. Sodium when available).
+      algorithm: auto
 
   firewalls:
     dev:

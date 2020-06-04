@@ -31,11 +31,62 @@ msgstr "или войти"
 msgid "Toggle navigation"
 msgstr "Переключить навигацию"
 
-msgid "navigation.login"
-msgstr "Вход"
-
-msgid "navigation.registration"
-msgstr "Регистрация"
-
 msgid "logout"
 msgstr "выйти"
+
+msgid "Company users"
+msgstr "Пользователи компании"
+
+msgid "My access"
+msgstr "Мои права"
+
+msgid "You can manage rights of other users to company."
+msgstr "Вы можете управлять правами других пользователей компании."
+
+msgid "Invitations"
+msgstr "Приглашения"
+
+msgid "Also you can invite users by email."
+msgstr "Также, вы можете приглашать пользователей по email-у."
+
+msgid "nobody invited"
+msgstr "приглашений нет"
+
+msgid "invite user"
+msgstr "пригласить пользователя"
+
+msgid "Your company has reached the limit on the number of invitations."
+msgstr "Ваша компания достигла лимита количества приглашений."
+
+msgid "Are you sure you want to exclude this user from company?"
+msgstr "Вы точно хотите исключить этого пользователя из компании?"
+
+msgid "Secret word"
+msgstr "Секретное слово"
+
+msgid "Invited as administrator"
+msgstr "Приглашён как администратор"
+
+msgid "Invite user"
+msgstr "Пригласить пользователя"
+
+msgid "Invitation to the company"
+msgstr "Приглашение в компанию"
+
+msgid "Invite a user to the company."
+msgstr "Пригласите пользователя в компанию."
+
+msgid "Dashboard"
+msgstr "Рабочий стол"
+
+msgid "Company name"
+msgstr "Название компании"
+
+msgid "Save company"
+msgstr "Сохранить компанию"
+
+msgid "You can delete a company when only one user remains in it."
+msgstr "Вы сможете удалить компанию только после того, как в ней останется только один пользователь."
+
+msgid "Users"
+msgstr "Пользователи"

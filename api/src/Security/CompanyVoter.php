@@ -16,10 +16,11 @@ class CompanyVoter extends Voter
     public const VIEW = 'view';
     public const EDIT = 'edit';
     public const DELETE = 'delete';
+    public const IS_ADMIN = 'is_company_admin';
 
     protected function supports(string $attribute, $subject): bool
     {
-        $attributes = [static::VIEW, static::EDIT, static::DELETE];
+        $attributes = [static::VIEW, static::EDIT, static::DELETE, static::IS_ADMIN];
 
         return
             static::PRE_CREATE === $attribute
@@ -39,18 +40,24 @@ class CompanyVoter extends Voter
         $company = $subject;
 
         switch ($attribute) {
+            case self::IS_ADMIN:
+                return $company->isUserAdmin($user);
+
             case self::PRE_CREATE:
                 return
                     // Users has quota for memberships in companies.
                     !$user->isLimitForCompaniesReached();
+
             case self::VIEW:
                 return
                     // User can see only his companies.
                     null !== $company->getRightOf($user);
+
             case self::EDIT:
                 return
                     // User should be admin of the company to edit it.
                     $company->isUserAdmin($user);
+
             case self::DELETE:
                 return
                     // User should be admin of the company to delete it.

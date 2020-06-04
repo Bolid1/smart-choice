@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator;
+use App\Entity\Company;
 use App\Entity\Right;
+use App\Security\RightExtension;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,8 +19,29 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class RightRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private RightExtension $extension;
+
+    public function __construct(ManagerRegistry $registry, RightExtension $extension)
     {
+        $this->extension = $extension;
         parent::__construct($registry, Right::class);
+    }
+
+    public function findByCompany(Company $company)
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('right')
+            ->where("right.company = :company")
+            ->setParameter('company', $company)
+        ;
+
+        $this->extension->applyToCollection(
+            $queryBuilder,
+            new QueryNameGenerator(),
+            $this->getClassName(),
+            'get'
+        );
+
+        return $queryBuilder->getQuery()->execute();
     }
 }

@@ -38,7 +38,8 @@ class RightController extends AbstractController
         $queryBuilder = $repository
             ->createQueryBuilder('right')
             ->where("right.company = :company")
-            ->setParameter('company', $company);
+            ->setParameter('company', $company)
+        ;
 
         $extension->applyToCollection(
             $queryBuilder,
