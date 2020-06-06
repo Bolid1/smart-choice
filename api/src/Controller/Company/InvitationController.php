@@ -2,13 +2,11 @@
 
 namespace App\Controller\Company;
 
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator;
 use App\DataPersister\InvitationDataPersister;
 use App\Entity\Company;
 use App\Entity\Invitation;
+use App\Entity\User;
 use App\Form\InvitationType;
-use App\Repository\InvitationRepository;
-use App\Security\InvitationExtension;
 use App\Security\InvitationVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -18,39 +16,47 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/company/{company}/invitations")
+ * @Route("/company/{company}/invitation")
  * @IsGranted("ROLE_USER")
  */
 class InvitationController extends AbstractController
 {
     /**
-     * @Route("/", name="invitations_list", methods={"GET"})
+     * @Route("/new", name="invitation_new", methods={"GET","POST"})
      *
      * @param \App\Entity\Company $company
-     * @param \App\Repository\InvitationRepository $repository
-     * @param \App\Security\InvitationExtension $extension
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \App\DataPersister\InvitationDataPersister $persister
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function list(Company $company, InvitationRepository $repository, InvitationExtension $extension): Response
+    public function new(Company $company, Request $request, InvitationDataPersister $persister): Response
     {
-        $queryBuilder = $repository
-            ->createQueryBuilder('invitation')
-            ->where("invitation.toCompany = :company")
-            ->setParameter('company', $company)
-        ;
+        $invitation = new Invitation();
+        $user = $this->getUser();
+        if ($user instanceof User) {
+            $invitation->setFromUser($user);
+        }
+        $invitation->setToCompany($company);
 
-        $extension->applyToCollection(
-            $queryBuilder,
-            new QueryNameGenerator(),
-            Invitation::class,
-            'get'
-        );
+        $form = $this->createForm(InvitationType::class, $invitation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $this->isGranted(InvitationVoter::CREATE, $invitation)) {
+            $persister->persist($invitation);
+
+            return $this->redirectToRoute(
+                'invitation_edit',
+                ['id' => $invitation->getId(), 'company' => $company->getId()]
+            );
+        }
 
         return $this->render(
-            'invitation/index.html.twig',
+            'invitation/new.html.twig',
             [
-                'invitations' => $queryBuilder->getQuery()->execute(),
+                'company' => $company,
+                'invitation' => $invitation,
+                'form' => $form->createView(),
             ]
         );
     }
@@ -75,15 +81,41 @@ class InvitationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $persister->persist($invitation);
 
-            return $this->redirectToRoute('invitations_list');
+            return $this->redirectToRoute('company_users_index', ['company' => $company->getId()]);
         }
 
         return $this->render(
             'invitation/edit.html.twig',
             [
+                'company' => $company,
                 'invitation' => $invitation,
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/invitation/{id}", name="invitation_cancel", methods={"DELETE"})
+     * @IsGranted(InvitationVoter::DELETE, subject="invitation")
+     * @Security("invitation.getToCompany() === company")
+     *
+     * @param \App\Entity\Company $company
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \App\Entity\Invitation $invitation
+     * @param \App\DataPersister\InvitationDataPersister $persister
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function delete(
+        Company $company,
+        Request $request,
+        Invitation $invitation,
+        InvitationDataPersister $persister
+    ): Response {
+        if ($this->isCsrfTokenValid('delete'.$invitation->getId(), $request->request->get('_token'))) {
+            $persister->remove($invitation);
+        }
+
+        return $this->redirectToRoute('company_users_index', ['company' => $company->getId()]);
     }
 }

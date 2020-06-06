@@ -4,21 +4,41 @@
 
 {% block main %}
     <main class="container">
-        <h1>Right</h1>
+        <form disabled="disabled">
+            <div class="form-group">
+                <h4>
+                    {{ right.user }}
+                    {% if is_granted('edit', right) %}
+                        <a href="{{ path('right_edit', right.id) }}">
+                            {% include 'icons/_pencil.svg.twig' %}
+                        </a>
+                    {% endif %}
+                    {% if is_granted('delete', right) %}
+                        {% include 'icons/_delete.html.twig' with { modal: 'right' ~ right.id|join } %}
+                    {% endif %}
+                </h4>
+            </div>
 
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Admin</th>
-                <td>{{ right.admin ? 'Yes' : 'No' }}</td>
-            </tr>
-            </tbody>
-        </table>
+            <div class="form-group">
+                <div class="form-check">
+                    <input
+                            class="form-check-input"
+                            id="agree"
+                            type="checkbox"
+                            {% if right.admin %}checked="checked"{% endif %}
+                            readonly="readonly"
+                            disabled="disabled"
+                    />
+                    <label class="form-check-label required" for="agree">
+                        {% trans %}Is user admin{% endtrans %}
+                    </label>
+                </div>
+            </div>
 
-        <a href="{{ path('rights_list', {'company': company.id}) }}">back to list</a>
+            <div class="form-group">
 
-        <a href="{{ path('rights_edit', {'user': right.user.id, 'company': right.company.id}) }}">edit</a>
-
-        {{ include('right/_delete_form.html.twig') }}
+            </div>
+        </form>
+        {% include 'right/_delete_modal.html.twig' %}
     </main>
 {% endblock %}

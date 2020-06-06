@@ -1,10 +1,3 @@
-<form
-        class="d-inline"
-        method="post"
-        action="{{ path('company_invitation_cancel', {id: invitation.id, company: invitation.toCompany.id}) }}"
-        onsubmit="return confirm('{% trans %}Are you sure you want to exclude this user from company?{% endtrans %}');"
->
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ invitation.id) }}">
-    <button type="submit" class="btn btn-link p-0">{% include 'icons/_trash.svg.twig' %}</button>
-</form>
+{% include 'icons/_delete.html.twig' with { modal: 'invitation' ~ invitation.id, title: 'cancel'|trans } %}
+{% include 'invitation/_delete_modal.html.twig' %}
+

@@ -52,7 +52,7 @@
                 <a class="navbar-brand" href="/">Smart Choice</a>
             {% endif %}
 
-            {% if app.user and company.id %}
+            {% if app.user and company is defined and company.id is not empty %}
                 {% set route_name = app.request.attributes.get('_route') %}
                 <ul class="navbar-nav">
                     {% if right.admin %}
@@ -62,8 +62,8 @@
                             </a>
                         </li>
                     {% elseif not right.admin %}
-                        <li class="nav-item {% if route_name == 'rights_show' %}active{% endif %}">
-                            <a class="nav-link" href="{{ path('rights_show', {company: company.id, user: app.user.id}) }}">
+                        <li class="nav-item {% if route_name == 'right_show' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('right_show', {company: company.id, user: app.user.id}) }}">
                                 {% trans %}My access{% endtrans %}
                             </a>
                         </li>

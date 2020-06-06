@@ -1,0 +1,23 @@
+<div class="modal fade" id="{{ 'invitation' ~ invitation.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <form
+                class="modal-content"
+                method="post"
+                action="{{ path('invitation_cancel', { id: invitation.id, company: invitation.toCompany.id }) }}"
+        >
+            <div class="modal-body">
+                {% trans %}Are you sure you want to cancel this invitation?{% endtrans %}
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ invitation.id) }}">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    {% trans %}No{% endtrans %}
+                </button>
+                <button type="submit" class="btn btn-danger">
+                    {% trans %}Cancel{% endtrans %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

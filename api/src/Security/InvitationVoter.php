@@ -76,8 +76,9 @@ class InvitationVoter extends Voter
 
             case self::DELETE:
                 return
+                    $invitation->getId()
                     // User should be the company admin to delete invitation
-                    $this->isUserAdminOfInvitationCompany($invitation, $user);
+                    && $this->isUserAdminOfInvitationCompany($invitation, $user);
         }
 
         throw new LogicException('This code should not be reached!');

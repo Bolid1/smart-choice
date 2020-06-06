@@ -8,7 +8,7 @@
         {% block title_wrapper %}
             {% block title_prefix %}Smart Choice: {% endblock%}
             {% block title %}{% endblock%}
-            {% block title_company %}{{ company.name }}{% endblock%}
+            {% block title_company %}{{ company|default }}{% endblock%}
         {% endblock %}
     </title>
     <link

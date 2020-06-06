@@ -108,6 +108,13 @@ class Right
      */
     private bool $admin = false;
 
+    public function getId(): ?array
+    {
+        return $this->user && $this->company
+            ? ['user' => $this->user->getId(), 'company' => $this->company->getId()]
+            : null;
+    }
+
     public function getUser(): ?User
     {
         return $this->user;

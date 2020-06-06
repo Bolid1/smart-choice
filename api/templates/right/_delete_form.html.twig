@@ -1,10 +1,2 @@
-<form
-        class="d-inline"
-        method="post"
-        action="{{ path('rights_delete', {'user': right.user.id, 'company': right.company.id}) }}"
-        onsubmit="return confirm('{% trans %}Are you sure you want to exclude this user from company?{% endtrans %}');"
->
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ right.user.id ~ right.company.id) }}">
-    <button type="submit" class="btn btn-link p-0">{% include 'icons/_trash.svg.twig' %}</button>
-</form>
+{% include 'icons/_delete.html.twig' with { modal: 'right' ~ right.id|join } %}
+{% include 'right/_delete_modal.html.twig' %}

@@ -4,12 +4,24 @@
 
 {% block main %}
     <main class="container">
-        <h1>Edit right of {{ right.user }}</h1>
-
-        {{ include('right/_form.html.twig', {'button_label': 'Update'}) }}
-
-        <a href="{{ path('rights_list', {'company': company.id}) }}">back to list</a>
-
-        {{ include('right/_delete_form.html.twig') }}
+        {{ form_start(form) }}
+            {{ form_row(form.user, {label: 'User'|trans}) }}
+            {{ form_row(form.admin, {label: 'Is user admin'|trans}) }}
+            {{ form_rest(form) }}
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">
+                    {% trans %}Save changes{% endtrans %}
+                </button>
+                <button
+                        class="btn btn-danger"
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#{{ 'right' ~ right.id|join }}"
+                >
+                    {% trans %}Delete{% endtrans %}
+                </button>
+            </div>
+        {{ form_end(form) }}
+        {{ include('right/_delete_modal.html.twig') }}
     </main>
 {% endblock %}

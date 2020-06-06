@@ -73,20 +73,53 @@ msgstr "Invite user"
 msgid "Invitation to the company"
 msgstr "Invitation to the company"
 
-msgid "Invite a user to the company."
-msgstr "Invite a user to the company."
-
 msgid "Dashboard"
 msgstr "Dashboard"
 
 msgid "Company name"
 msgstr "Company name"
 
-msgid "Save company"
-msgstr "Save company"
-
 msgid "You can delete a company when only one user remains in it."
 msgstr "You can delete a company when only one user remains in it."
 
 msgid "Users"
 msgstr "Users"
+
+msgid "view"
+msgstr "view"
+
+msgid "edit"
+msgstr "edit"
+
+msgid "delete"
+msgstr "delete"
+
+msgid "cancel"
+msgstr "cancel"
+
+msgid "Save invitation"
+msgstr "Save invitation"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Are you sure you want to cancel this invitation?"
+msgstr "Are you sure you want to cancel this invitation?"
+
+msgid "No"
+msgstr "No"
+
+msgid "Is user admin"
+msgstr "Is user admin"
+
+msgid "User"
+msgstr "User"
+
+msgid "Save changes"
+msgstr "Save changes"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Confirm"
+msgstr "Confirm"

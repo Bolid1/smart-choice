@@ -24,13 +24,19 @@
                 <td>{{ right.admin ? 'Yes' : 'No' }}</td>
                 <td>
                     {% if is_granted('view', right) %}
-                        <a href="{{ path('rights_show', {'user': right.user.id, 'company': right.company.id}) }}">
+                        <a
+                                title="{{ 'view'|trans }}"
+                                href="{{ path('right_show', {'user': right.user.id, 'company': right.company.id}) }}"
+                        >
                             {% include 'icons/_eye.svg.twig' %}
                         </a>
                     {% endif %}
 
                     {% if is_granted('edit', right) %}
-                        <a href="{{ path('rights_edit', {'user': right.user.id, 'company': right.company.id}) }}">
+                        <a
+                                title="{{ 'edit'|trans }}"
+                                href="{{ path('right_edit', right.id) }}"
+                        >
                             {% include 'icons/_pencil.svg.twig' %}
                         </a>
                     {% endif %}
@@ -72,7 +78,10 @@
                 <td>{{ invitation.admin ? 'Yes' : 'No' }}</td>
                 <td>
                     {% if is_granted('edit', invitation) %}
-                        <a href="{{ path('invitation_edit', {id: invitation.id, company: invitation.toCompany.id}) }}">
+                        <a
+                                title="{{ 'view'|trans }}"
+                                href="{{ path('invitation_edit', {id: invitation.id, company: invitation.toCompany.id}) }}"
+                        >
                             {% include 'icons/_pencil.svg.twig' %}
                         </a>
                     {% endif %}
@@ -91,7 +100,7 @@
         {% if 1 %}
             <tr>
                 <td colspan="7">
-                    <a href="{{ path('invite_user_to_company', {company: company.id}) }}">
+                    <a href="{{ path('invitation_new', {company: company.id}) }}">
                         {% trans %}invite user{% endtrans %}
                     </a>
                 </td>
