@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Company;
 
 use App\DataPersister\RightDataPersister;
 use App\Entity\Company;
-use App\Form\RightType;
 use App\Entity\Right;
+use App\Form\RightType;
 use App\Security\RightVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;

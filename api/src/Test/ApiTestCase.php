@@ -156,6 +156,7 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
 
     /**
      * Finds the IRI of a resource item matching the resource class and the specified criteria.
+     *
      * @param string $resourceClass
      * @param array $criteria
      *

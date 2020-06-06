@@ -75,7 +75,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Invitation
 {
-    /** @var int  */
+    /** @var int */
     public const MAX_IN_COMPANIES = 10;
 
     /**

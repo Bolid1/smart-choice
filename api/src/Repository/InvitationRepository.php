@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator;
@@ -29,7 +31,7 @@ class InvitationRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this
             ->createQueryBuilder('invitation')
-            ->where("invitation.toCompany = :company")
+            ->where('invitation.toCompany = :company')
             ->setParameter('company', $company)
         ;
 

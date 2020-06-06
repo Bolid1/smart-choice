@@ -22,7 +22,6 @@ class RightCollectionControllerTest extends ApiTestCase
     {
         $response = static::createCompanyAdminClient()->request('GET', '/api/v0/rights');
 
-
         $expected = [
             $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]),
             $this->findIriBy(User::class, ['email' => TestsFixtures::USER_EMAIL]),

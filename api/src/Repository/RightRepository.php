@@ -31,7 +31,7 @@ class RightRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this
             ->createQueryBuilder('right')
-            ->where("right.company = :company")
+            ->where('right.company = :company')
             ->setParameter('company', $company)
         ;
 

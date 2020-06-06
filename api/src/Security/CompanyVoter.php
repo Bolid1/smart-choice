@@ -63,7 +63,7 @@ class CompanyVoter extends Voter
                     // User should be admin of the company to delete it.
                     $company->isUserAdmin($user)
                     // User should be admin of the company to edit it.
-                    && $company->getRights()->count() === 1;
+                    && 1 === $company->getRights()->count();
         }
 
         throw new LogicException('This code should not be reached!');
