@@ -55,13 +55,13 @@
             {% if app.user and company is defined and company.id is not empty %}
                 {% set route_name = app.request.attributes.get('_route') %}
                 <ul class="navbar-nav">
-                    {% if right.admin %}
+                    {% if company.userAdmin(app.user) %}
                         <li class="nav-item {% if route_name == 'company_users_index' %}active{% endif %}">
                             <a class="nav-link" href="{{ path('company_users_index', {company: company.id}) }}">
                                 {% trans %}Company users{% endtrans %}
                             </a>
                         </li>
-                    {% elseif not right.admin %}
+                    {% elseif not company.userAdmin(app.user) %}
                         <li class="nav-item {% if route_name == 'right_show' %}active{% endif %}">
                             <a class="nav-link" href="{{ path('right_show', {company: company.id, user: app.user.id}) }}">
                                 {% trans %}My access{% endtrans %}
