@@ -26,7 +26,13 @@ class InvitationType extends AbstractType
                 ]
             )
             ->add('plainSecret', TextType::class)
-            ->add('admin', CheckboxType::class)
+            ->add(
+                'admin',
+                CheckboxType::class,
+                [
+                    'required' => false,
+                ]
+            )
         ;
     }
 
