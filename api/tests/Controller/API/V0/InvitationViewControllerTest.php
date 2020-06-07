@@ -13,6 +13,10 @@ use App\Test\ApiTestCase;
 class InvitationViewControllerTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\InvitationVoter::__construct()
+     * @covers \App\Security\InvitationVoter::supports()
+     * @covers \App\Security\InvitationVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -40,6 +44,10 @@ class InvitationViewControllerTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\InvitationVoter::__construct()
+     * @covers \App\Security\InvitationVoter::supports()
+     * @covers \App\Security\InvitationVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testViewInvitationAnonymous(): void
@@ -52,6 +60,10 @@ class InvitationViewControllerTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\InvitationVoter::__construct()
+     * @covers \App\Security\InvitationVoter::supports()
+     * @covers \App\Security\InvitationVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testViewInvitationAsUser(): void

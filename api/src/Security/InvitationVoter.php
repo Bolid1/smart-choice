@@ -50,50 +50,38 @@ class InvitationVoter extends Voter
         /** @var Invitation $invitation */
         $invitation = $subject;
 
+        $isUserAdminOfInvitationCompany = ($company = $invitation->getToCompany()) && $company->isUserAdmin($user);
+
         switch ($attribute) {
             case self::VIEW:
                 return
                     // Company admin can see all invitations into company
-                    $this->isUserAdminOfInvitationCompany($invitation, $user);
+                    $isUserAdminOfInvitationCompany;
 
             case self::CREATE:
+                $invitedUser = ($email = $invitation->getEmail())
+                    ? $this->userRepository->findOneByEmail($email)
+                    : null;
+                $isInvitedUserAlreadyInCompany = $company && $invitedUser && $company->getRightOf($invitedUser);
+
                 return
                     // User should be the company admin to invite someone
-                    $this->isUserAdminOfInvitationCompany($invitation, $user)
+                    $isUserAdminOfInvitationCompany
                     // Check if invited user already in company
-                    && !$this->isInvitedUserAlreadyInCompany($invitation);
+                    && !$isInvitedUserAlreadyInCompany;
 
             case self::EDIT:
                 return
                     // User should be the company admin to invite someone
-                    $this->isUserAdminOfInvitationCompany($invitation, $user);
+                    $isUserAdminOfInvitationCompany;
 
             case self::DELETE:
                 return
-                    $invitation->getId()
                     // User should be the company admin to delete invitation
-                    && $this->isUserAdminOfInvitationCompany($invitation, $user);
+                    $isUserAdminOfInvitationCompany
+                    && $invitation->getId();
         }
 
         throw new LogicException('This code should not be reached!');
-    }
-
-    private function isUserAdminOfInvitationCompany(Invitation $invitation, User $user): bool
-    {
-        return ($company = $invitation->getToCompany()) && $company->isUserAdmin($user);
-    }
-
-    private function isInvitedUserAlreadyInCompany(Invitation $invitation): bool
-    {
-        return ($company = $invitation->getToCompany())
-            && ($invitedUser = $this->getInvitedUser($invitation))
-            && $company->getRightOf($invitedUser);
-    }
-
-    private function getInvitedUser(Invitation $invitation)
-    {
-        return ($email = $invitation->getEmail())
-            ? $this->userRepository->findOneByEmail($email)
-            : null;
     }
 }

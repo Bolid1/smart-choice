@@ -11,6 +11,12 @@ use App\Test\ApiTestCase;
 class CompanyDeleteApiTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\CompanyVoter::supports()
+     * @covers \App\Security\CompanyVoter::voteOnAttribute()
+     * @covers \App\DataPersister\CompanyDataPersister::__construct()
+     * @covers \App\DataPersister\CompanyDataPersister::supports()
+     * @covers \App\DataPersister\CompanyDataPersister::remove()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteCompany(): void
@@ -25,6 +31,9 @@ class CompanyDeleteApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\CompanyVoter::supports()
+     * @covers \App\Security\CompanyVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteCompanyAnonymous(): void
@@ -39,6 +48,9 @@ class CompanyDeleteApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\CompanyVoter::supports()
+     * @covers \App\Security\CompanyVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteCompanyAsUser(): void
@@ -53,6 +65,9 @@ class CompanyDeleteApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\CompanyVoter::supports()
+     * @covers \App\Security\CompanyVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteCompanyWithManyUsers(): void

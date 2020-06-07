@@ -11,6 +11,9 @@ use App\Test\ApiTestCase;
 class InvitationCollectionControllerTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\InvitationExtension::__construct()
+     * @covers \App\Security\InvitationExtension::applyToCollection()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -40,6 +43,9 @@ class InvitationCollectionControllerTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\InvitationExtension::__construct()
+     * @covers \App\Security\InvitationExtension::applyToCollection()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -63,6 +69,9 @@ class InvitationCollectionControllerTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\InvitationExtension::__construct()
+     * @covers \App\Security\InvitationExtension::applyToCollection()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testGetCollectionAnonymous(): void

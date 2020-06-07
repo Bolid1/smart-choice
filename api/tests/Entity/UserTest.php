@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity;
 
+use App\Entity\Company;
+use App\Entity\Right;
 use App\Entity\User;
+use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -89,6 +92,59 @@ class UserTest extends TestCase
     {
         $user = $this->createUser();
         $this->assertNull($user->getUpdatedAt());
+    }
+
+    /**
+     * @covers \App\Entity\User::__construct()
+     * @covers \App\Entity\User::getRights()
+     * @covers \App\Entity\User::addRight()
+     * @covers \App\Entity\User::removeRight()
+     */
+    public function testRights(): void
+    {
+        $user = $this->createUser();
+        $this->assertInstanceOf(Collection::class, $user->getRights());
+        $user->addRight($right = new Right());
+        $this->assertSame($right, $user->getRights()->first());
+        $user->removeRight($right);
+        $this->assertFalse($user->getRights()->first());
+    }
+
+    /**
+     * @covers \App\Entity\User::getCompanies()
+     */
+    public function testGetCompanies(): void
+    {
+        $user = $this->createUser();
+        $this->assertInstanceOf(Collection::class, $user->getRights());
+        $user->addRight((new Right())->setCompany($company = new Company()));
+
+        $this->assertSame($company, $user->getCompanies()->first());
+    }
+
+    /**
+     * @covers \App\Entity\User::isLimitForCompaniesReached()
+     */
+    public function testLimitForCompanies(): void
+    {
+        $user = $this->createUser();
+        $this->assertInstanceOf(Collection::class, $user->getRights());
+
+        for ($i = 0; $i < Right::MAX_FOR_USER; ++$i) {
+            $this->assertFalse($user->isLimitForCompaniesReached());
+            $user->addRight(new Right());
+        }
+
+        $this->assertTrue($user->isLimitForCompaniesReached());
+    }
+
+    /**
+     * @covers \App\Entity\User::__toString()
+     */
+    public function testToString(): void
+    {
+        $user = ($this->createUser())->setEmail($email = 'foo@bar.baz');
+        $this->assertSame($email, (string)$user);
     }
 
     private function createUser(): User

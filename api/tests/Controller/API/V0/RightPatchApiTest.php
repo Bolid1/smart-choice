@@ -11,6 +11,12 @@ use App\Test\ApiTestCase;
 class RightPatchApiTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     * @covers \App\DataPersister\RightDataPersister::__construct()
+     * @covers \App\DataPersister\RightDataPersister::supports()
+     * @covers \App\DataPersister\RightDataPersister::persist()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -44,6 +50,9 @@ class RightPatchApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testPatchRightAnonymous(): void
@@ -66,6 +75,9 @@ class RightPatchApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testPatchRightAsUser(): void
@@ -88,6 +100,9 @@ class RightPatchApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testPatchRightOfSelf(): void

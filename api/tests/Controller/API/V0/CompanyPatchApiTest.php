@@ -11,6 +11,12 @@ use App\Test\ApiTestCase;
 class CompanyPatchApiTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\CompanyVoter::supports()
+     * @covers \App\Security\CompanyVoter::voteOnAttribute()
+     * @covers \App\DataPersister\CompanyDataPersister::__construct()
+     * @covers \App\DataPersister\CompanyDataPersister::supports()
+     * @covers \App\DataPersister\CompanyDataPersister::persist()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -40,6 +46,9 @@ class CompanyPatchApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\CompanyVoter::supports()
+     * @covers \App\Security\CompanyVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testPatchCompanyByUser(): void

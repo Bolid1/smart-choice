@@ -27,12 +27,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *         "groups"={"company:edit"},
  *         "swagger_definition_name": "Edit",
  *     },
- *     attributes={
- *         "security"="is_granted('ROLE_USER')",
- *         "security_message"="Only for registered users.",
- *     },
  *     collectionOperations={
- *         "get",
+ *         "get"={
+ *             "security"="is_granted('ROLE_USER')",
+ *             "security_message"="Only for registered users.",
+ *         },
  *         "post"={
  *             "security"="is_granted('pre_create_company', object)",
  *             "security_message"="You have reached the limit for companies.",

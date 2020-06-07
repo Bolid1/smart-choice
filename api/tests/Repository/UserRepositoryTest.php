@@ -28,7 +28,8 @@ class UserRepositoryTest extends KernelTestCase
     }
 
     /**
-     * @covers \App\Repository\UserRepository::upgradePassword
+     * @covers \App\Repository\UserRepository::__construct()
+     * @covers \App\Repository\UserRepository::upgradePassword()
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -50,7 +51,8 @@ class UserRepositoryTest extends KernelTestCase
     }
 
     /**
-     * @covers \App\Repository\UserRepository::upgradePassword
+     * @covers \App\Repository\UserRepository::__construct()
+     * @covers \App\Repository\UserRepository::upgradePassword()
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

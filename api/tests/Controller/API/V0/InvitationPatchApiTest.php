@@ -12,6 +12,13 @@ use App\Test\ApiTestCase;
 class InvitationPatchApiTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\InvitationVoter::__construct()
+     * @covers \App\Security\InvitationVoter::supports()
+     * @covers \App\Security\InvitationVoter::voteOnAttribute()
+     * @covers \App\DataPersister\InvitationDataPersister::__construct()
+     * @covers \App\DataPersister\InvitationDataPersister::supports()
+     * @covers \App\DataPersister\InvitationDataPersister::persist()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -42,6 +49,10 @@ class InvitationPatchApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\InvitationVoter::__construct()
+     * @covers \App\Security\InvitationVoter::supports()
+     * @covers \App\Security\InvitationVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testPatchInvitationAnonymous(): void
@@ -61,6 +72,10 @@ class InvitationPatchApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\InvitationVoter::__construct()
+     * @covers \App\Security\InvitationVoter::supports()
+     * @covers \App\Security\InvitationVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testPatchInvitationAsUser(): void

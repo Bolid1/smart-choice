@@ -11,6 +11,10 @@ use App\Test\ApiTestCase;
 class UserPatchApiTest extends ApiTestCase
 {
     /**
+     * @covers \App\DataPersister\UserDataPersister::__construct()
+     * @covers \App\DataPersister\UserDataPersister::supports()
+     * @covers \App\DataPersister\UserDataPersister::persist()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface

@@ -12,6 +12,13 @@ use App\Test\ApiTestCase;
 class InvitationDeleteApiTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\InvitationVoter::__construct()
+     * @covers \App\Security\InvitationVoter::supports()
+     * @covers \App\Security\InvitationVoter::voteOnAttribute()
+     * @covers \App\DataPersister\InvitationDataPersister::__construct()
+     * @covers \App\DataPersister\InvitationDataPersister::supports()
+     * @covers \App\DataPersister\InvitationDataPersister::remove()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteInvitation(): void
@@ -26,6 +33,10 @@ class InvitationDeleteApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\InvitationVoter::__construct()
+     * @covers \App\Security\InvitationVoter::supports()
+     * @covers \App\Security\InvitationVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteInvitationAnonymous(): void
@@ -40,6 +51,10 @@ class InvitationDeleteApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\InvitationVoter::__construct()
+     * @covers \App\Security\InvitationVoter::supports()
+     * @covers \App\Security\InvitationVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteInvitationAsUser(): void

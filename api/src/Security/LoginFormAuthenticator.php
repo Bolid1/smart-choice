@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Security;
 
+use ApiPlatform\Core\Action\ExceptionAction;
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,22 +35,26 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private UrlGeneratorInterface $urlGenerator;
     private CsrfTokenManagerInterface $csrfTokenManager;
     private UserPasswordEncoderInterface $passwordEncoder;
+    private ExceptionAction $exceptionAction;
 
     /**
      * LoginFormAuthenticator constructor.
      *
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
-     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param CsrfTokenManagerInterface $csrfTokenManager
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param ExceptionAction $exceptionAction
      */
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
-        UserPasswordEncoderInterface $passwordEncoder
+        UserPasswordEncoderInterface $passwordEncoder,
+        ExceptionAction $exceptionAction
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->exceptionAction = $exceptionAction;
     }
 
     /**
@@ -137,10 +143,20 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             if ($authException) {
                 $exception = $authException->getPrevious() ?: $authException;
             } else {
-                $exception = new AccessDeniedHttpException('Access denied');
+                $exception = new AccessDeniedHttpException('Access denied', $authException, 401);
             }
 
-            throw $exception;
+            $headers = null;
+            if ($authException && \method_exists($authException, 'getHeaders')) {
+                $headers = $authException->getHeaders();
+            } elseif (\method_exists($exception, 'getHeaders')) {
+                $headers = $exception->getHeaders();
+            }
+
+            return $this->exceptionAction->__invoke(
+                FlattenException::create($exception, $exception->getCode(), \is_array($headers) ? $headers : []),
+                $request
+            );
         }
 
         return parent::start($request, $authException);

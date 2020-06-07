@@ -12,6 +12,9 @@ use App\Test\ApiTestCase;
 class RightViewControllerTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -40,6 +43,9 @@ class RightViewControllerTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -68,6 +74,9 @@ class RightViewControllerTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testViewRightAnonymous(): void
@@ -83,6 +92,9 @@ class RightViewControllerTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testViewRightAsUser(): void

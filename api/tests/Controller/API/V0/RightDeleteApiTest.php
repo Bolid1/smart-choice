@@ -11,6 +11,12 @@ use App\Test\ApiTestCase;
 class RightDeleteApiTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     * @covers \App\DataPersister\RightDataPersister::__construct()
+     * @covers \App\DataPersister\RightDataPersister::supports()
+     * @covers \App\DataPersister\RightDataPersister::remove()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteRight(): void
@@ -28,6 +34,9 @@ class RightDeleteApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteRightAnonymous(): void
@@ -45,6 +54,9 @@ class RightDeleteApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteRightAsUser(): void
@@ -62,6 +74,9 @@ class RightDeleteApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteRightOfAnotherAdmin(): void
@@ -79,6 +94,9 @@ class RightDeleteApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\RightVoter::supports()
+     * @covers \App\Security\RightVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testDeleteRightOfSelf(): void

@@ -25,12 +25,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *         "groups"={"user:read"},
  *         "swagger_definition_name": "Read",
  *     },
- *     attributes={
- *         "security"="is_granted('ROLE_USER')",
- *         "security_message"="Only for registered users.",
- *     },
  *     collectionOperations={
- *         "get",
+ *         "get"={
+ *             "security"="is_granted('ROLE_USER')",
+ *             "security_message"="Only for registered users.",
+ *         },
  *         "post"={
  *             "denormalization_context"={
  *                 "groups"={"user:create"},
@@ -42,7 +41,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     },
  *     itemOperations={
  *         "get"={
- *             "security"="is_granted('ROLE_USER') and object == user",
+ *             "security"="object == user",
  *             "security_message"="You can view only self props.",
  *         },
  *         "patch"={
@@ -50,7 +49,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                 "groups"={"user:patch"},
  *                 "swagger_definition_name": "Edit",
  *             },
- *             "security"="is_granted('ROLE_USER') and object == user",
+ *             "security"="object == user",
  *             "security_message"="You can change only self props.",
  *         },
  *     },

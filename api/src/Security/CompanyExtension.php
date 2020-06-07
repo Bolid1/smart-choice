@@ -30,22 +30,17 @@ final class CompanyExtension implements QueryCollectionExtensionInterface
         string $operationName = null
     ): void {
         if (Company::class === $resourceClass) {
-            $this->addWhere($queryBuilder);
-        }
-    }
+            $user = $this->security->getUser();
+            $rootAlias = $queryBuilder->getRootAliases()[0];
 
-    private function addWhere(QueryBuilder $queryBuilder): void
-    {
-        $user = $this->security->getUser();
-        $rootAlias = $queryBuilder->getRootAliases()[0];
-
-        if ($user instanceof User) {
-            $queryBuilder
-                ->andWhere("{$rootAlias}.id in (:user_companies)")
-                ->setParameter('user_companies', $user->getCompanies())
-            ;
-        } else {
-            $queryBuilder->andWhere($queryBuilder->expr()->isNull("{$rootAlias}.id"));
+            if ($user instanceof User) {
+                $queryBuilder
+                    ->andWhere("{$rootAlias}.id in (:user_companies)")
+                    ->setParameter('user_companies', $user->getCompanies())
+                ;
+            } else {
+                $queryBuilder->andWhere($queryBuilder->expr()->isNull("{$rootAlias}.id"));
+            }
         }
     }
 }

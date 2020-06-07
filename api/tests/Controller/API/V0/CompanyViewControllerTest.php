@@ -11,6 +11,9 @@ use App\Test\ApiTestCase;
 class CompanyViewControllerTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\CompanyVoter::supports()
+     * @covers \App\Security\CompanyVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -36,6 +39,9 @@ class CompanyViewControllerTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\CompanyVoter::supports()
+     * @covers \App\Security\CompanyVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testViewCompanyAnonymous(): void

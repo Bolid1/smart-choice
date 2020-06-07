@@ -6,17 +6,21 @@ namespace App\Tests\Controller\API\V0;
 
 use App\Entity\Company;
 use App\Test\ApiTestCase;
-use JsonException;
 
 class CompanyCreateApiTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\CompanyVoter::supports()
+     * @covers \App\Security\CompanyVoter::voteOnAttribute()
+     * @covers \App\DataPersister\CompanyDataPersister::__construct()
+     * @covers \App\DataPersister\CompanyDataPersister::supports()
+     * @covers \App\DataPersister\CompanyDataPersister::persist()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
-     * @throws JsonException
      */
     public function testCreateCompany(): void
     {
@@ -48,6 +52,9 @@ class CompanyCreateApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\CompanyVoter::supports()
+     * @covers \App\Security\CompanyVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testCreateCompanyUnauthenticated(): void

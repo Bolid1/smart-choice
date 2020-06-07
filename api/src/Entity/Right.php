@@ -23,12 +23,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *         "groups"={"right:edit"},
  *         "swagger_definition_name": "Edit",
  *     },
- *     attributes={
- *         "security"="is_granted('ROLE_USER')",
- *         "security_message"="Only for registered users.",
- *     },
  *     collectionOperations={
- *         "get",
+ *         "get"={
+ *             "security"="is_granted('ROLE_USER')",
+ *             "security_message"="Only for registered users.",
+ *         },
  *     },
  *     itemOperations={
  *         "get"={

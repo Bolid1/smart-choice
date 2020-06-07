@@ -25,12 +25,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *         "groups"={"invitation:edit"},
  *         "swagger_definition_name": "Edit",
  *     },
- *     attributes={
- *         "security"="is_granted('ROLE_USER')",
- *         "security_message"="Only for registered users.",
- *     },
  *     collectionOperations={
- *         "get",
+ *         "get"={
+ *             "security"="is_granted('ROLE_USER')",
+ *             "security_message"="Only for registered users.",
+ *         },
  *         "post"={
  *             "denormalization_context"={
  *                 "groups"={"invitation:create"},
@@ -184,7 +183,7 @@ class Invitation
 
     public function getSecret(): ?string
     {
-        return $this->secret;
+        return $this->secret ?? null;
     }
 
     public function setSecret(string $secret): self
@@ -206,7 +205,7 @@ class Invitation
         return $this;
     }
 
-    public function getAdmin(): ?bool
+    public function isAdmin(): ?bool
     {
         return $this->admin;
     }

@@ -11,6 +11,9 @@ use App\Test\ApiTestCase;
 class UserCollectionControllerTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\UserExtension::__construct()
+     * @covers \App\Security\UserExtension::applyToCollection()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -38,6 +41,9 @@ class UserCollectionControllerTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\UserExtension::__construct()
+     * @covers \App\Security\UserExtension::applyToCollection()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testGetCollectionAnonymous(): void

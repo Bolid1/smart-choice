@@ -31,36 +31,31 @@ final class InvitationExtension implements QueryCollectionExtensionInterface
         string $operationName = null
     ): void {
         if (Invitation::class === $resourceClass) {
-            $this->addWhere($queryBuilder);
-        }
-    }
+            $user = $this->security->getUser();
+            $rootAlias = $queryBuilder->getRootAliases()[0];
 
-    private function addWhere(QueryBuilder $queryBuilder): void
-    {
-        $user = $this->security->getUser();
-        $rootAlias = $queryBuilder->getRootAliases()[0];
-
-        if ($user instanceof User) {
-            $queryBuilder
-                ->andWhere("{$rootAlias}.toCompany in (:companies_where_user_is_admin)")
-                ->setParameter(
-                    'companies_where_user_is_admin',
-                    $user
-                        ->getRights()
-                        ->filter(
-                            static function (Right $right) {
-                                return $right->isAdmin();
-                            }
-                        )
-                        ->map(
-                            static function (Right $right) {
-                                return $right->getCompany();
-                            }
-                        )
-                )
-            ;
-        } else {
-            $queryBuilder->andWhere($queryBuilder->expr()->isNull("{$rootAlias}.id"));
+            if ($user instanceof User) {
+                $queryBuilder
+                    ->andWhere("{$rootAlias}.toCompany in (:companies_where_user_is_admin)")
+                    ->setParameter(
+                        'companies_where_user_is_admin',
+                        $user
+                            ->getRights()
+                            ->filter(
+                                static function (Right $right) {
+                                    return $right->isAdmin();
+                                }
+                            )
+                            ->map(
+                                static function (Right $right) {
+                                    return $right->getCompany();
+                                }
+                            )
+                    )
+                ;
+            } else {
+                $queryBuilder->andWhere($queryBuilder->expr()->isNull("{$rootAlias}.id"));
+            }
         }
     }
 }

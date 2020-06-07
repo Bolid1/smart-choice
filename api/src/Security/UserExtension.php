@@ -29,22 +29,16 @@ final class UserExtension implements QueryCollectionExtensionInterface
         string $operationName = null
     ): void {
         if (User::class === $resourceClass) {
-            $this->addWhere($queryBuilder);
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+
+            if ($user = $this->security->getUser()) {
+                $queryBuilder
+                    ->andWhere("{$rootAlias}.id = :current_user")
+                    ->setParameter('current_user', $user)
+                ;
+            } else {
+                $queryBuilder->andWhere($queryBuilder->expr()->isNull("{$rootAlias}.id"));
+            }
         }
-    }
-
-    private function addWhere(QueryBuilder $queryBuilder): void
-    {
-        $rootAlias = $queryBuilder->getRootAliases()[0];
-
-        if ($user = $this->security->getUser()) {
-            $queryBuilder
-                ->andWhere("{$rootAlias}.id = :current_user")
-                ->setParameter('current_user', $user)
-            ;
-        }/* else {
-            Access denied by annotation
-            "security"="is_granted('ROLE_USER')"
-        }*/
     }
 }
