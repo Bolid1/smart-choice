@@ -150,14 +150,6 @@ class Company
         return ($right = $this->getRightOf($user)) && $right->isAdmin();
     }
 
-    /**
-     * @return bool Does company has reached the quota for users count?
-     */
-    public function isLimitForUsersReached(): bool
-    {
-        return $this->getRights()->count() >= Right::MAX_USERS_IN_COMPANIES;
-    }
-
     public function addRight(Right $right): self
     {
         if (!$this->rights->contains($right)) {
@@ -200,13 +192,5 @@ class Company
     public function getInvitations(): Collection
     {
         return $this->invitations;
-    }
-
-    /**
-     * @return bool Does company has reached the quota for invitations count?
-     */
-    public function isLimitForInvitationsReached(): bool
-    {
-        return $this->getInvitations()->count() >= Invitation::MAX_IN_COMPANIES;
     }
 }

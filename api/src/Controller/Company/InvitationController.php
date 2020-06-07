@@ -7,7 +7,6 @@ namespace App\Controller\Company;
 use App\DataPersister\InvitationDataPersister;
 use App\Entity\Company;
 use App\Entity\Invitation;
-use App\Entity\User;
 use App\Form\InvitationType;
 use App\Security\InvitationVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -34,12 +33,7 @@ class InvitationController extends AbstractController
      */
     public function new(Company $company, Request $request, InvitationDataPersister $persister): Response
     {
-        $invitation = new Invitation();
-        $user = $this->getUser();
-        if ($user instanceof User) {
-            $invitation->setFromUser($user);
-        }
-        $invitation->setToCompany($company);
+        $invitation = (new Invitation())->setToCompany($company);
 
         $form = $this->createForm(InvitationType::class, $invitation);
         $form->handleRequest($request);

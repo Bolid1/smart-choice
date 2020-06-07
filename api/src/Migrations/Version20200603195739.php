@@ -111,8 +111,8 @@ final class Version20200603195739 extends AbstractMigration
             )
             ->addIndex(['email'], 'invitation__email__idx')
             ->addUniqueIndex(
-                ['from_user_id', 'to_company_id', 'email'],
-                'invitation__from_user__to_company__email__uniq'
+                ['to_company_id', 'email'],
+                'invitation__to_company__email__uniq'
             )
         ;
     }

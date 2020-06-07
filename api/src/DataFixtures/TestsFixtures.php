@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Company;
+use App\Entity\Invitation;
 use App\Entity\User;
+use App\Security\InvitationSecretEncoder;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -19,21 +21,27 @@ class TestsFixtures extends Fixture
     public const COMPANY_NAME = 'Richards family';
     public const SECOND_ADMIN_EMAIL = 'second.admin@doctrine.fixture';
     public const SECOND_ADMIN_PASSWORD = 'password';
+    public const ANOTHER_ADMIN_INVITATION_SECRET = 'Super secret';
 
     public const ANOTHER_ADMIN_EMAIL = 'another.admin@doctrine.fixture';
     public const ANOTHER_ADMIN_PASSWORD = 'password';
     public const ANOTHER_COMPANY_NAME = 'Corporation LTD';
 
     private UserPasswordEncoderInterface $passwordEncoder;
+    private InvitationSecretEncoder $invitationEncoder;
 
     /**
-     * UserFixtures constructor.
+     * TestsFixtures constructor.
      *
      * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder
+     * @param \App\Security\InvitationSecretEncoder $invitationEncoder
      */
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function __construct(
+        UserPasswordEncoderInterface $passwordEncoder,
+        InvitationSecretEncoder $invitationEncoder
+    ) {
         $this->passwordEncoder = $passwordEncoder;
+        $this->invitationEncoder = $invitationEncoder;
     }
 
     public function load(ObjectManager $manager): void
@@ -55,6 +63,13 @@ class TestsFixtures extends Fixture
         $company->addUser($user);
         $company->addUser($secondAdmin)->setAdmin(true);
         $manager->persist($company);
+
+        $invitation = (new Invitation())->setFromUser($user)->setToCompany($company);
+        $invitation->setSecret(
+            $this->invitationEncoder->encodeSecret($invitation, static::ANOTHER_ADMIN_INVITATION_SECRET)
+        );
+        $invitation->setEmail(static::ANOTHER_ADMIN_EMAIL);
+        $manager->persist($invitation);
 
         $anotherUser = (new User())->setEmail(static::ANOTHER_ADMIN_EMAIL);
         $anotherUser->setPassword($this->passwordEncoder->encodePassword($anotherUser, static::ANOTHER_ADMIN_PASSWORD));

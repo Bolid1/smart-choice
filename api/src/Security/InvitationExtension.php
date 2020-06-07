@@ -42,13 +42,7 @@ final class InvitationExtension implements QueryCollectionExtensionInterface
 
         if ($user instanceof User) {
             $queryBuilder
-                ->andWhere(
-                    $queryBuilder->expr()->orX(
-                        "{$rootAlias}.fromUser = :current_user",
-                        "{$rootAlias}.toCompany in (:companies_where_user_is_admin)",
-                    ),
-                )
-                ->setParameter('current_user', $user)
+                ->andWhere("{$rootAlias}.toCompany in (:companies_where_user_is_admin)")
                 ->setParameter(
                     'companies_where_user_is_admin',
                     $user

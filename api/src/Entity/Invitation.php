@@ -59,7 +59,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(
  *     name="`invitation`",
  *     uniqueConstraints={
- *         @ORM\UniqueConstraint(name="invitation__from_user__to_company__email__uniq", columns={"from_user_id", "to_company_id", "email"}),
+ *         @ORM\UniqueConstraint(name="invitation__to_company__email__uniq", columns={"to_company_id", "email"}),
  *     },
  *     indexes={
  *         @ORM\Index(name="invitation__from_user_id__idx", columns={"from_user_id"}),
@@ -71,13 +71,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @uses \App\Security\InvitationExtension::applyToCollection()
  * @uses \App\Security\InvitationVoter::voteOnAttribute()
  *
- * @UniqueEntity(fields={"fromUser", "toCompany", "email"}, errorPath="email")
+ * @UniqueEntity(fields={"toCompany", "email"}, errorPath="email")
  */
 class Invitation
 {
-    /** @var int */
-    public const MAX_IN_COMPANIES = 10;
-
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
@@ -89,7 +86,8 @@ class Invitation
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     * @Groups({"invitation:read", "invitation:create"})
+     * @Gedmo\Blameable(on="create")
+     * @Groups({"invitation:read"})
      */
     private ?User $fromUser = null;
 
@@ -97,6 +95,7 @@ class Invitation
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="invitations")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"invitation:read", "invitation:create"})
+     * @Assert\NotBlank()
      */
     private ?Company $toCompany = null;
 
@@ -104,6 +103,7 @@ class Invitation
      * @ORM\Column(type="string", length=255)
      * @Groups({"invitation:read", "invitation:create"})
      * @Assert\Type("string")
+     * @Assert\NotBlank()
      * @Assert\Email()
      */
     private string $email = '';
@@ -117,7 +117,7 @@ class Invitation
      * Plain secret.
      *
      * @Groups({"invitation:create", "invitation:edit"})
-     * @Assert\NotBlank(message="Please enter a secret")
+     * @Assert\NotBlank(message="Please enter a secret", groups={"invitation:create"})
      * @Assert\Length(min=6, minMessage="Your secret should be at least {{ limit }} characters", max=4096)
      */
     private ?string $plainSecret = null;

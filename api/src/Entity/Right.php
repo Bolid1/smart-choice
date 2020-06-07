@@ -29,15 +29,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     },
  *     collectionOperations={
  *         "get",
- *         "post"={
- *             "denormalization_context"={
- *                 "groups"={"right:create"},
- *                 "swagger_definition_name": "Create",
- *             },
- *             "security"="is_granted('pre_create_right', object)",
- *             "security_post_denormalize"="is_granted('create', object)",
- *             "security_message"="Only company admin can manage rights of company.",
- *         },
  *     },
  *     itemOperations={
  *         "get"={
@@ -70,14 +61,12 @@ class Right
 {
     /** @var int Max count of companies, in which can user be added. */
     public const MAX_FOR_USER = 10;
-    /** @var int Max count of users in companies */
-    public const MAX_USERS_IN_COMPANIES = 10;
 
     /**
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="rights")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     * @Groups({"right:read", "right:create"})
+     * @Groups({"right:read"})
      */
     private ?User $user = null;
 
@@ -85,7 +74,7 @@ class Right
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="rights")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     * @Groups({"right:read", "right:create"})
+     * @Groups({"right:read"})
      */
     private ?Company $company = null;
 
@@ -103,7 +92,7 @@ class Right
 
     /**
      * @ORM\Column(type="boolean", options={"comment": "Is user admin in company?", "default": false})
-     * @Groups({"right:read", "right:create", "right:edit"})
+     * @Groups({"right:read", "right:edit"})
      * @Assert\Type("boolean")
      */
     private bool $admin = false;

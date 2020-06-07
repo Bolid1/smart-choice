@@ -53,26 +53,20 @@ class InvitationVoter extends Voter
         switch ($attribute) {
             case self::VIEW:
                 return
-                    // The user can know who he invited.
-                    ($invitation->getFromUser() === $user)
                     // Company admin can see all invitations into company
-                    || $this->isUserAdminOfInvitationCompany($invitation, $user);
+                    $this->isUserAdminOfInvitationCompany($invitation, $user);
 
             case self::CREATE:
                 return
                     // User should be the company admin to invite someone
-                    ($company = $invitation->getToCompany())
-                    && !$company->isLimitForInvitationsReached()
-                    && $this->isUserAdminOfInvitationCompany($invitation, $user)
+                    $this->isUserAdminOfInvitationCompany($invitation, $user)
                     // Check if invited user already in company
                     && !$this->isInvitedUserAlreadyInCompany($invitation);
 
             case self::EDIT:
                 return
                     // User should be the company admin to invite someone
-                    $this->isUserAdminOfInvitationCompany($invitation, $user)
-                    // Check if invited user already in company
-                    && !$this->isInvitedUserAlreadyInCompany($invitation);
+                    $this->isUserAdminOfInvitationCompany($invitation, $user);
 
             case self::DELETE:
                 return
