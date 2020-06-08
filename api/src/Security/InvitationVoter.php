@@ -16,6 +16,7 @@ class InvitationVoter extends Voter
     public const CREATE = 'create';
     public const VIEW = 'view';
     public const EDIT = 'edit';
+    public const ACCEPT = 'accept';
     public const DELETE = 'delete';
 
     /** @var userRepository */
@@ -33,7 +34,7 @@ class InvitationVoter extends Voter
 
     protected function supports(string $attribute, $subject): bool
     {
-        $attributes = [static::CREATE, static::VIEW, static::EDIT, static::DELETE];
+        $attributes = [static::CREATE, static::VIEW, static::EDIT, static::DELETE, static::ACCEPT];
 
         return \in_array($attribute, $attributes, true) && $subject instanceof Invitation;
     }
@@ -80,6 +81,15 @@ class InvitationVoter extends Voter
                     // User should be the company admin to delete invitation
                     $isUserAdminOfInvitationCompany
                     && $invitation->getId();
+
+            case self::ACCEPT:
+                $invitedUser = ($email = $invitation->getEmail())
+                    ? $this->userRepository->findOneByEmail($email)
+                    : null;
+
+                return
+                    // Check if invited current user invited
+                    $invitedUser === $user;
         }
 
         throw new LogicException('This code should not be reached!');

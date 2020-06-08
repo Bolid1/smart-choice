@@ -5,6 +5,9 @@ App\Entity\User:
   my_user:
     email: 'other@email.com'
     plainPassword: 'password'
+  invited_user:
+    email: 'invited@email.com'
+    plainPassword: 'password'
 
 App\Entity\Company:
   my_company:
@@ -18,3 +21,11 @@ App\Entity\Right:
   my_user_company:
     user: '@my_user'
     company: '@my_company'
+
+App\Entity\Invitation:
+  invited_to_my_company:
+    fromUser: '@my_admin'
+    toCompany: '@my_company'
+    email: 'invited@email.com'
+    plainSecret: 'Secret'
+    admin: false

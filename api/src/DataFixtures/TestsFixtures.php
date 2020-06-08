@@ -26,6 +26,7 @@ class TestsFixtures extends Fixture
     public const ANOTHER_ADMIN_EMAIL = 'another.admin@doctrine.fixture';
     public const ANOTHER_ADMIN_PASSWORD = 'password';
     public const ANOTHER_COMPANY_NAME = 'Corporation LTD';
+    public const ADMIN_INVITATION_SECRET = 'Another secret';
 
     private UserPasswordEncoderInterface $passwordEncoder;
     private InvitationSecretEncoder $invitationEncoder;
@@ -78,6 +79,13 @@ class TestsFixtures extends Fixture
         $anotherCompany = (new Company())->setName(static::ANOTHER_COMPANY_NAME);
         $anotherCompany->addUser($anotherUser)->setAdmin(true);
         $manager->persist($anotherCompany);
+
+        $anotherInvitation = (new Invitation())->setFromUser($anotherUser)->setToCompany($anotherCompany);
+        $anotherInvitation->setSecret(
+            $this->invitationEncoder->encodeSecret($anotherInvitation, static::ADMIN_INVITATION_SECRET)
+        );
+        $anotherInvitation->setEmail(static::ADMIN_EMAIL);
+        $manager->persist($anotherInvitation);
 
         $manager->flush();
     }

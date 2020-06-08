@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Constraint;
 use App\Repository\InvitationRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,6 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                 "groups"={"invitation:create"},
  *                 "swagger_definition_name": "Create",
  *             },
+ *             "validation_groups"={"Default", "invitation:create"},
  *             "security_post_denormalize"="is_granted('create', object)",
  *             "security_message"="Only company admin can manage invitations of company.",
  *         },
@@ -52,6 +54,21 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             "security"="is_granted('delete', object)",
  *             "security_message"="You can't delete invitations of companies, where you are not is admin.",
  *         },
+ *         "accept"={
+ *             "method"="POST",
+ *             "path"="/invitations/{id}/accept",
+ *             "controller"=App\Controller\API\V0\AcceptInvitation::class,
+ *             "security"="is_granted('accept', object)",
+ *             "security_message"="You can't accept of another users.",
+ *             "denormalization_context"={
+ *                 "groups"={"invitation:accept"},
+ *                 "swagger_definition_name": "Accept",
+ *             },
+ *             "validation_groups"={"Default", "invitation:accept"},
+ *             "openapi_context"={
+ *                 "summary"="Accept invitation.",
+ *             },
+ *         }
  *     },
  * )
  * @ORM\Entity(repositoryClass=InvitationRepository::class)
@@ -115,11 +132,12 @@ class Invitation
     /**
      * Plain secret.
      *
-     * @Groups({"invitation:create", "invitation:edit"})
+     * @Groups({"invitation:create", "invitation:edit", "invitation:accept"})
      * @Assert\NotBlank(message="Please enter a secret", groups={"invitation:create"})
      * @Assert\Length(min=6, minMessage="Your secret should be at least {{ limit }} characters", max=4096)
+     * @Constraint\IsInvitationSecretValid(groups={"invitation:accept"})
      */
-    private ?string $plainSecret = null;
+    private string $plainSecret;
 
     /**
      * @ORM\Column(type="datetimetz_immutable", options={"comment": "Invitation creation date"})
@@ -195,12 +213,19 @@ class Invitation
 
     public function getPlainSecret(): ?string
     {
-        return $this->plainSecret;
+        return $this->plainSecret ?? null;
     }
 
-    public function setPlainSecret(?string $plainSecret): self
+    public function setPlainSecret(string $plainSecret): self
     {
         $this->plainSecret = $plainSecret;
+
+        return $this;
+    }
+
+    public function erasePlainSecret(): self
+    {
+        unset($this->plainSecret);
 
         return $this;
     }

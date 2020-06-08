@@ -48,7 +48,7 @@ class InvitationDataPersister implements DataPersisterInterface
     {
         if ($secret = $invitation->getPlainSecret()) {
             $invitation->setSecret($this->encoder->encodeSecret($invitation, $secret));
-            $invitation->setPlainSecret(null);
+            $invitation->erasePlainSecret();
         }
 
         if (!$this->manager->contains($invitation)) {

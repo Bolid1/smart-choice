@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Invitation{% endblock %}
+
+{% block main_content %}
+    {{ form_start(form) }}
+        {{ form_row(form.plainSecret, {label: 'Secret word'|trans}) }}
+
+        {{ form_rest(form) }}
+
+        <div class="form-group">
+            <button id="submit" class="btn btn-primary" type="submit">
+                {% trans %}Accept invitation{% endtrans %}
+            </button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
