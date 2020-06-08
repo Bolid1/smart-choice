@@ -8,6 +8,7 @@ use App\DataPersister\RightDataPersister;
 use App\Entity\Company;
 use App\Entity\Right;
 use App\Form\RightType;
+use App\Security\CompanyVoter;
 use App\Security\RightVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -19,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/company/{company}/right")
  * @IsGranted("ROLE_USER")
+ * @IsGranted(CompanyVoter::VIEW, subject="company")
  */
 class RightController extends AbstractController
 {

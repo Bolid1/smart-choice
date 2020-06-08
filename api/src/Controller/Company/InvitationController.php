@@ -8,6 +8,7 @@ use App\DataPersister\InvitationDataPersister;
 use App\Entity\Company;
 use App\Entity\Invitation;
 use App\Form\InvitationType;
+use App\Security\CompanyVoter;
 use App\Security\InvitationVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -19,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/company/{company}/invitation")
  * @IsGranted("ROLE_USER")
+ * @IsGranted(CompanyVoter::VIEW, subject="company")
  */
 class InvitationController extends AbstractController
 {

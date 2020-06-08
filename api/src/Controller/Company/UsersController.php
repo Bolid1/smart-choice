@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/company/{company}/users")
  * @IsGranted("ROLE_USER")
+ * @IsGranted(CompanyVoter::VIEW, subject="company")
  */
 class UsersController extends AbstractController
 {
