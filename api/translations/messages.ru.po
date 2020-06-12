@@ -124,3 +124,9 @@ msgstr "Удалить"
 
 msgid "Confirm"
 msgstr "Подтвердить"
+
+msgid "By opening the link, a person will be able to accept your invitation."
+msgstr "Открыв ссылку, человек сможет принять ваше приглашение."
+
+msgid "Accept invitation"
+msgstr "Принять приглашение"

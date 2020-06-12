@@ -109,6 +109,7 @@ msgstr "Are you sure you want to cancel this invitation?"
 msgid "No"
 msgstr "No"
 
+# Used in rights form
 msgid "Is user admin"
 msgstr "Is user admin"
 
@@ -123,3 +124,9 @@ msgstr "Delete"
 
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "By opening the link, a person will be able to accept your invitation."
+msgstr "By opening the link, a person will be able to accept your invitation."
+
+msgid "Accept invitation"
+msgstr "Accept invitation"

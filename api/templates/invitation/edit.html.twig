@@ -3,5 +3,18 @@
 {% block title %}Edit Invitation{% endblock %}
 
 {% block main_content %}
+
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">
+                {% trans %}By opening the link, a person will be able to accept your invitation.{% endtrans %}
+            </p>
+            <div class="alert alert-dark" role="alert">
+                <a href="{{ path('invitation_accept', {company: invitation.toCompany.id, id: invitation.id}, false) }}">
+                    {{ url('invitation_accept', {company: invitation.toCompany.id, id: invitation.id}, false) }}
+                </a>
+            </div>
+        </div>
+    </div>
     {{ include('invitation/_form.html.twig', {'button_label': 'Update'}) }}
 {% endblock %}
