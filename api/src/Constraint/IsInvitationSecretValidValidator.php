@@ -41,7 +41,7 @@ class IsInvitationSecretValidValidator extends ConstraintValidator
             throw new UnexpectedTypeException($invitation, Invitation::class);
         }
 
-        if (!$this->encoder->isSecretValid($invitation, $value)) {
+        if (!$value || !$this->encoder->isSecretValid($invitation, $value)) {
             $this->context
                 ->buildViolation('This value is not valid.')
                 ->addViolation();

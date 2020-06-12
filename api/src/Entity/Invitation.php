@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Constraint;
+use App\Controller\API\V0;
 use App\Repository\InvitationRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -55,9 +56,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             "security_message"="You can't delete invitations of companies, where you are not is admin.",
  *         },
  *         "accept"={
- *             "method"="POST",
+ *             "method"="DELETE",
  *             "path"="/invitations/{id}/accept",
- *             "controller"=App\Controller\API\V0\AcceptInvitation::class,
+ *             "controller"=V0\AcceptInvitation::class,
  *             "security"="is_granted('accept', object)",
  *             "security_message"="You can't accept of another users.",
  *             "denormalization_context"={

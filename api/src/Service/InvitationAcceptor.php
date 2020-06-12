@@ -34,7 +34,5 @@ class InvitationAcceptor
         ;
 
         $this->manager->persist($right);
-        $this->manager->remove($invitation);
-        $this->manager->flush();
     }
 }

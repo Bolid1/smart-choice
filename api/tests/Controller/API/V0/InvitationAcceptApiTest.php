@@ -12,6 +12,7 @@ use App\Test\ApiTestCase;
 class InvitationAcceptApiTest extends ApiTestCase
 {
     /**
+     * @covers \App\Controller\API\V0\AcceptInvitation::__invoke()
      * @covers \App\Security\InvitationVoter::__construct()
      * @covers \App\Security\InvitationVoter::supports()
      * @covers \App\Security\InvitationVoter::voteOnAttribute()
@@ -19,10 +20,6 @@ class InvitationAcceptApiTest extends ApiTestCase
      * @covers \App\DataPersister\InvitationDataPersister::supports()
      * @covers \App\DataPersister\InvitationDataPersister::persist()
      *
-     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testAcceptInvitation(): void
@@ -33,26 +30,20 @@ class InvitationAcceptApiTest extends ApiTestCase
         static::assertResponseIsForbidden();
 
         $client->request(
-            'POST',
+            'DELETE',
             "{$this->getInvitationIri()}/accept",
             [
-                'json' => [
-                    'plainSecret' => TestsFixtures::ADMIN_INVITATION_SECRET,
-                ],
+                'body' => TestsFixtures::ADMIN_INVITATION_SECRET,
             ],
         )
         ;
 
-        static::assertResponseIsSuccessfulItemJsonSchema(
-            [
-                '@context' => '/api/v0/contexts/Invitation',
-                '@type' => 'Invitation',
-            ],
-            Invitation::class
-        );
+        static::assertResponseIsSuccessful();
 
         $client->request('GET', $company = $this->getCompanyIri());
         static::assertResponseIsSuccessful();
+
+        $this->assertNull($this->getInvitationIri(), 'Invitation should be deleted after accept');
     }
 
     /**
@@ -71,18 +62,16 @@ class InvitationAcceptApiTest extends ApiTestCase
      */
     public function testAcceptInvitationWithInvalidSecret(): void
     {
-        $client = static::createAnotherAdminClient();
+        $client = static::createCompanyAdminClient();
 
         $client->request('GET', $company = $this->getCompanyIri());
         static::assertResponseIsForbidden();
 
         $client->request(
-            'POST',
+            'DELETE',
             "{$this->getInvitationIri()}/accept",
             [
-                'json' => [
-                    'plainSecret' => 'Invalid secret',
-                ],
+                'body' => 'Invalid secret',
             ],
         )
         ;
@@ -108,12 +97,10 @@ class InvitationAcceptApiTest extends ApiTestCase
         static::assertResponseIsForbidden();
 
         $client->request(
-            'POST',
+            'DELETE',
             "{$this->getInvitationIri()}/accept",
             [
-                'json' => [
-                    'plainSecret' => TestsFixtures::ADMIN_INVITATION_SECRET,
-                ],
+                'body' => TestsFixtures::ADMIN_INVITATION_SECRET,
             ],
         )
         ;
@@ -133,12 +120,10 @@ class InvitationAcceptApiTest extends ApiTestCase
     public function testAcceptInvitationAnonymous(): void
     {
         static::createClient()->request(
-            'POST',
+            'DELETE',
             "{$this->getInvitationIri()}/accept",
             [
-                'json' => [
-                    'plainSecret' => TestsFixtures::ADMIN_INVITATION_SECRET,
-                ],
+                'body' => TestsFixtures::ADMIN_INVITATION_SECRET,
             ],
         )
         ;
