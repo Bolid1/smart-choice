@@ -26,11 +26,11 @@ class InvitationAcceptType extends AbstractType
                         new Assert\Length(
                             [
                                 'min' => 6,
-                                'minMessage' => "Your secret should be at least {{ limit }} characters",
+                                'minMessage' => 'Your secret should be at least {{ limit }} characters',
                                 'max' => 4096,
                             ]
                         ),
-                        new IsInvitationSecretValid()
+                        new IsInvitationSecretValid(),
                     ],
                 ]
             );

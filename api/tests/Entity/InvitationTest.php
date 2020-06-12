@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Entity;
 
 use App\Entity\Company;
@@ -78,6 +80,7 @@ class InvitationTest extends TestCase
         $invitation = $this->invitation;
         $this->assertNull($invitation->getUpdatedAt());
     }
+
     /**
      * @covers \App\Entity\Invitation::setFromUser()
      * @covers \App\Entity\Invitation::getFromUser()

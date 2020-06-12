@@ -14,5 +14,4 @@ use Symfony\Component\Validator\Constraint;
  */
 class IsInvitationSecretValid extends Constraint
 {
-
 }

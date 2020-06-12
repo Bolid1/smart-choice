@@ -25,7 +25,6 @@ class InvitationAcceptor
 
     public function accept(Invitation $invitation, User $user): void
     {
-
         $right = new Right();
         $right
             ->setUser($user)

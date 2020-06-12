@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Controller\Company;
 
 use App\DataFixtures\TestsFixtures;
@@ -10,6 +12,7 @@ class UsersControllerTest extends ApiTestCase
 {
     /**
      * @covers \App\Controller\Company\UsersController::list()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testAsAdmin(): void
@@ -24,6 +27,7 @@ class UsersControllerTest extends ApiTestCase
 
     /**
      * @covers \App\Controller\Company\UsersController::list()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testAsUser(): void
@@ -38,6 +42,7 @@ class UsersControllerTest extends ApiTestCase
 
     /**
      * @covers \App\Controller\Company\UsersController::list()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testAnonymous(): void
