@@ -97,7 +97,7 @@ class InvitationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/accept", name="invitation_edit", methods={"GET","POST"})
+     * @Route("/{id}/accept", name="invitation_accept", methods={"GET","POST"})
      * @IsGranted(InvitationVoter::ACCEPT, subject="invitation")
      * @Security("invitation.getToCompany() === company")
      *
