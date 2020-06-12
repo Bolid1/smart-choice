@@ -3,18 +3,18 @@
 {% block title %}Smart Choice{% endblock %}
 
 {% block main %}
-    <main class="container">
-        <h1 class="text-center">Smart Choice</h1>
+  <main class="container">
+    <h1 class="text-center">Smart Choice</h1>
 
-        {% if app.user and not app.user.rights.count %}
-            <p class="text-center">
-                You should start from creating <a class="link" href="{{ path('company_new') }}">a new company</a>.
-            </p>
-        {% elseif app.user %}
-            <p class="text-center">
-                Please, select company in top left corner,
-                or <a class="link" href="{{ path('company_new') }}">create new</a>.
-            </p>
-        {% endif %}
-    </main>
+    {% if app.user and not app.user.rights.count %}
+      <p class="text-center">
+        You should start from creating <a class="link" href="{{ path('company_new') }}">a new company</a>.
+      </p>
+    {% elseif app.user %}
+      <p class="text-center">
+        Please, select company in top left corner,
+        or <a class="link" href="{{ path('company_new') }}">create new</a>.
+      </p>
+    {% endif %}
+  </main>
 {% endblock %}

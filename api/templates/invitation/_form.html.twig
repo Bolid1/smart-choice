@@ -1,31 +1,31 @@
 {{ form_start(form) }}
-    {{ form_row(form.email, {label: 'Email'|trans}) }}
-    {{ form_row(form.plainSecret, {label: 'Secret word'|trans}) }}
-    {{ form_row(form.admin, {label: 'Invited as administrator'|trans}) }}
+  {{ form_row(form.email, {label: 'Email'|trans}) }}
+  {{ form_row(form.plainSecret, {label: 'Secret word'|trans}) }}
+  {{ form_row(form.admin, {label: 'Invited as administrator'|trans}) }}
 
-    {{ form_rest(form) }}
+  {{ form_rest(form) }}
 
-    <div class="form-group">
-        <button id="submit" class="btn btn-primary" type="submit">
-            {% if invitation.id %}
-                {% trans %}Save invitation{% endtrans %}
-            {% else %}
-                {% trans %}Invite user{% endtrans %}
-            {% endif %}
-        </button>
-        {% if is_granted('delete', invitation) %}
-            <button
-                    class="btn btn-danger"
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#{{ 'invitation' ~ invitation.id }}"
-            >
-                {% trans %}Cancel{% endtrans %}
-            </button>
-        {% endif %}
-    </div>
+  <div class="form-group">
+    <button id="submit" class="btn btn-primary" type="submit">
+      {% if invitation.id %}
+        {% trans %}Save invitation{% endtrans %}
+      {% else %}
+        {% trans %}Invite user{% endtrans %}
+      {% endif %}
+    </button>
+    {% if is_granted('delete', invitation) %}
+      <button
+              class="btn btn-danger"
+              type="button"
+              data-toggle="modal"
+              data-target="#{{ 'invitation' ~ invitation.id }}"
+      >
+        {% trans %}Cancel{% endtrans %}
+      </button>
+    {% endif %}
+  </div>
 {{ form_end(form) }}
 
 {% if is_granted('delete', invitation) %}
-    {{ include('invitation/_delete_modal.html.twig') }}
+  {{ include('invitation/_delete_modal.html.twig') }}
 {% endif %}

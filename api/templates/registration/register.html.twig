@@ -2,21 +2,21 @@
 
 {% block title %}Register{% endblock %}
 
-{% block main %}
-    <form method="post" class="container">
-        {{ form_row(registrationForm.email, {label: 'Email'|trans}) }}
-        {{ form_row(registrationForm.plainPassword, {label: 'Password'|trans}) }}
-        {{ form_row(registrationForm.agreeTerms, {label: 'I agree with terms'|trans}) }}
+{% block main_content %}
+  {{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.email, {label: 'Email'|trans}) }}
+    {{ form_row(registrationForm.plainPassword, {label: 'Password'|trans}) }}
+    {{ form_row(registrationForm.agreeTerms, {label: 'I agree with terms'|trans}) }}
 
-        {{ form_rest(registrationForm) }}
+    {{ form_rest(registrationForm) }}
 
-        <div class="form-group">
-            <button id="submit" class="btn btn-lg btn-primary" type="submit">
-                {% trans %}Register{% endtrans %}
-            </button>
-            <a class="btn btn-lg btn-secondary" href="{{ path('app_login') }}">
-                {% trans %}or login{% endtrans %}
-            </a>
-        </div>
-    </form>
+    <div class="form-group">
+      <button id="submit" class="btn btn-lg btn-primary" type="submit">
+        {% trans %}Register{% endtrans %}
+      </button>
+      <a class="btn btn-lg btn-secondary" href="{{ path('app_login') }}">
+        {% trans %}or login{% endtrans %}
+      </a>
+    </div>
+  {{ form_end(registrationForm) }}
 {% endblock %}

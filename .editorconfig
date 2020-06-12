@@ -61,6 +61,8 @@ ij_sass_use_double_quotes = true
 ij_sass_value_alignment = 0
 
 [*.twig]
+indent_size = 2
+tab_width = 2
 ij_twig_keep_indents_on_empty_lines = false
 ij_twig_spaces_inside_delimiters = true
 ij_twig_spaces_inside_variable_delimiters = true
