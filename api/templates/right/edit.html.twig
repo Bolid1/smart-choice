@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Right{% endblock %}
+
+{% block main %}
+    <main class="container">
+        {{ form_start(form) }}
+            {{ form_row(form.user, {label: 'User'|trans}) }}
+            {{ form_row(form.admin, {label: 'Is user admin'|trans}) }}
+            {{ form_rest(form) }}
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">
+                    {% trans %}Save changes{% endtrans %}
+                </button>
+                <button
+                        class="btn btn-danger"
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#{{ 'right' ~ right.id|join }}"
+                >
+                    {% trans %}Delete{% endtrans %}
+                </button>
+            </div>
+        {{ form_end(form) }}
+        {{ include('right/_delete_modal.html.twig') }}
+    </main>
+{% endblock %}

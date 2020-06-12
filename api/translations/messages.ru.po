@@ -31,11 +31,102 @@ msgstr "или войти"
 msgid "Toggle navigation"
 msgstr "Переключить навигацию"
 
-msgid "navigation.login"
-msgstr "Вход"
-
-msgid "navigation.registration"
-msgstr "Регистрация"
-
 msgid "logout"
 msgstr "выйти"
+
+msgid "Company users"
+msgstr "Пользователи компании"
+
+msgid "My access"
+msgstr "Мои права"
+
+msgid "You can manage rights of other users to company."
+msgstr "Вы можете управлять правами других пользователей компании."
+
+msgid "Invitations"
+msgstr "Приглашения"
+
+msgid "Also you can invite users by email."
+msgstr "Также, вы можете приглашать пользователей по email-у."
+
+msgid "nobody invited"
+msgstr "приглашений нет"
+
+msgid "invite user"
+msgstr "пригласить пользователя"
+
+msgid "Your company has reached the limit on the number of invitations."
+msgstr "Ваша компания достигла лимита количества приглашений."
+
+msgid "Are you sure you want to exclude this user from company?"
+msgstr "Вы точно хотите исключить этого пользователя из компании?"
+
+msgid "Secret word"
+msgstr "Секретное слово"
+
+msgid "Invited as administrator"
+msgstr "Приглашён как администратор"
+
+msgid "Invite user"
+msgstr "Пригласить пользователя"
+
+msgid "Invitation to the company"
+msgstr "Приглашение в компанию"
+
+msgid "Dashboard"
+msgstr "Рабочий стол"
+
+msgid "Company name"
+msgstr "Название компании"
+
+msgid "You can delete a company when only one user remains in it."
+msgstr "Вы сможете удалить компанию только после того, как в ней останется только один пользователь."
+
+msgid "Users"
+msgstr "Пользователи"
+
+msgid "view"
+msgstr "показать"
+
+msgid "edit"
+msgstr "редактировать"
+
+msgid "delete"
+msgstr "удалить"
+
+msgid "cancel"
+msgstr "отменить"
+
+msgid "Save invitation"
+msgstr "Сохранить приглашение"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Are you sure you want to cancel this invitation?"
+msgstr "Вы уверены, что хотите отменить приглашение?"
+
+msgid "No"
+msgstr "Нет"
+
+# Used in rights form
+msgid "Is user admin"
+msgstr "Администратор"
+
+msgid "User"
+msgstr "Пользователь"
+
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Confirm"
+msgstr "Подтвердить"
+
+msgid "By opening the link, a person will be able to accept your invitation."
+msgstr "Открыв ссылку, человек сможет принять ваше приглашение."
+
+msgid "Accept invitation"
+msgstr "Принять приглашение"

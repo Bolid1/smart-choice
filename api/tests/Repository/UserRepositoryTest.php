@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Repository;
 
-use App\DataFixtures\UserFixtures;
+use App\DataFixtures\TestsFixtures;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
@@ -28,7 +28,8 @@ class UserRepositoryTest extends KernelTestCase
     }
 
     /**
-     * @covers \App\Repository\UserRepository::upgradePassword
+     * @covers \App\Repository\UserRepository::__construct()
+     * @covers \App\Repository\UserRepository::upgradePassword()
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -39,7 +40,7 @@ class UserRepositoryTest extends KernelTestCase
         $repository = $this->entityManager->getRepository(User::class);
         $this->assertInstanceOf(UserRepository::class, $repository);
 
-        $user = $repository->findOneBy(['email' => UserFixtures::EMAIL]);
+        $user = $repository->findOneBy(['email' => TestsFixtures::ADMIN_EMAIL]);
         if (null === $user) {
             throw new RuntimeException('You should load fixtures with command "bin/console doctrine:fixtures:load".');
         }
@@ -50,7 +51,8 @@ class UserRepositoryTest extends KernelTestCase
     }
 
     /**
-     * @covers \App\Repository\UserRepository::upgradePassword
+     * @covers \App\Repository\UserRepository::__construct()
+     * @covers \App\Repository\UserRepository::upgradePassword()
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

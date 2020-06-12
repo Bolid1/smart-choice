@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Controller\SecurityController;
-use App\DataFixtures\UserFixtures;
+use App\DataFixtures\TestsFixtures;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -23,8 +23,8 @@ class SecurityControllerTest extends WebTestCase
         static::assertResponseStatusCodeSame(200);
 
         $client->submitForm('submit', [
-            'email' => UserFixtures::EMAIL,
-            'password' => UserFixtures::PASSWORD,
+            'email' => TestsFixtures::ADMIN_EMAIL,
+            'password' => TestsFixtures::ADMIN_PASSWORD,
         ]);
 
         static::assertResponseStatusCodeSame(302);

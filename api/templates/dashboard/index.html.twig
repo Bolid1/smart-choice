@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Dashboard{% endtrans %}{% endblock %}
+
+{% block main %}
+    <main class="container">
+        <h1 class="text-center">
+            {{ company.name }} <sup>
+                <a class="link" href="{{ path('company_edit', {'id': company.id}) }}">
+                    {% include 'icons/_pencil.svg.twig' %}
+                </a>
+            </sup>
+        </h1>
+
+        <h3>There are {{ rights.count }} users in company.</h3>
+    </main>
+{% endblock %}

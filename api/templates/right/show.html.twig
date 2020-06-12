@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Right{% endblock %}
+
+{% block main %}
+    <main class="container">
+        <form disabled="disabled">
+            <div class="form-group">
+                <h4>
+                    {{ right.user }}
+                    {% if is_granted('edit', right) %}
+                        <a href="{{ path('right_edit', right.id) }}">
+                            {% include 'icons/_pencil.svg.twig' %}
+                        </a>
+                    {% endif %}
+                    {% if is_granted('delete', right) %}
+                        {% include 'icons/_delete.html.twig' with { modal: 'right' ~ right.id|join } %}
+                    {% endif %}
+                </h4>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                    <input
+                            class="form-check-input"
+                            id="agree"
+                            type="checkbox"
+                            {% if right.admin %}checked="checked"{% endif %}
+                            readonly="readonly"
+                            disabled="disabled"
+                    />
+                    <label class="form-check-label required" for="agree">
+                        {% trans %}Is user admin{% endtrans %}
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+            </div>
+        </form>
+        {% include 'right/_delete_modal.html.twig' %}
+    </main>
+{% endblock %}

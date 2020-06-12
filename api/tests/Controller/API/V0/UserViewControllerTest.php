@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
-use App\DataFixtures\UserFixtures;
+use App\DataFixtures\TestsFixtures;
 use App\Entity\User;
+use App\Test\ApiTestCase;
 
 class UserViewControllerTest extends ApiTestCase
 {
@@ -19,34 +19,16 @@ class UserViewControllerTest extends ApiTestCase
      */
     public function testViewUser(): void
     {
-        // The client implements Symfony HttpClient's `HttpClientInterface`, and the response `ResponseInterface`
-        $client = static::createClient();
-        $client->request(
-            'POST',
-            '/api/v0/auth/json',
-            [
-                'json' => [
-                    'email' => UserFixtures::EMAIL,
-                    'password' => UserFixtures::PASSWORD,
-                ],
-            ],
-        );
-        $client->request('GET', $this->findIriBy(User::class, ['email' => UserFixtures::EMAIL]));
+        static::createCompanyAdminClient()->request('GET', $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]));
 
-        static::assertResponseIsSuccessful();
-        static::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
-
-        static::assertJsonContains(
+        static::assertResponseIsSuccessfulItemJsonSchema(
             [
                 '@context' => '/api/v0/contexts/User',
                 '@type' => 'https://schema.org/Person',
-                'email' => UserFixtures::EMAIL,
-            ]
+                'email' => TestsFixtures::ADMIN_EMAIL,
+            ],
+            User::class
         );
-
-        // Asserts that the returned JSON is validated by the JSON Schema generated for this resource by API Platform
-        // This generated JSON Schema is also used in the OpenAPI spec!
-        static::assertMatchesResourceCollectionJsonSchema(User::class);
     }
 
     /**
@@ -54,10 +36,7 @@ class UserViewControllerTest extends ApiTestCase
      */
     public function testViewUserAnonymous(): void
     {
-        $client = static::createClient();
-        $client->request('GET', $this->findIriBy(User::class, ['email' => UserFixtures::EMAIL]));
-
-        static::assertResponseStatusCodeSame(403);
-        static::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        static::createClient()->request('GET', $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]));
+        static::assertResponseIsForbidden();
     }
 }

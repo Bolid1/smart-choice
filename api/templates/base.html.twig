@@ -4,7 +4,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>
+        {% block title_wrapper %}
+            {% block title_prefix %}Smart Choice: {% endblock%}
+            {% block title %}{% endblock%}
+            {% block title_company %}{{ company|default }}{% endblock%}
+        {% endblock %}
+    </title>
     <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -16,10 +22,14 @@
 <body class="d-flex flex-column min-vh-100">
 {% block body %}
     {% block header %}
-        {{ include('layout/_navigation.html.twig') }}
+        {{ include('layout/_header.html.twig') }}
     {% endblock %}
 
-    {% block main %}{% endblock %}
+    {% block main %}
+        <main class="container">
+            {% block main_content %}{% endblock %}
+        </main>
+    {% endblock %}
 
     {% block footer %}
         {{ include('layout/_footer.html.twig') }}

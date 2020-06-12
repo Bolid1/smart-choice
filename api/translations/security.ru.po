@@ -14,7 +14,7 @@ msgid "Authentication request could not be processed due to a system problem."
 msgstr "Запрос аутентификации не может быть обработан в связи с проблемой в системе."
 
 msgid "Invalid credentials."
-msgstr "Недействительные аутентификационные данные."
+msgstr "Неверный логин или пароль."
 
 msgid "Cookie has already been used by someone else."
 msgstr "Cookie уже был использован кем-то другим."
@@ -35,7 +35,7 @@ msgid "No token could be found."
 msgstr "Токен не найден."
 
 msgid "Username could not be found."
-msgstr "Имя пользователя не найдено."
+msgstr "Неверный логин или пароль."
 
 msgid "Account has expired."
 msgstr "Время действия учетной записи истекло."

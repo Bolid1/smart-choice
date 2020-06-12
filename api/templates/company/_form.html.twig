@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+    {{ form_row(form.name, {label: 'Company name'|trans}) }}
+    {{ form_rest(form) }}
+
+    <div class="form-group">
+        <button id="submit" class="btn btn-primary" type="submit">
+            {% trans %}Save changes{% endtrans %}
+        </button>
+    </div>
+{{ form_end(form) }}

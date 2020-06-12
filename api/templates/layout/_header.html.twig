@@ -1,0 +1,94 @@
+<header class="mb-3">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navigation"
+                aria-controls="navigation"
+                aria-expanded="false"
+                aria-label="{% trans %}Toggle navigation{% endtrans %}"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navigation">
+            {% if app.user and app.user.rights.count > 1 %}
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown active">
+                        <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbar-current-company"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                        >
+                            {% if company.name %}
+                                {{ company.name }}
+                            {% else %}
+                                Smart Choice
+                            {% endif %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbar-current-company">
+                            {% for right in app.user.rights %}
+                                {% if is_granted('view', right.company) %}
+                                    <a
+                                            class="dropdown-item"
+                                            href="{{ path('company_dashboard', {company: right.company.id}) }}"
+                                    >{{ right.company }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+            {% elseif app.user and app.user.rights.count and is_granted('view', app.user.rights.first.company) %}
+                {% set right = app.user.rights.first %}
+                <a class="navbar-brand" href="{{ path('company_dashboard', {company: right.company.id}) }}">
+                    {{ right.company }}
+                </a>
+            {% else %}
+                <a class="navbar-brand" href="/">Smart Choice</a>
+            {% endif %}
+
+            {% if app.user and company is defined and company.id is not empty %}
+                {% set route_name = app.request.attributes.get('_route') %}
+                <ul class="navbar-nav">
+                    {% if company.userAdmin(app.user) %}
+                        <li class="nav-item {% if route_name == 'company_users_index' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('company_users_index', {company: company.id}) }}">
+                                {% trans %}Company users{% endtrans %}
+                            </a>
+                        </li>
+                    {% elseif not company.userAdmin(app.user) %}
+                        <li class="nav-item {% if route_name == 'right_show' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('right_show', {company: company.id, user: app.user.id}) }}">
+                                {% trans %}My access{% endtrans %}
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="navbar-text ml-md-auto">
+                    {{ app.user.username }} <a href="{{ path('app_logout') }}">{% trans %}logout{% endtrans %}</a>
+                </div>
+            {% else %}
+                <ul class="navbar-nav navbar-expand-sm ml-md-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-primary mx-0 mx-md-1 my-2 my-md-0" href="{{ path('app_login') }}">
+                            {% trans %}Sign in{% endtrans %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-secondary mx-0 mx-md-1 my-2 my-md-0" href="{{ path('app_register') }}">
+                            {% trans %}Register{% endtrans %}
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+</header>

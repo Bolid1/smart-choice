@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Security;
 
+use ApiPlatform\Core\Action\ExceptionAction;
 use App\Entity\User;
 use App\Security\LoginFormAuthenticator;
 use PHPUnit\Framework\TestCase;
@@ -16,6 +17,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class LoginFormAuthenticatorTest extends TestCase
 {
@@ -34,6 +36,11 @@ class LoginFormAuthenticatorTest extends TestCase
             $this->urlGenerator,
             $this->csrfTokenManager,
             $this->passwordEncoder,
+            new ExceptionAction(
+                $this->createMock(SerializerInterface::class),
+                [],
+                []
+            )
         );
     }
 

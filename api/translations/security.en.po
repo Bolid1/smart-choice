@@ -35,7 +35,7 @@ msgid "No token could be found."
 msgstr "No token could be found."
 
 msgid "Username could not be found."
-msgstr "Username could not be found."
+msgstr "Invalid credentials."
 
 msgid "Account has expired."
 msgstr "Account has expired."

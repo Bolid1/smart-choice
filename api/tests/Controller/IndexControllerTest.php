@@ -13,7 +13,7 @@ class IndexControllerTest extends WebTestCase
      */
     public function testIndex(): void
     {
-        static::createClient()->request('GET', '/register');
+        static::createClient()->request('GET', '/');
 
         static::assertResponseStatusCodeSame(200);
     }
