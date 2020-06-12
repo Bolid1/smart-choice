@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Company;
 use App\Entity\Invitation;
 use App\Entity\User;
@@ -34,9 +33,9 @@ class InvitationViewControllerTest extends ApiTestCase
             [
                 '@context' => '/api/v0/contexts/Invitation',
                 '@type' => 'Invitation',
-                'fromUser' => $this->findIriBy(User::class, ['email' => TestsFixtures::USER_EMAIL]),
-                'toCompany' => $this->findIriBy(Company::class, ['name' => TestsFixtures::COMPANY_NAME]),
-                'email' => TestsFixtures::ANOTHER_ADMIN_EMAIL,
+                'fromUser' => $this->findIriBy(User::class, ['email' => 'user@doctrine.fixture']),
+                'toCompany' => $this->findIriBy(Company::class, ['name' => 'Richards family']),
+                'email' => 'another.admin@doctrine.fixture',
                 'admin' => false,
             ],
             Invitation::class
@@ -83,14 +82,14 @@ class InvitationViewControllerTest extends ApiTestCase
         /** @var Company $company */
         $company = $this->findItemBy(
             Company::class,
-            ['name' => TestsFixtures::COMPANY_NAME]
+            ['name' => 'Richards family']
         );
 
         return $this->findIriBy(
             Invitation::class,
             [
                 'toCompany' => $company->getId(),
-                'email' => TestsFixtures::ANOTHER_ADMIN_EMAIL,
+                'email' => 'another.admin@doctrine.fixture',
             ],
         );
     }

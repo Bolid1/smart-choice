@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Invitation;
 use App\Test\ApiTestCase;
 
@@ -32,7 +31,7 @@ class InvitationCollectionControllerTest extends ApiTestCase
                 'hydra:member' => [
                     [
                         '@type' => 'Invitation',
-                        'email' => TestsFixtures::ANOTHER_ADMIN_EMAIL,
+                        'email' => 'another.admin@doctrine.fixture',
                         'admin' => false,
                     ],
                 ],

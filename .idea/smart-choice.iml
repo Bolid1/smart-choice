@@ -19,7 +19,6 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/data-fixtures" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/dbal" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/doctrine-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/doctrine-fixtures-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/doctrine-migrations-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/event-manager" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/inflector" />
@@ -74,6 +73,7 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/console" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/css-selector" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/dependency-injection" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/deprecation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/doctrine-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/dom-crawler" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/dotenv" />
@@ -93,18 +93,17 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/inflector" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/intl" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/maker-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/mime" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/monolog-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/monolog-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/options-resolver" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/phpunit-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-ctype" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-intl-icu" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-intl-idn" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-mbstring" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-php70" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-php72" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-php73" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-php80" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/profiler-pack" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/property-access" />

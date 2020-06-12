@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Company;
 use App\Entity\Invitation;
 use App\Entity\User;
@@ -36,7 +35,7 @@ class InvitationCreateApiTest extends ApiTestCase
                 'json' => $data = [
                     'toCompany' => $company = $this->findIriBy(
                         Company::class,
-                        ['name' => TestsFixtures::COMPANY_NAME]
+                        ['name' => 'Richards family']
                     ),
                     'email' => $email = 'invited@user.test',
                     'plainSecret' => 'Super secret',
@@ -52,7 +51,7 @@ class InvitationCreateApiTest extends ApiTestCase
                 '@type' => 'Invitation',
                 'fromUser' => $this->findIriBy(
                     User::class,
-                    ['email' => TestsFixtures::ADMIN_EMAIL]
+                    ['email' => 'admin@doctrine.fixture']
                 ),
                 'toCompany' => $company,
                 'email' => $email,
@@ -79,7 +78,7 @@ class InvitationCreateApiTest extends ApiTestCase
                 'json' => $data = [
                     'toCompany' => $company = $this->findIriBy(
                         Company::class,
-                        ['name' => TestsFixtures::COMPANY_NAME]
+                        ['name' => 'Richards family']
                     ),
                     'email' => 'invited@user.test',
                     'plainSecret' => 'Super secret',
@@ -109,7 +108,7 @@ class InvitationCreateApiTest extends ApiTestCase
                 'json' => $data = [
                     'toCompany' => $company = $this->findIriBy(
                         Company::class,
-                        ['name' => TestsFixtures::ANOTHER_COMPANY_NAME]
+                        ['name' => 'Corporation LTD']
                     ),
                     'email' => 'invited@user.test',
                     'plainSecret' => 'Super secret',
@@ -163,17 +162,17 @@ class InvitationCreateApiTest extends ApiTestCase
     public function invalidDataProvider(): array
     {
         $validData = [
-            'email' => TestsFixtures::USER_EMAIL,
+            'email' => 'user@doctrine.fixture',
             'plainSecret' => 'Super secret',
             'admin' => true,
         ];
 
         return [
-            'email is null' => [TestsFixtures::ANOTHER_COMPANY_NAME, ['email' => null] + $validData],
-            'email is empty string' => [TestsFixtures::ANOTHER_COMPANY_NAME, ['email' => ''] + $validData],
-            'email is invalid' => [TestsFixtures::ANOTHER_COMPANY_NAME, ['email' => 'test.com'] + $validData],
-            'plainSecret is invalid' => [TestsFixtures::ANOTHER_COMPANY_NAME, ['plainSecret' => 'test'] + $validData],
-            'plainSecret is empty' => [TestsFixtures::ANOTHER_COMPANY_NAME, ['plainSecret' => ''] + $validData],
+            'email is null' => ['Corporation LTD', ['email' => null] + $validData],
+            'email is empty string' => ['Corporation LTD', ['email' => ''] + $validData],
+            'email is invalid' => ['Corporation LTD', ['email' => 'test.com'] + $validData],
+            'plainSecret is invalid' => ['Corporation LTD', ['plainSecret' => 'test'] + $validData],
+            'plainSecret is empty' => ['Corporation LTD', ['plainSecret' => ''] + $validData],
             'the company is empty' => [null, $validData],
         ];
     }

@@ -52,7 +52,6 @@
       <path value="$PROJECT_DIR$/api/vendor/symfony/http-client-contracts" />
       <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/api/vendor/symfony/error-handler" />
-      <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-intl-idn" />
       <path value="$PROJECT_DIR$/api/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/api/vendor/symfony/yaml" />
       <path value="$PROJECT_DIR$/api/vendor/symfony/security-http" />
@@ -82,7 +81,6 @@
       <path value="$PROJECT_DIR$/api/vendor/symfony/routing" />
       <path value="$PROJECT_DIR$/api/vendor/symfony/inflector" />
       <path value="$PROJECT_DIR$/api/vendor/psr/link" />
-      <path value="$PROJECT_DIR$/api/vendor/symfony/mime" />
       <path value="$PROJECT_DIR$/api/vendor/fzaninotto/faker" />
       <path value="$PROJECT_DIR$/api/vendor/fig/link-util" />
       <path value="$PROJECT_DIR$/api/vendor/doctrine/migrations" />
@@ -128,13 +126,14 @@
       <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-intl-icu" />
       <path value="$PROJECT_DIR$/api/vendor/symfony/intl" />
       <path value="$PROJECT_DIR$/api/vendor/dama/doctrine-test-bundle" />
-      <path value="$PROJECT_DIR$/api/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/api/vendor/symfony/translation" />
       <path value="$PROJECT_DIR$/api/vendor/sensio/framework-extra-bundle" />
       <path value="$PROJECT_DIR$/api/vendor/doctrine/sql-formatter" />
       <path value="$PROJECT_DIR$/api/vendor/gedmo/doctrine-extensions" />
       <path value="$PROJECT_DIR$/api/vendor/stof/doctrine-extensions-bundle" />
       <path value="$PROJECT_DIR$/api/vendor/behat/transliterator" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/deprecation-contracts" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Company;
 use App\Test\ApiTestCase;
 
@@ -23,7 +22,7 @@ class CompanyDeleteApiTest extends ApiTestCase
     {
         static::createAnotherAdminClient()->request(
             'DELETE',
-            $this->findIriBy(Company::class, ['name' => TestsFixtures::ANOTHER_COMPANY_NAME]),
+            $this->findIriBy(Company::class, ['name' => 'Corporation LTD']),
         )
         ;
 
@@ -40,7 +39,7 @@ class CompanyDeleteApiTest extends ApiTestCase
     {
         static::createClient()->request(
             'DELETE',
-            $this->findIriBy(Company::class, ['name' => TestsFixtures::ANOTHER_COMPANY_NAME]),
+            $this->findIriBy(Company::class, ['name' => 'Corporation LTD']),
         )
         ;
 
@@ -57,7 +56,7 @@ class CompanyDeleteApiTest extends ApiTestCase
     {
         static::createAuthenticatedClient()->request(
             'DELETE',
-            $this->findIriBy(Company::class, ['name' => TestsFixtures::COMPANY_NAME]),
+            $this->findIriBy(Company::class, ['name' => 'Richards family']),
         )
         ;
 
@@ -74,7 +73,7 @@ class CompanyDeleteApiTest extends ApiTestCase
     {
         static::createCompanyAdminClient()->request(
             'DELETE',
-            $this->findIriBy(Company::class, ['name' => TestsFixtures::COMPANY_NAME]),
+            $this->findIriBy(Company::class, ['name' => 'Richards family']),
         )
         ;
 

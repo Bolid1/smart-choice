@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Right;
 use App\Test\ApiTestCase;
 
@@ -29,7 +28,7 @@ class RightPatchApiTest extends ApiTestCase
             'PATCH',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::USER_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('user@doctrine.fixture')->getId()],
             ),
             [
                 'json' => [
@@ -61,7 +60,7 @@ class RightPatchApiTest extends ApiTestCase
             'PATCH',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::USER_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('user@doctrine.fixture')->getId()],
             ),
             [
                 'json' => [
@@ -86,7 +85,7 @@ class RightPatchApiTest extends ApiTestCase
             'PATCH',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::ADMIN_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('admin@doctrine.fixture')->getId()],
             ),
             [
                 'json' => [
@@ -111,7 +110,7 @@ class RightPatchApiTest extends ApiTestCase
             'PATCH',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::ADMIN_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('admin@doctrine.fixture')->getId()],
             ),
             [
                 'json' => [

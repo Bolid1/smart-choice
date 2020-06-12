@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Company;
 use App\Test\ApiTestCase;
 
@@ -31,7 +30,7 @@ class CompanyCollectionApiTest extends ApiTestCase
                 // We are logged in, so we can see self properties
                 'hydra:member' => [
                     [
-                        'name' => TestsFixtures::COMPANY_NAME,
+                        'name' => 'Richards family',
                     ],
                 ],
                 'hydra:totalItems' => 1,

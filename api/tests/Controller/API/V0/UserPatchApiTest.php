@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\User;
 use App\Test\ApiTestCase;
 
@@ -26,7 +25,7 @@ class UserPatchApiTest extends ApiTestCase
         // The client implements Symfony HttpClient's `HttpClientInterface`, and the response `ResponseInterface`
         static::createCompanyAdminClient()->request(
             'PATCH',
-            $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]),
+            $this->findIriBy(User::class, ['email' => 'admin@doctrine.fixture']),
             [
                 'json' => [
                     'plainPassword' => $password = 'my_new_password',
@@ -38,7 +37,7 @@ class UserPatchApiTest extends ApiTestCase
             [
                 '@context' => '/api/v0/contexts/User',
                 '@type' => 'https://schema.org/Person',
-                'email' => TestsFixtures::ADMIN_EMAIL,
+                'email' => 'admin@doctrine.fixture',
             ],
             User::class
         );
@@ -49,7 +48,7 @@ class UserPatchApiTest extends ApiTestCase
             '/api/v0/auth/json',
             [
                 'json' => [
-                    'email' => TestsFixtures::ADMIN_EMAIL,
+                    'email' => 'admin@doctrine.fixture',
                     'password' => $password,
                 ],
             ],
@@ -66,7 +65,7 @@ class UserPatchApiTest extends ApiTestCase
     {
         static::createClient()->request(
             'PATCH',
-            $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]),
+            $this->findIriBy(User::class, ['email' => 'admin@doctrine.fixture']),
             [
                 'json' => [
                     'plainPassword' => 'my_new_password',
@@ -88,7 +87,7 @@ class UserPatchApiTest extends ApiTestCase
     {
         static::createCompanyAdminClient()->request(
             'PATCH',
-            $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]),
+            $this->findIriBy(User::class, ['email' => 'admin@doctrine.fixture']),
             [
                 'json' => [
                     'plainPassword' => 'short',

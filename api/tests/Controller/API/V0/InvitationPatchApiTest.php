@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Company;
 use App\Entity\Invitation;
 use App\Test\ApiTestCase;
@@ -102,14 +101,14 @@ class InvitationPatchApiTest extends ApiTestCase
         /** @var Company $company */
         $company = $this->findItemBy(
             Company::class,
-            ['name' => TestsFixtures::COMPANY_NAME]
+            ['name' => 'Richards family']
         );
 
         return $this->findIriBy(
             Invitation::class,
             [
                 'toCompany' => $company->getId(),
-                'email' => TestsFixtures::ANOTHER_ADMIN_EMAIL,
+                'email' => 'another.admin@doctrine.fixture',
             ],
         );
     }

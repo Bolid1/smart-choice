@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Right;
 use App\Entity\User;
 use App\Test\ApiTestCase;
@@ -27,7 +26,7 @@ class RightViewControllerTest extends ApiTestCase
             'GET',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::ADMIN_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('admin@doctrine.fixture')->getId()],
             ),
         );
 
@@ -35,7 +34,7 @@ class RightViewControllerTest extends ApiTestCase
             [
                 '@context' => '/api/v0/contexts/Right',
                 '@type' => 'https://schema.org/Role',
-                'user' => $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]),
+                'user' => $this->findIriBy(User::class, ['email' => 'admin@doctrine.fixture']),
                 'admin' => true,
             ],
             Right::class
@@ -58,7 +57,7 @@ class RightViewControllerTest extends ApiTestCase
             'GET',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::USER_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('user@doctrine.fixture')->getId()],
             ),
         );
 
@@ -66,7 +65,7 @@ class RightViewControllerTest extends ApiTestCase
             [
                 '@context' => '/api/v0/contexts/Right',
                 '@type' => 'https://schema.org/Role',
-                'user' => $this->findIriBy(User::class, ['email' => TestsFixtures::USER_EMAIL]),
+                'user' => $this->findIriBy(User::class, ['email' => 'user@doctrine.fixture']),
                 'admin' => false,
             ],
             Right::class
@@ -85,7 +84,7 @@ class RightViewControllerTest extends ApiTestCase
             'GET',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::ADMIN_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('admin@doctrine.fixture')->getId()],
             ),
         );
         static::assertResponseIsForbidden();
@@ -103,7 +102,7 @@ class RightViewControllerTest extends ApiTestCase
             'GET',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::ADMIN_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('admin@doctrine.fixture')->getId()],
             ),
         );
         static::assertResponseIsForbidden();

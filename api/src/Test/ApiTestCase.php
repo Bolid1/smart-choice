@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Test;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
-use App\DataFixtures\TestsFixtures;
 use App\Entity\User;
 use RuntimeException;
 
@@ -25,8 +24,8 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
             '/api/v0/auth/json',
             [
                 'json' => [
-                    'email' => TestsFixtures::ADMIN_EMAIL,
-                    'password' => TestsFixtures::ADMIN_PASSWORD,
+                    'email' => 'admin@doctrine.fixture',
+                    'password' => 'password',
                 ],
             ],
         );
@@ -48,8 +47,8 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
             '/api/v0/auth/json',
             [
                 'json' => [
-                    'email' => TestsFixtures::USER_EMAIL,
-                    'password' => TestsFixtures::USER_PASSWORD,
+                    'email' => 'user@doctrine.fixture',
+                    'password' => 'password',
                 ],
             ],
         );
@@ -71,8 +70,8 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
             '/api/v0/auth/json',
             [
                 'json' => [
-                    'email' => TestsFixtures::ANOTHER_ADMIN_EMAIL,
-                    'password' => TestsFixtures::ANOTHER_ADMIN_PASSWORD,
+                    'email' => 'another.admin@doctrine.fixture',
+                    'password' => 'password',
                 ],
             ],
         );
@@ -168,6 +167,7 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
             throw new RuntimeException(\sprintf('The container is not available. You must call "bootKernel()" or "createClient()" before calling "%s".', __METHOD__));
         }
 
+        /** @noinspection MissingService */
         if (
             (
                 !static::$container->has('doctrine') ||

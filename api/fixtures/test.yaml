@@ -1,0 +1,51 @@
+App\Entity\User:
+  admin:
+    email: 'admin@doctrine.fixture'
+    plainPassword: 'password'
+  user:
+    email: 'user@doctrine.fixture'
+    plainPassword: 'password'
+  second_admin:
+    email: 'second.admin@doctrine.fixture'
+    plainPassword: 'password'
+  another_admin:
+    email: 'another.admin@doctrine.fixture'
+    plainPassword: 'password'
+
+App\Entity\Company:
+  company:
+    name: 'Richards family'
+  another_company:
+    name: 'Corporation LTD'
+
+App\Entity\Right:
+  admin_company:
+    user: '@admin'
+    company: '@company'
+    admin: true
+  user_company:
+    user: '@user'
+    company: '@company'
+    admin: false
+  second_admin_company:
+    user: '@second_admin'
+    company: '@company'
+    admin: true
+  another_admin_another_company:
+    user: '@another_admin'
+    company: '@another_company'
+    admin: true
+
+App\Entity\Invitation:
+  another_admin_to_company:
+    fromUser: '@user'
+    toCompany: '@company'
+    email: 'another.admin@doctrine.fixture'
+    plainSecret: 'Super secret'
+    admin: false
+  admin_to_another_company:
+    fromUser: '@another_admin'
+    toCompany: '@another_company'
+    email: 'admin@doctrine.fixture'
+    plainSecret: 'Another secret'
+    admin: false

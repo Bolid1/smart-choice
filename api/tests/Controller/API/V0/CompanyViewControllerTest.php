@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Company;
 use App\Test\ApiTestCase;
 
@@ -24,7 +23,7 @@ class CompanyViewControllerTest extends ApiTestCase
     {
         static::createCompanyAdminClient()->request(
             'GET',
-            $this->findIriBy(Company::class, ['name' => TestsFixtures::COMPANY_NAME])
+            $this->findIriBy(Company::class, ['name' => 'Richards family'])
         )
         ;
 
@@ -32,7 +31,7 @@ class CompanyViewControllerTest extends ApiTestCase
             [
                 '@context' => '/api/v0/contexts/Company',
                 '@type' => 'https://schema.org/Organization',
-                'name' => TestsFixtures::COMPANY_NAME,
+                'name' => 'Richards family',
             ],
             Company::class
         );
@@ -48,7 +47,7 @@ class CompanyViewControllerTest extends ApiTestCase
     {
         static::createClient()->request(
             'GET',
-            $this->findIriBy(Company::class, ['name' => TestsFixtures::COMPANY_NAME])
+            $this->findIriBy(Company::class, ['name' => 'Richards family'])
         )
         ;
 

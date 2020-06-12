@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Company;
 use App\Entity\Invitation;
 use App\Test\ApiTestCase;
@@ -33,7 +32,7 @@ class InvitationAcceptApiTest extends ApiTestCase
             'DELETE',
             "{$this->getInvitationIri()}/accept",
             [
-                'body' => TestsFixtures::ADMIN_INVITATION_SECRET,
+                'body' => 'Another secret',
             ],
         )
         ;
@@ -100,7 +99,7 @@ class InvitationAcceptApiTest extends ApiTestCase
             'DELETE',
             "{$this->getInvitationIri()}/accept",
             [
-                'body' => TestsFixtures::ADMIN_INVITATION_SECRET,
+                'body' => 'Another secret',
             ],
         )
         ;
@@ -123,7 +122,7 @@ class InvitationAcceptApiTest extends ApiTestCase
             'DELETE',
             "{$this->getInvitationIri()}/accept",
             [
-                'body' => TestsFixtures::ADMIN_INVITATION_SECRET,
+                'body' => 'Another secret',
             ],
         )
         ;
@@ -133,7 +132,7 @@ class InvitationAcceptApiTest extends ApiTestCase
 
     private function getCompanyIri(): string
     {
-        return $this->findIriBy(Company::class, ['name' => TestsFixtures::ANOTHER_COMPANY_NAME]);
+        return $this->findIriBy(Company::class, ['name' => 'Corporation LTD']);
     }
 
     /**
@@ -144,14 +143,14 @@ class InvitationAcceptApiTest extends ApiTestCase
         /** @var Company $company */
         $company = $this->findItemBy(
             Company::class,
-            ['name' => TestsFixtures::ANOTHER_COMPANY_NAME]
+            ['name' => 'Corporation LTD']
         );
 
         return $this->findIriBy(
             Invitation::class,
             [
                 'toCompany' => $company->getId(),
-                'email' => TestsFixtures::ADMIN_EMAIL,
+                'email' => 'admin@doctrine.fixture',
             ],
         );
     }

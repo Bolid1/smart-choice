@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Company;
 use App\Test\ApiTestCase;
 
@@ -27,7 +26,7 @@ class CompanyPatchApiTest extends ApiTestCase
     {
         static::createCompanyAdminClient()->request(
             'PATCH',
-            $this->findIriBy(Company::class, ['name' => TestsFixtures::COMPANY_NAME]),
+            $this->findIriBy(Company::class, ['name' => 'Richards family']),
             [
                 'json' => [
                     'name' => $name = 'New company name',
@@ -55,7 +54,7 @@ class CompanyPatchApiTest extends ApiTestCase
     {
         static::createAuthenticatedClient()->request(
             'PATCH',
-            $this->findIriBy(Company::class, ['name' => TestsFixtures::COMPANY_NAME]),
+            $this->findIriBy(Company::class, ['name' => 'Richards family']),
             [
                 'json' => [
                     'name' => $name = 'New company name',

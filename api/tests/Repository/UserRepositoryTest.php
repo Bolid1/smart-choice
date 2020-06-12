@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Repository;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
@@ -40,7 +39,7 @@ class UserRepositoryTest extends KernelTestCase
         $repository = $this->entityManager->getRepository(User::class);
         $this->assertInstanceOf(UserRepository::class, $repository);
 
-        $user = $repository->findOneBy(['email' => TestsFixtures::ADMIN_EMAIL]);
+        $user = $repository->findOneBy(['email' => 'admin@doctrine.fixture']);
         if (null === $user) {
             throw new RuntimeException('You should load fixtures with command "bin/console doctrine:fixtures:load".');
         }

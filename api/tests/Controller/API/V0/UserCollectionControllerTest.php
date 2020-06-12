@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\User;
 use App\Test\ApiTestCase;
 
@@ -31,7 +30,7 @@ class UserCollectionControllerTest extends ApiTestCase
                 // We are logged in, so we can see self properties
                 'hydra:member' => [
                     [
-                        'email' => TestsFixtures::ADMIN_EMAIL,
+                        'email' => 'admin@doctrine.fixture',
                     ],
                 ],
                 'hydra:totalItems' => 1,

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Right;
 use App\Test\ApiTestCase;
 
@@ -25,7 +24,7 @@ class RightDeleteApiTest extends ApiTestCase
             'DELETE',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::USER_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('user@doctrine.fixture')->getId()],
             ),
         )
         ;
@@ -45,7 +44,7 @@ class RightDeleteApiTest extends ApiTestCase
             'DELETE',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::USER_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('user@doctrine.fixture')->getId()],
             ),
         )
         ;
@@ -65,7 +64,7 @@ class RightDeleteApiTest extends ApiTestCase
             'DELETE',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::ADMIN_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('admin@doctrine.fixture')->getId()],
             ),
         )
         ;
@@ -85,7 +84,7 @@ class RightDeleteApiTest extends ApiTestCase
             'DELETE',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::SECOND_ADMIN_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('second.admin@doctrine.fixture')->getId()],
             ),
         )
         ;
@@ -105,7 +104,7 @@ class RightDeleteApiTest extends ApiTestCase
             'DELETE',
             $this->findIriBy(
                 Right::class,
-                ['user' => $this->findUserByEmail(TestsFixtures::ADMIN_EMAIL)->getId()],
+                ['user' => $this->findUserByEmail('admin@doctrine.fixture')->getId()],
             ),
         )
         ;

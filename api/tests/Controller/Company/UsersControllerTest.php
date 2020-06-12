@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\Company;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Company;
 use App\Test\ApiTestCase;
 
@@ -19,7 +18,7 @@ class UsersControllerTest extends ApiTestCase
     {
         $client = static::createCompanyAdminClient();
 
-        $company = $this->findItemBy(Company::class, ['name' => TestsFixtures::COMPANY_NAME])->getId();
+        $company = $this->findItemBy(Company::class, ['name' => 'Richards family'])->getId();
         $client->request('GET', "/company/{$company}/users/");
 
         static::assertResponseStatusCodeSame(200);
@@ -34,7 +33,7 @@ class UsersControllerTest extends ApiTestCase
     {
         $client = static::createAuthenticatedClient();
 
-        $company = $this->findItemBy(Company::class, ['name' => TestsFixtures::COMPANY_NAME])->getId();
+        $company = $this->findItemBy(Company::class, ['name' => 'Richards family'])->getId();
         $client->request('GET', "/company/{$company}/users/");
 
         static::assertResponseStatusCodeSame(403);
@@ -49,7 +48,7 @@ class UsersControllerTest extends ApiTestCase
     {
         $client = static::createClient();
 
-        $company = $this->findItemBy(Company::class, ['name' => TestsFixtures::COMPANY_NAME])->getId();
+        $company = $this->findItemBy(Company::class, ['name' => 'Richards family'])->getId();
         $client->request('GET', "/company/{$company}/users/");
 
         static::assertResponseStatusCodeSame(403);

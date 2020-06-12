@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\API\V0;
 
-use App\DataFixtures\TestsFixtures;
 use App\Entity\Right;
 use App\Entity\User;
 use App\Test\ApiTestCase;
@@ -26,9 +25,9 @@ class RightCollectionControllerTest extends ApiTestCase
         $response = static::createCompanyAdminClient()->request('GET', '/api/v0/rights');
 
         $expected = [
-            $this->findIriBy(User::class, ['email' => TestsFixtures::ADMIN_EMAIL]),
-            $this->findIriBy(User::class, ['email' => TestsFixtures::USER_EMAIL]),
-            $this->findIriBy(User::class, ['email' => TestsFixtures::SECOND_ADMIN_EMAIL]),
+            $this->findIriBy(User::class, ['email' => 'admin@doctrine.fixture']),
+            $this->findIriBy(User::class, ['email' => 'user@doctrine.fixture']),
+            $this->findIriBy(User::class, ['email' => 'second.admin@doctrine.fixture']),
         ];
 
         static::assertResponseIsSuccessfulCollectionJsonSchema(
@@ -71,7 +70,7 @@ class RightCollectionControllerTest extends ApiTestCase
                 // We are logged in, so we can see self properties
                 'hydra:member' => [
                     [
-                        'user' => $this->findIriBy(User::class, ['email' => TestsFixtures::USER_EMAIL]),
+                        'user' => $this->findIriBy(User::class, ['email' => 'user@doctrine.fixture']),
                     ],
                 ],
                 'hydra:totalItems' => 1,

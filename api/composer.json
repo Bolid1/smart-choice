@@ -42,23 +42,23 @@
         },
         "style:check": "./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run",
         "style:fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes",
-        "doctrine:fixtures:load": "bin/console doctrine:fixtures:load -n",
+        "fixtures:load": "bin/console hautelook:fixtures:load -n",
         "translation:extract": [
             "bin/console translation:update --clean --sort=asc --force --output-format=po en",
             "bin/console translation:update --clean --sort=asc --force --output-format=po ru"
         ],
         "test": [
-            "@doctrine:fixtures:load",
+            "@fixtures:load",
             "./bin/phpunit"
         ],
         "test:local": "./bin/phpunit --testsuite \"Database free tests\" --configuration phpunit.xml.dist",
         "coverage:html": [
-            "@doctrine:fixtures:load",
+            "@fixtures:load",
             "rm -fr var/coverage/html",
             "php bin/phpunit --coverage-html=var/coverage/html"
         ],
         "coverage:clover": [
-            "@doctrine:fixtures:load",
+            "@fixtures:load",
             "rm -f var/coverage/clover.xml",
             "php bin/phpunit --coverage-clover=var/coverage/clover.xml"
         ],
@@ -77,7 +77,6 @@
         "symfony/http-client": "^5.0",
         "justinrainbow/json-schema": "^5.2",
         "dama/doctrine-test-bundle": "^6.3",
-        "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/css-selector": "^5.0"
     },
     "extra": {
