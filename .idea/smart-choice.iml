@@ -98,7 +98,9 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/options-resolver" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/phpunit-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-intl-grapheme" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-intl-icu" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-intl-normalizer" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-mbstring" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-php70" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-php72" />
@@ -117,6 +119,7 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/serializer" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/service-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/stopwatch" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/string" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/test-pack" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/translation" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/translation-contracts" />
