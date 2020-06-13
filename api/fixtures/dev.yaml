@@ -29,3 +29,20 @@ App\Entity\Invitation:
     email: 'invited@email.com'
     plainSecret: 'Secret'
     admin: false
+
+App\Entity\Account:
+  salary_card_company:
+    company: '@my_company'
+    currency: 'rub'
+    name: 'Salary card'
+    balance: 262165.67
+  usd_card_company:
+    company: '@my_company'
+    currency: 'usd'
+    name: 'USD card'
+    balance: 1356.94
+  credit_card_company:
+    company: '@my_company'
+    currency: 'rub'
+    name: 'Credit card'
+    balance: -56810.82

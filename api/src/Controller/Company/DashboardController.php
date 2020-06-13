@@ -31,6 +31,7 @@ class DashboardController extends AbstractController
             [
                 'company' => $company,
                 'rights' => $company->getRights(),
+                'accounts' => $company->getAccounts(),
             ]
         );
     }

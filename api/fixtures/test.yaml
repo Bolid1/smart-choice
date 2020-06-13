@@ -49,3 +49,10 @@ App\Entity\Invitation:
     email: 'admin@doctrine.fixture'
     plainSecret: 'Another secret'
     admin: false
+
+App\Entity\Account:
+  account_company:
+    company: '@company'
+    currency: 'rub'
+    name: 'Salary card'
+    balance: 262165.67
