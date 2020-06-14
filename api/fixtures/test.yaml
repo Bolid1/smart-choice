@@ -69,6 +69,7 @@ App\Entity\Account:
 
 App\Entity\Transaction:
   account_company_transaction_{1..10}:
+    company: '@company'
     account: '@account_company'
     date: '<dateTimeBetween("-10 days", "now")>'
     amount: '<randomFloat(2, 1, 10000)>'

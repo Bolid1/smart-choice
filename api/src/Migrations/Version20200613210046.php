@@ -32,6 +32,14 @@ final class Version20200613210046 extends AbstractMigration
         );
 
         $table->addColumn(
+            'company_id',
+            UuidType::NAME,
+            [
+                'notnull' => true,
+            ]
+        );
+
+        $table->addColumn(
             'account_id',
             UuidType::NAME,
             [
@@ -81,6 +89,14 @@ final class Version20200613210046 extends AbstractMigration
                 ['id'],
                 [],
                 'transaction__account_id__fk'
+            )
+            ->addIndex(['company_id'], 'transaction__company_id__idx')
+            ->addForeignKeyConstraint(
+                'company',
+                ['company_id'],
+                ['id'],
+                ['onDelete' => 'cascade'],
+                'transaction__company_id__fk'
             )
             ->setPrimaryKey(['id'], 'transaction__pk')
         ;

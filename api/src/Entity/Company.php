@@ -105,11 +105,17 @@ class Company
      */
     private Collection $accounts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="company", orphanRemoval=true)
+     */
+    private $transactions;
+
     public function __construct()
     {
         $this->rights = new ArrayCollection();
         $this->invitations = new ArrayCollection();
         $this->accounts = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
     }
 
     public function getId(): ?UuidInterface
@@ -224,6 +230,37 @@ class Company
             // set the owning side to null (unless already changed)
             if ($account->getCompany() === $this) {
                 $account->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transaction[]
+     */
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transaction): self
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions[] = $transaction;
+            $transaction->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transaction $transaction): self
+    {
+        if ($this->transactions->contains($transaction)) {
+            $this->transactions->removeElement($transaction);
+            // set the owning side to null (unless already changed)
+            if ($transaction->getCompany() === $this) {
+                $transaction->setCompany(null);
             }
         }
 

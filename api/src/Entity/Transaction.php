@@ -64,12 +64,15 @@ use UnexpectedValueException;
  *     name="`transaction`",
  *     indexes={
  *         @ORM\Index(name="transaction__account_id__idx", columns={"account_id"}),
+ *         @ORM\Index(name="transaction__company_id__idx", columns={"company_id"}),
  *     },
  * )
  *
  * @uses \App\Security\TransactionExtension::applyToCollection()
  * @uses \App\DataPersister\TransactionDataPersister::persist()
  * @uses \App\Security\TransactionVoter::voteOnAttribute()
+ *
+ * @Assert\Expression("this.getCompany() == this.getAccount().getCompany()", message="You can't transfer transaction to another account.")
  */
 class Transaction
 {
@@ -80,6 +83,13 @@ class Transaction
      * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      */
     private ?UuidInterface $id = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="transactions")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * @Groups({"transaction:read"})
+     */
+    private Company $company;
 
     /**
      * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="transactions")
@@ -140,6 +150,10 @@ class Transaction
             }
         }
 
+        if (!isset($this->company)) {
+            $this->setCompany($account->getCompany());
+        }
+
         $this->account = $account;
 
         return $this;
@@ -190,5 +204,17 @@ class Transaction
     public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company ?? null;
+    }
+
+    public function setCompany(Company $company): self
+    {
+        $this->company = $company;
+
+        return $this;
     }
 }

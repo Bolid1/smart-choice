@@ -51,6 +51,37 @@ class TransactionPatchApiTest extends ApiTestCase
     /**
      * @covers \App\Security\TransactionVoter::supports()
      * @covers \App\Security\TransactionVoter::voteOnAttribute()
+     * @covers \App\DataPersister\TransactionDataPersister::__construct()
+     * @covers \App\DataPersister\TransactionDataPersister::supports()
+     * @covers \App\DataPersister\TransactionDataPersister::persist()
+     *
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function testTransferTransactionToAnotherCompany(): void
+    {
+        $client = static::createAuthenticatedClient();
+        $transaction = $this->getTransactionItem();
+        $client->request(
+            'PATCH',
+            $this->getIriFromItem($transaction),
+            [
+                'json' => [
+                    'account' => $this->findIriBy(Account::class, ['name' => 'Another card']),
+                ],
+            ],
+        )
+        ;
+
+        static::assertResponseIsInvalidParams();
+    }
+
+    /**
+     * @covers \App\Security\TransactionVoter::supports()
+     * @covers \App\Security\TransactionVoter::voteOnAttribute()
      *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
