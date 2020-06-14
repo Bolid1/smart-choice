@@ -56,8 +56,10 @@ class AccountVoter extends Voter
 
             case self::DELETE:
                 return
+                    // You should remove all transactions from account before delete it
+                    !$account->getTransactions()->count()
                     // User should be admin of the company to delete account.
-                    $isUserAdminOfAccountCompany;
+                    && $isUserAdminOfAccountCompany;
         }
 
         throw new LogicException('This code should not be reached!');

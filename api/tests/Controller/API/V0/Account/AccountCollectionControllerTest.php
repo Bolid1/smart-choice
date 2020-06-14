@@ -34,7 +34,7 @@ class AccountCollectionControllerTest extends ApiTestCase
                         'currency' => 'RUB',
                     ],
                 ],
-                'hydra:totalItems' => 1,
+                'hydra:totalItems' => 2,
             ],
             Account::class
         );
@@ -65,7 +65,7 @@ class AccountCollectionControllerTest extends ApiTestCase
                         'currency' => 'RUB',
                     ],
                 ],
-                'hydra:totalItems' => 1,
+                'hydra:totalItems' => 2,
             ],
             Account::class
         );

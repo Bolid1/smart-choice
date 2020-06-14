@@ -34,7 +34,7 @@ App\Entity\Account:
   salary_card_company:
     company: '@my_company'
     currency: 'rub'
-    name: 'Salary card'
+    name: 'My salary card'
     balance: 262165.67
   usd_card_company:
     company: '@my_company'

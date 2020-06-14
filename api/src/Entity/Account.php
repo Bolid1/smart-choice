@@ -8,6 +8,8 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AccountRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
@@ -123,6 +125,16 @@ class Account
      */
     private ?DateTimeImmutable $updatedAt = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="account")
+     */
+    private Collection $transactions;
+
+    public function __construct()
+    {
+        $this->transactions = new ArrayCollection();
+    }
+
     public function getId(): ?UuidInterface
     {
         return $this->id;
@@ -169,6 +181,16 @@ class Account
         return $this->balance;
     }
 
+    public function addBalance(float $amount): self
+    {
+        return $this->setBalance($this->getBalance() + $amount);
+    }
+
+    public function subBalance(float $amount): self
+    {
+        return $this->setBalance($this->getBalance() - $amount);
+    }
+
     public function setBalance(float $balance): self
     {
         $this->balance = \round($balance, Currencies::getFractionDigits($this->currency));
@@ -184,5 +206,36 @@ class Account
     public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return Collection|Transaction[]
+     */
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transaction): self
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions[] = $transaction;
+            $transaction->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transaction $transaction): self
+    {
+        if ($this->transactions->contains($transaction)) {
+            $this->transactions->removeElement($transaction);
+            // set the owning side to null (unless already changed)
+            if ($transaction->getAccount() === $this) {
+                $transaction->setAccount(null);
+            }
+        }
+
+        return $this;
     }
 }

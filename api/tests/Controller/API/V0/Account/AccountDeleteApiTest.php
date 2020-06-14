@@ -66,12 +66,12 @@ class AccountDeleteApiTest extends ApiTestCase
     /**
      * @return string|null
      */
-    private function getAccountIri(): ?string
+    private function getAccountIri(): string
     {
         return $this->findIriBy(
             Account::class,
             [
-                'name' => 'Salary card',
+                'name' => 'Empty account',
             ],
         );
     }

@@ -103,7 +103,7 @@ class Company
     /**
      * @ORM\OneToMany(targetEntity=Account::class, mappedBy="company", orphanRemoval=true)
      */
-    private $accounts;
+    private Collection $accounts;
 
     public function __construct()
     {

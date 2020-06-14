@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Company;
 
 use App\DataPersister\AccountDataPersister;
@@ -33,7 +35,7 @@ class AccountController extends AbstractController
      */
     public function new(Company $company, Request $request, AccountDataPersister $persister): Response
     {
-        $defaultCurrency = $request->getLocale() === 'ru' ? 'RUB' : 'USD';
+        $defaultCurrency = 'ru' === $request->getLocale() ? 'RUB' : 'USD';
         $account = (new Account())->setCompany($company)->setCurrency($defaultCurrency);
 
         $form = $this->createForm(AccountType::class, $account);
@@ -59,6 +61,7 @@ class AccountController extends AbstractController
      * @Route("/{id}/edit", name="account_edit", methods={"GET","POST"})
      * @IsGranted(AccountVoter::EDIT, subject="account")
      * @Security("account.getCompany() === company")
+     *
      * @param Company $company
      * @param Request $request
      * @param Account $account
