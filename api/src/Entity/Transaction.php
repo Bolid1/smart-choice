@@ -67,6 +67,7 @@ use UnexpectedValueException;
  *         @ORM\Index(name="transaction__company_id__idx", columns={"company_id"}),
  *     },
  * )
+ * @ORM\HasLifecycleCallbacks()
  *
  * @uses \App\Security\TransactionExtension::applyToCollection()
  * @uses \App\DataPersister\TransactionDataPersister::persist()
@@ -137,24 +138,19 @@ class Transaction
 
     public function setAccount(Account $account): self
     {
-        $oldAccount = $this->getAccount();
-        $newAccount = $account;
-
-        if ($oldAccount !== $newAccount) {
-            if ($oldAccount instanceof Account) {
-                $oldAccount->subBalance($this->getAmount());
-            }
-
-            if ($newAccount instanceof Account) {
-                $newAccount->addBalance($this->getAmount());
-            }
-        }
-
         if (!isset($this->company)) {
             $this->setCompany($account->getCompany());
         }
 
-        $this->account = $account;
+        $oldAccount = $this->getAccount();
+        if ($oldAccount !== $account) {
+            if ($oldAccount) {
+                $oldAccount->removeTransaction($this);
+            }
+
+            $this->account = $account;
+            $this->account->addTransaction($this);
+        }
 
         return $this;
     }
@@ -186,12 +182,9 @@ class Transaction
 
     public function setAmount(float $amount): self
     {
-        if ($account = $this->getAccount()) {
-            $account->subBalance($this->amount);
-            $account->addBalance($amount);
-        }
-
+        $this->account->removeTransaction($this);
         $this->amount = $amount;
+        $this->account->addTransaction($this);
 
         return $this;
     }
@@ -216,5 +209,13 @@ class Transaction
         $this->company = $company;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function removeFromAccountBeforeDelete(): void
+    {
+        $this->account->removeTransaction($this);
     }
 }

@@ -94,6 +94,46 @@ class TransactionAffectsAccountBalanceApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\TransactionVoter::supports()
+     * @covers \App\Security\TransactionVoter::voteOnAttribute()
+     * @covers \App\DataPersister\TransactionDataPersister::__construct()
+     * @covers \App\DataPersister\TransactionDataPersister::supports()
+     * @covers \App\DataPersister\TransactionDataPersister::persist()
+     *
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function testDeleteTransactionAffectsAccount(): void
+    {
+        $client = static::createAuthenticatedClient();
+
+        $account = $this->getAccount();
+        $balance = $account->getBalance();
+
+        /** @var Transaction $transaction */
+        $transaction = $this->findItemBy(
+            Transaction::class,
+            [
+                'account' => $account->getId(),
+            ],
+        );
+
+        $amount = $transaction->getAmount();
+
+        $client->request(
+            'DELETE',
+            $this->getIriFromItem($transaction)
+        );
+
+        static::assertResponseIsSuccessful();
+
+        $this->assertEquals(
+            $balance - $amount,
+            $this->getAccount()->getBalance(),
+            'Transaction amount should affects account balance.'
+        );
+    }
+
+    /**
      * @return Account
      */
     private function getAccount(): Account

@@ -221,6 +221,7 @@ class Account
         if (!$this->transactions->contains($transaction)) {
             $this->transactions[] = $transaction;
             $transaction->setAccount($this);
+            $this->addBalance($transaction->getAmount());
         }
 
         return $this;
@@ -230,10 +231,7 @@ class Account
     {
         if ($this->transactions->contains($transaction)) {
             $this->transactions->removeElement($transaction);
-            // set the owning side to null (unless already changed)
-            if ($transaction->getAccount() === $this) {
-                $transaction->setAccount(null);
-            }
+            $this->subBalance($transaction->getAmount());
         }
 
         return $this;
