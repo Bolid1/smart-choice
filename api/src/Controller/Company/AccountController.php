@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/company/{company}/account")
  * @IsGranted("ROLE_USER")
- * @IsGranted(CompanyVoter::VIEW, subject="company")
+ * @IsGranted(CompanyVoter::IS_ADMIN, subject="company")
  */
 class AccountController extends AbstractController
 {

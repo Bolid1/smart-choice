@@ -28,7 +28,7 @@ class InvitationController extends AbstractController
 {
     /**
      * @Route("/new", name="invitation_new", methods={"GET","POST"})
-     * @IsGranted(CompanyVoter::VIEW, subject="company")
+     * @IsGranted(CompanyVoter::IS_ADMIN, subject="company")
      *
      * @param \App\Entity\Company $company
      * @param \Symfony\Component\HttpFoundation\Request $request

@@ -68,6 +68,12 @@
               </a>
             </li>
           {% endif %}
+
+          <li class="nav-item {% if route_name == 'company_transactions' %}active{% endif %}">
+            <a class="nav-link" href="{{ path('company_transactions', {company: company.id}) }}">
+              {% trans %}Transactions{% endtrans %}
+            </a>
+          </li>
         </ul>
       {% endif %}
 

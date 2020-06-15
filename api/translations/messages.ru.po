@@ -130,3 +130,27 @@ msgstr "Открыв ссылку, человек сможет принять в
 
 msgid "Accept invitation"
 msgstr "Принять приглашение"
+
+msgid "day"
+msgid_plural "%count% days"
+msgstr[0] "%count% день"
+msgstr[1] "%count% день"
+msgstr[2] "%count% дней"
+
+msgid "hour"
+msgid_plural "%count% hours"
+msgstr[0] "%count% час"
+msgstr[1] "%count% часа"
+msgstr[2] "%count% часов"
+
+msgid "minute"
+msgid_plural "%count% minutes"
+msgstr[0] "%count% минуту"
+msgstr[1] "%count% минуты"
+msgstr[2] "%count% минут"
+
+msgid "second"
+msgid_plural "%count% seconds"
+msgstr[0] "%count% секунду"
+msgstr[1] "%count% секунды"
+msgstr[2] "%count% секунд"

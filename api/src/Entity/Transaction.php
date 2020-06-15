@@ -111,6 +111,8 @@ class Transaction
      * @ORM\Column(type="float", nullable=false)
      * @Groups({"transaction:read", "transaction:create", "transaction:edit"})
      * @Assert\Type("float")
+     * @Assert\NotBlank()
+     * @Assert\NotEqualTo(0)
      */
     private float $amount = 0.;
 
@@ -182,9 +184,15 @@ class Transaction
 
     public function setAmount(float $amount): self
     {
-        $this->account->removeTransaction($this);
+        if (isset($this->account)) {
+            $this->account->removeTransaction($this);
+        }
+
         $this->amount = $amount;
-        $this->account->addTransaction($this);
+
+        if (isset($this->account)) {
+            $this->account->addTransaction($this);
+        }
 
         return $this;
     }

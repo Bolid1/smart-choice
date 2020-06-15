@@ -31,10 +31,8 @@ final class TransactionExtension implements QueryCollectionExtensionInterface
             $rootAlias = $queryBuilder->getRootAliases()[0];
 
             if ($user instanceof User) {
-                $accountAlias = $queryNameGenerator->generateJoinAlias('account');
                 $queryBuilder
-                    ->innerJoin("{$rootAlias}.account", $accountAlias)
-                    ->andWhere("{$accountAlias}.company in (:user_companies)")
+                    ->andWhere("{$rootAlias}.company in (:user_companies)")
                     ->setParameter('user_companies', $user->getCompanies())
                 ;
             } else {
