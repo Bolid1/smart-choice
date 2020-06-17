@@ -27,6 +27,7 @@ class TransactionController extends AbstractController
 {
     /**
      * @Route("s/{page}", name="company_transactions", methods={"GET"}, requirements={"page"="\d+"})
+     *
      * @param company $company
      * @param TransactionRepository $transactionRepository
      * @param int $page
@@ -153,7 +154,7 @@ class TransactionController extends AbstractController
         $referer = $request->headers->get('referer');
         $transactionsList = $this->generateUrl('company_transactions', ['company' => $company->getId()]);
 
-        return ($referer && \strpos($referer, $transactionsList) !== false)
+        return ($referer && false !== \strpos($referer, $transactionsList))
             ? $this->redirect($referer)
             : $this->redirectToRoute('company_transactions', ['company' => $company->getId()]);
     }

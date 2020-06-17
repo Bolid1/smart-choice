@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use DateTimeImmutable;
+use DateTimeInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -29,9 +31,9 @@ class DateTimeExtension extends AbstractExtension
         ];
     }
 
-    public function dateAgo(\DateTimeInterface $date): ?string
+    public function dateAgo(DateTimeInterface $date): ?string
     {
-        $compare = new \DateTimeImmutable();
+        $compare = new DateTimeImmutable();
         $interval = $date->diff($compare);
         $ago = [];
 

@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Account;
 use App\Entity\Transaction;
+use DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class TransactionType extends AbstractType
 {
@@ -56,7 +59,7 @@ class TransactionType extends AbstractType
                 [
                     'input' => 'datetime_immutable',
                     'data' => $transaction && $transaction->getDate()
-                        ? $transaction->getDate() : new \DateTimeImmutable(),
+                        ? $transaction->getDate() : new DateTimeImmutable(),
                     'help' => 'The date, when transaction occurred',
                 ]
             )
