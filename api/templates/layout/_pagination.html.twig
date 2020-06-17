@@ -3,7 +3,7 @@
     <a
             href="{{ path('company_transactions', {company: company.id, page: 1}) }}"
             class="btn btn-link mr-2 {% if not pagination.prev %}disabled{% endif %}"
-    >{% trans %}first{% endtrans %}</a>
+    >{% trans %}start{% endtrans %}</a>
     <a
             href="{{ path('company_transactions', {company: company.id, page: pagination.page - 1}) }}"
             class="btn btn-link mr-2 {% if not pagination.prev %}disabled{% endif %}"
@@ -34,6 +34,6 @@
     <a
             href="{{ path('company_transactions', {company: company.id, page: total_pages}) }}"
             class="btn btn-link mr-2 {% if not pagination.next %}disabled{% endif %}"
-    >{% trans %}last{% endtrans %}</a>
+    >{% trans %}end{% endtrans %}</a>
   </div>
 </div>

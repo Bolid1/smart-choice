@@ -18,9 +18,11 @@
           {% trans %}Accounts{% endtrans %}
         </span>
 
-        <a href="{{ path('account_new', { company: company.id }) }}" class="small">
-          {% trans %}Create account{% endtrans %}
-        </a>
+        {% if is_granted('pre_create_account', company) %}
+          <a href="{{ path('account_new', { company: company.id }) }}" class="small">
+            {% trans %}Create account{% endtrans %}
+          </a>
+        {% endif %}
       </h4>
 
 
@@ -34,7 +36,9 @@
   </div>
 
   <div class="row">
-    <h4 class="col-12">There are {{ rights.count }} users in company.</h4>
+    <h4 class="col-12">
+      {% trans %}Company users{% endtrans %}
+    </h4>
     {% for right in rights %}
       <div class="col-md-4">
         <div class="card">

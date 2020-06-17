@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security;
 
+use App\Entity\Company;
 use App\Entity\Transaction;
 use App\Entity\User;
 use LogicException;
@@ -12,6 +13,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class TransactionVoter extends Voter
 {
+    public const PRE_CREATE = 'pre_create_transaction';
     public const CREATE = 'create';
     public const VIEW = 'view';
     public const EDIT = 'edit';
@@ -21,7 +23,8 @@ class TransactionVoter extends Voter
     {
         $attributes = [static::CREATE, static::VIEW, static::EDIT, static::DELETE];
 
-        return \in_array($attribute, $attributes, true) && $subject instanceof Transaction;
+        return (\in_array($attribute, $attributes, true) && $subject instanceof Transaction)
+            || (static::PRE_CREATE === $attribute && $subject instanceof Company);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -31,6 +34,10 @@ class TransactionVoter extends Voter
         if (!$user instanceof User) {
             // the user must be logged in; if not, deny access
             return false;
+        }
+
+        if (static::PRE_CREATE === $attribute && $subject instanceof Company) {
+            return null !== $subject->getRightOf($user);
         }
 
         /** @var Transaction $transaction */

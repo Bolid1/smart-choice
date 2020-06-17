@@ -3,23 +3,46 @@
 {% block title %}{% trans %}Transactions{% endtrans %}{% endblock %}
 
 {% block main_content %}
+  <div class="card">
+    <div class="card-body">
+      <p>
+        {% trans %}Transactions page info.{% endtrans %}
+      </p>
+
+      {% if is_granted('pre_create_transaction', company) %}
+        <p>
+          {% trans %}You can add{% endtrans %}
+          <a href="{{ path('transaction_new', {company: company.id}) }}">
+            {% trans %}new transaction{% endtrans %}
+          </a>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
   {% if pagination.pages > 1 %} {% include 'layout/_pagination.html.twig' %} {% endif %}
 
-  <table class="table">
+  <table class="table table-striped">
     <thead>
     <tr>
-      <th>Date</th>
-      <th>Account</th>
-      <th>Amount</th>
-      <th>actions</th>
+      <th>{% trans %}Date{% endtrans %}</th>
+      <th>{% trans %}Account{% endtrans %}</th>
+      <th class="text-right">{% trans %}Amount{% endtrans %}</th>
+      <th>{% trans %}actions{% endtrans %}</th>
     </tr>
     </thead>
     <tbody>
     {% for transaction in transactions %}
       <tr>
-        <td>{{ transaction.date ? transaction.date|format_datetime('medium') : '' }}</td>
+        {% if transaction.date %}
+          <td data-toggle="tooltip" data-placement="right" title="{{ transaction.date|format_datetime('medium') }}">
+            {{ transaction.date|date_ago }} {% trans %}ago{% endtrans %}
+          </td>
+        {% else %}
+          <td></td>
+        {% endif %}
         <td>{{ transaction.account }}</td>
-        <td>{{ transaction.amount|format_currency(transaction.account.currency) }}</td>
+        <td class="text-right">{{ transaction.amount|format_currency(transaction.account.currency) }}</td>
         <td>
           {% if is_granted('edit', transaction) %}
             <a
@@ -40,6 +63,4 @@
   </table>
 
   {% if pagination.pages > 1 %} {% include 'layout/_pagination.html.twig' %} {% endif %}
-
-  <a href="{{ path('transaction_new', {company: company.id}) }}">Create new</a>
 {% endblock %}

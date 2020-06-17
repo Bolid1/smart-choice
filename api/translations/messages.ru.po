@@ -131,26 +131,126 @@ msgstr "Открыв ссылку, человек сможет принять в
 msgid "Accept invitation"
 msgstr "Принять приглашение"
 
+#: /srv/src/Twig/DateTimeExtension.php:39
 msgid "day"
 msgid_plural "%count% days"
 msgstr[0] "%count% день"
-msgstr[1] "%count% день"
+msgstr[1] "%count% дня"
 msgstr[2] "%count% дней"
 
+#: /srv/src/Twig/DateTimeExtension.php:43
 msgid "hour"
 msgid_plural "%count% hours"
 msgstr[0] "%count% час"
 msgstr[1] "%count% часа"
 msgstr[2] "%count% часов"
 
+#: /srv/src/Twig/DateTimeExtension.php:47
 msgid "minute"
 msgid_plural "%count% minutes"
 msgstr[0] "%count% минуту"
 msgstr[1] "%count% минуты"
 msgstr[2] "%count% минут"
 
+#: /srv/src/Twig/DateTimeExtension.php:51
 msgid "second"
 msgid_plural "%count% seconds"
 msgstr[0] "%count% секунду"
 msgstr[1] "%count% секунды"
 msgstr[2] "%count% секунд"
+
+msgid "Transactions"
+msgstr "Транзакции"
+
+msgid "start"
+msgstr "начало"
+
+msgid "end"
+msgstr "конец"
+
+msgid "Create transaction"
+msgstr "Добавить транзакцию"
+
+msgid "Are you sure you want to delete this transaction?"
+msgstr "Вы уверены, что хотите удалить эту транзакцию?"
+
+msgid "Transaction creation"
+msgstr "Создание транзакции"
+
+msgid "Create account"
+msgstr "Добавить счёт"
+
+msgid "Are you sure you want to delete this account?"
+msgstr "Вы уверены, что хотите удалить этот счёт?"
+
+msgid "Account creation"
+msgstr "Создание счёта"
+
+msgid "Accounts"
+msgstr "Счета"
+
+msgid "Is admin?"
+msgstr "Администратор?"
+
+msgid "actions"
+msgstr "действия"
+
+msgid "ago"
+msgstr "назад"
+
+msgid "Invited"
+msgstr "Приглашён"
+
+msgid "As admin?"
+msgstr "Как администратор?"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Account"
+msgstr "Счёт"
+
+msgid "Amount"
+msgstr "Сумма"
+
+msgid "Transactions page info."
+msgstr "Описание страницы транзакций."
+
+msgid "You can add"
+msgstr "Вы можете добавить"
+
+msgid "new transaction"
+msgstr "новую транзакцию"
+
+msgid "Transfer type"
+msgstr "Тип транзакции"
+
+msgid "Expense"
+msgstr "Трата"
+
+msgid "Incoming"
+msgstr "Доход"
+
+msgid "Year"
+msgstr "Год"
+
+msgid "Month"
+msgstr "Месяц"
+
+msgid "Day"
+msgstr "День"
+
+msgid "Hour"
+msgstr "Час"
+
+msgid "Minute"
+msgstr "Минута"
+
+msgid "The date, when transaction occurred"
+msgstr "Дата, когда произошла транзакция"

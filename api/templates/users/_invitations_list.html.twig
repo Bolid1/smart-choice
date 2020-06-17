@@ -1,0 +1,61 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>{% trans %}Invited{% endtrans %}</th>
+    <th>{% trans %}Email{% endtrans %}</th>
+    <th>{% trans %}As admin?{% endtrans %}</th>
+    <th>{% trans %}actions{% endtrans %}</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for invitation in invitations %}
+    <tr>
+      <td data-toggle="tooltip" data-placement="right" title="{{ invitation.createdAt|format_datetime('medium') }}">
+        {{ invitation.createdAt|date_ago }} {% trans %}ago{% endtrans %}
+      </td>
+      <td>{{ invitation.email }}</td>
+      <td>
+        {% if invitation.admin %}
+          {% trans %}Yes{% endtrans %}
+        {% else %}
+          {% trans %}No{% endtrans %}
+        {% endif %}
+      </td>
+      <td>
+        {% if is_granted('edit', invitation) %}
+          <a
+                  title="{{ 'view'|trans }}"
+                  href="{{ path('invitation_edit', {id: invitation.id, company: invitation.toCompany.id}) }}"
+          >
+            {% include 'icons/_pencil.svg.twig' %}
+          </a>
+        {% endif %}
+
+        {% if is_granted('delete', invitation) %}
+          {% include 'invitation/_delete_form.html.twig' %}
+        {% endif %}
+      </td>
+    </tr>
+  {% else %}
+    <tr>
+      <td colspan="7">{% trans %}nobody invited{% endtrans %}</td>
+    </tr>
+  {% endfor %}
+  {# @TODO: Check limit #}
+  {% if 1 %}
+    <tr>
+      <td colspan="7">
+        <a href="{{ path('invitation_new', {company: company.id}) }}">
+          {% trans %}invite user{% endtrans %}
+        </a>
+      </td>
+    </tr>
+  {% else %}
+    <tr>
+      <td colspan="7">
+        {% trans %}Your company has reached the limit on the number of invitations.{% endtrans %}
+      </td>
+    </tr>
+  {% endif %}
+  </tbody>
+</table>

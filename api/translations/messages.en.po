@@ -130,3 +130,119 @@ msgstr "By opening the link, a person will be able to accept your invitation."
 
 msgid "Accept invitation"
 msgstr "Accept invitation"
+
+msgid "day"
+msgid_plural "%count% days"
+msgstr[0] "day"
+msgstr[1] "%count% days"
+
+msgid "hour"
+msgid_plural "%count% hours"
+msgstr[0] "hour"
+msgstr[1] "%count% hours"
+
+msgid "minute"
+msgid_plural "%count% minutes"
+msgstr[0] "minute"
+msgstr[1] "%count% minutes"
+
+msgid "second"
+msgid_plural "%count% seconds"
+msgstr[0] "second"
+msgstr[1] "%count% seconds"
+
+msgid "Transactions"
+msgstr "Transactions"
+
+msgid "start"
+msgstr "start"
+
+msgid "end"
+msgstr "end"
+
+msgid "Create transaction"
+msgstr "Create transaction"
+
+msgid "Are you sure you want to delete this transaction?"
+msgstr "Are you sure you want to delete this transaction?"
+
+msgid "Transaction creation"
+msgstr "Transaction creation"
+
+msgid "Create account"
+msgstr "Create account"
+
+msgid "Are you sure you want to delete this account?"
+msgstr "Are you sure you want to delete this account?"
+
+msgid "Account creation"
+msgstr "Account creation"
+
+msgid "Accounts"
+msgstr "Accounts"
+
+msgid "Is admin?"
+msgstr "Is admin?"
+
+msgid "actions"
+msgstr "actions"
+
+msgid "ago"
+msgstr "ago"
+
+msgid "Invited"
+msgstr "Invited"
+
+msgid "As admin?"
+msgstr "As admin?"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Amount"
+msgstr "Amount"
+
+msgid "Transactions page info."
+msgstr "Transactions page info."
+
+msgid "You can add"
+msgstr "You can add"
+
+msgid "new transaction"
+msgstr "new transaction"
+
+msgid "Transfer type"
+msgstr "Transfer type"
+
+msgid "Expense"
+msgstr "Expense"
+
+msgid "Incoming"
+msgstr "Incoming"
+
+msgid "Year"
+msgstr "Year"
+
+msgid "Month"
+msgstr "Month"
+
+msgid "Day"
+msgstr "Day"
+
+msgid "Hour"
+msgstr "Hour"
+
+msgid "Minute"
+msgstr "Minute"
+
+msgid "The date, when transaction occurred"
+msgstr "The date, when transaction occurred"

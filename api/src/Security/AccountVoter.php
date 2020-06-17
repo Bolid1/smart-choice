@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\Account;
+use App\Entity\Company;
 use App\Entity\User;
 use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -12,6 +13,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class AccountVoter extends Voter
 {
+    public const PRE_CREATE = 'pre_create_account';
     public const CREATE = 'create';
     public const VIEW = 'view';
     public const EDIT = 'edit';
@@ -21,7 +23,8 @@ class AccountVoter extends Voter
     {
         $attributes = [static::CREATE, static::VIEW, static::EDIT, static::DELETE];
 
-        return \in_array($attribute, $attributes, true) && $subject instanceof Account;
+        return (\in_array($attribute, $attributes, true) && $subject instanceof Account)
+            || (static::PRE_CREATE === $attribute && $subject instanceof Company);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -31,6 +34,10 @@ class AccountVoter extends Voter
         if (!$user instanceof User) {
             // the user must be logged in; if not, deny access
             return false;
+        }
+
+        if (static::PRE_CREATE === $attribute && $subject instanceof Company) {
+            return $subject->isUserAdmin($user);
         }
 
         /** @var Account $account */
@@ -45,7 +52,7 @@ class AccountVoter extends Voter
         switch ($attribute) {
             case self::VIEW:
                 return
-                    // Company admin can see all invitations into company
+                    // Company admin can see all accounts into company
                     $isUserInAccountCompany;
 
             case self::CREATE:
