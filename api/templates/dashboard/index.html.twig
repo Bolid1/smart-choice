@@ -11,91 +11,26 @@
     </sup>
   </h1>
 
-  <h4 class="d-flex justify-content-between">
-    <span>
-      {% trans %}Accounts{% endtrans %}
-    </span>
+  <div class="row mb-2">
+    <div class="col col-12 col-lg-4">
+      <h4 class="d-flex justify-content-between">
+        <span>
+          {% trans %}Accounts{% endtrans %}
+        </span>
 
-    <a href="{{ path('account_new', { company: company.id }) }}" class="small">
-      {% trans %}Create account{% endtrans %}
-    </a>
-  </h4>
+        <a href="{{ path('account_new', { company: company.id }) }}" class="small">
+          {% trans %}Create account{% endtrans %}
+        </a>
+      </h4>
 
-  <div class="card-columns">
-    {% for account in accounts %}
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ account.balance|format_currency(account.currency) }}</h5>
 
-          <span>
-            {{ account.name }}
-            {% if is_granted('edit', account) %}
-              <sup>
-                  <a class="link" href="{{ path('account_edit', {company: company.id, id: account.id}) }}">
-                    {% include 'icons/_pencil.svg.twig' %}
-                  </a>
-                </sup>
-            {% endif %}
-          </span>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted" data-toggle="tooltip" data-placement="right" title="{{ account.updatedAt|date }}">
-            {% set sinceUpdated = account.updatedAt|date_ago %}
+      {% for account in accounts %}
+        {% include 'dashboard/_account_card.html.twig' %}
+      {% endfor %}
+    </div>
+    <div class="col col-lg-8">
 
-            {% if sinceUpdated is not empty %}
-              {% trans with({'%interval%': sinceUpdated}) %} Last updated %interval% ago {% endtrans %}
-            {% else %}
-              {% trans %} Last updated just now {% endtrans %}
-            {% endif %}
-          </small>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-
-  <h4 class="d-flex justify-content-between">
-    <span>
-      {% trans %}Transactions{% endtrans %}
-    </span>
-
-    <a href="{{ path('transaction_new', { company: company.id }) }}" class="small">
-      {% trans %}Create transaction{% endtrans %}
-    </a>
-  </h4>
-
-  <div class="card-columns">
-    {% for transaction in transactions %}
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">
-            {{ transaction.amount|format_currency(transaction.account.currency) }}
-          </h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            {{ transaction.account }}
-          </h6>
-          <span>
-              {% if is_granted('edit', transaction) %}
-                <sup>
-                  <a class="link" href="{{ path('transaction_edit', {company: company.id, id: transaction.id}) }}">
-                    {% include 'icons/_pencil.svg.twig' %}
-                  </a>
-                </sup>
-              {% endif %}
-          </span>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted" data-toggle="tooltip" data-placement="right" title="{{ transaction.date|date }}">
-            {% set sinceOccurred = transaction.date|date_ago %}
-
-            {% if sinceOccurred is not empty %}
-              {% trans with({'%interval%': sinceOccurred}) %} Occurred %interval% ago {% endtrans %}
-            {% else %}
-              {% trans %}Occurred just now{% endtrans %}
-            {% endif %}
-          </small>
-        </div>
-      </div>
-    {% endfor %}
+    </div>
   </div>
 
   <div class="row">

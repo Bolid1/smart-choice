@@ -39,7 +39,7 @@ class TransactionController extends AbstractController
         $pagination = new Pagination($page, $total);
 
         return $this->render(
-            'transaction/index.html.twig',
+            'transaction/list.html.twig',
             [
                 'company' => $company,
                 'transactions' => $transactionRepository->findBy(
