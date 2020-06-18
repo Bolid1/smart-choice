@@ -141,14 +141,6 @@ jobs:
         run: |
           composer global require --prefer-dist --no-progress --no-suggest --ansi \
             symfony/flex
-      - name: Cache project dependencies
-        uses: actions/cache@v1
-        with:
-          path: /tmp/api/core/vendor
-          key: deps-php${{ matrix.php }}-${{ github.sha }}
-          restore-keys: |
-            deps-php${{ matrix.php }}-
-            deps-
       - name: Install project dependencies
         run: |
           mkdir -p /tmp/api/core/vendor
@@ -181,6 +173,19 @@ jobs:
       options: >-
         --tmpfs /tmp:exec
         --tmpfs /var/tmp:exec
+    services:
+      postgres:
+        image: postgres:12-alpine
+        env:
+          POSTGRES_DB: api_test
+          POSTGRES_PASSWORD: hk7dFAByeQVVxpLtmZ6GVUzP
+          POSTGRES_USER: api
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     strategy:
       matrix:
         php:
@@ -189,6 +194,9 @@ jobs:
           - '5.1'
       fail-fast: false
     timeout-minutes: 20
+    env:
+      APP_ENV: test
+      DATABASE_URL: postgres://api:hk7dFAByeQVVxpLtmZ6GVUzP@postgres/api_test?serverVersion=12&charset=utf8
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -198,6 +206,15 @@ jobs:
             jq \
             moreutils \
             unzip \
+      - name: Install PHP extensions
+        run: |
+          apk add \
+            $PHPIZE_DEPS \
+            postgresql-dev \
+          ;
+          docker-php-ext-install -j$(nproc) \
+            pdo_pgsql \
+          ;
       - name: Disable PHP memory limit
         run: echo 'memory_limit=-1' >> /usr/local/etc/php/php.ini
       - name: Install Composer
@@ -223,7 +240,7 @@ jobs:
         run: |
           mkdir -p /tmp/api/core/vendor
           ln -s /tmp/api/core/vendor vendor
-          composer update --no-progress --no-suggest --ansi
+          composer update --no-progress --no-suggest --no-interaction --ansi
       - name: Flag held back Symfony packages
         env:
           symfony_version: ${{ matrix.symfony }}
@@ -238,10 +255,17 @@ jobs:
           symfony_packages=$(composer show symfony/* | tr -s ' ' '\t' | cut -f1-2 | grep -vE 'polyfill|contracts|mercure')
           ! echo "$symfony_packages" | grep -vE "$version_pattern"
         continue-on-error: true
+      - name: Waiting for db to be ready
+        run: |
+          until bin/console doctrine:query:sql "SELECT 1" >/dev/null 2>&1; do
+              sleep 1
+          done
+      - name: Migrate
+        run: bin/console doctrine:migrations:migrate --no-interaction
       - name: Run PHPUnit tests
         run: |
           mkdir -p build/logs/phpunit
-          bin/phpunit --log-junit build/logs/phpunit/junit.xml --colors=always
+          composer run coverage:junit
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v1
