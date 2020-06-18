@@ -167,7 +167,7 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
             throw new RuntimeException(\sprintf('The container is not available. You must call "bootKernel()" or "createClient()" before calling "%s".', __METHOD__));
         }
 
-        /** @noinspection MissingService */
+        /* @noinspection MissingService */
         if (
             (
                 !static::$container->has('doctrine') ||

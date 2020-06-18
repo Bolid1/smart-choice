@@ -49,3 +49,27 @@ App\Entity\Invitation:
     email: 'admin@doctrine.fixture'
     plainSecret: 'Another secret'
     admin: false
+
+App\Entity\Account:
+  account_company:
+    company: '@company'
+    currency: 'rub'
+    name: 'Salary card'
+    balance: 262165.67
+  empty_account_company:
+    company: '@company'
+    currency: 'rub'
+    name: 'Empty account'
+    balance: 262165.67
+  account_another_company:
+    company: '@another_company'
+    currency: 'rub'
+    name: 'Another card'
+    balance: 262165.67
+
+App\Entity\Transaction:
+  account_company_transaction_{1..10}:
+    company: '@company'
+    account: '@account_company'
+    date: '<dateTimeBetween("-10 days", "now")>'
+    amount: '<randomFloat(2, 1, 10000)>'

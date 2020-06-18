@@ -3,115 +3,48 @@
 {% block title %}{% trans %}Users{% endtrans %}{% endblock %}
 
 {% block main_content %}
-  <div class="card">
-    <div class="card-body">
-      {% trans %}You can manage rights of other users to company.{% endtrans %}
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a
+              class="nav-link active"
+              id="users-tab"
+              data-toggle="tab"
+              href="#users"
+              role="tab"
+              aria-controls="users"
+              aria-selected="true"
+      >{% trans %}Users{% endtrans %}</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+              class="nav-link"
+              id="invitations-tab"
+              data-toggle="tab"
+              href="#invitations"
+              role="tab"
+              aria-controls="invitations"
+              aria-selected="false"
+      >{% trans %}Invitations{% endtrans %}</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+      <div class="card">
+        <div class="card-body">
+          {% trans %}You can manage rights of other users to company.{% endtrans %}
+        </div>
+      </div>
+
+      {% include 'users/_rights_list.html.twig' %}
+    </div>
+    <div class="tab-pane fade" id="invitations" role="tabpanel" aria-labelledby="invitations-tab">
+      <div class="card">
+        <div class="card-body">
+          {% trans %}Also you can invite users by email.{% endtrans %}
+        </div>
+      </div>
+
+      {% include 'users/_invitations_list.html.twig' %}
     </div>
   </div>
-
-  <table class="table">
-    <thead>
-    <tr>
-      <th>User</th>
-      <th>Admin</th>
-      <th>actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for right in rights %}
-      <tr>
-        <td>{{ right.user.email }}</td>
-        <td>{{ right.admin ? 'Yes' : 'No' }}</td>
-        <td>
-          {% if is_granted('view', right) %}
-            <a
-                    title="{{ 'view'|trans }}"
-                    href="{{ path('right_show', {'user': right.user.id, 'company': right.company.id}) }}"
-            >
-              {% include 'icons/_eye.svg.twig' %}
-            </a>
-          {% endif %}
-
-          {% if is_granted('edit', right) %}
-            <a
-                    title="{{ 'edit'|trans }}"
-                    href="{{ path('right_edit', right.id) }}"
-            >
-              {% include 'icons/_pencil.svg.twig' %}
-            </a>
-          {% endif %}
-
-          {% if is_granted('delete', right) %}
-            {% include 'right/_delete_form.html.twig' %}
-          {% endif %}
-        </td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-
-  <h3>
-    {% trans %}Invitations{% endtrans %}
-  </h3>
-  <div class="card">
-    <div class="card-body">
-      {% trans %}Also you can invite users by email.{% endtrans %}
-    </div>
-  </div>
-
-  <table class="table">
-    <thead>
-    <tr>
-      <th>CreatedAt</th>
-      <th>UpdatedAt</th>
-      <th>Email</th>
-      <th>Admin</th>
-      <th>actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for invitation in invitations %}
-      <tr>
-        <td>{{ invitation.createdAt ? invitation.createdAt|date('Y-m-d H:i:s T') : '' }}</td>
-        <td>{{ invitation.updatedAt ? invitation.updatedAt|date('Y-m-d H:i:s T') : '' }}</td>
-        <td>{{ invitation.email }}</td>
-        <td>{{ invitation.admin ? 'Yes' : 'No' }}</td>
-        <td>
-          {% if is_granted('edit', invitation) %}
-            <a
-                    title="{{ 'view'|trans }}"
-                    href="{{ path('invitation_edit', {id: invitation.id, company: invitation.toCompany.id}) }}"
-            >
-              {% include 'icons/_pencil.svg.twig' %}
-            </a>
-          {% endif %}
-
-          {% if is_granted('delete', invitation) %}
-            {% include 'invitation/_delete_form.html.twig' %}
-          {% endif %}
-        </td>
-      </tr>
-    {% else %}
-      <tr>
-        <td colspan="7">{% trans %}nobody invited{% endtrans %}</td>
-      </tr>
-    {% endfor %}
-    {# @TODO: Check limit #}
-    {% if 1 %}
-      <tr>
-        <td colspan="7">
-          <a href="{{ path('invitation_new', {company: company.id}) }}">
-            {% trans %}invite user{% endtrans %}
-          </a>
-        </td>
-      </tr>
-    {% else %}
-      <tr>
-        <td colspan="7">
-          {% trans %}Your company has reached the limit on the number of invitations.{% endtrans %}
-        </td>
-      </tr>
-    {% endif %}
-    </tbody>
-  </table>
 {% endblock %}

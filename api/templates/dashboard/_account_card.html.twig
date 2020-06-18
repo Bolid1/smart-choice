@@ -1,0 +1,15 @@
+<div class="card mt-2">
+  <div class="card-header">
+    {{ account.name }}
+    {% if is_granted('edit', account) %}
+      <sup>
+        <a class="link" href="{{ path('account_edit', {company: company.id, id: account.id}) }}">
+          {% include 'icons/_pencil.svg.twig' %}
+        </a>
+      </sup>
+    {% endif %}
+  </div>
+  <div class="card-body py-1">
+    <h5 class="card-title m-0">{{ account.balance|format_currency(account.currency) }}</h5>
+  </div>
+</div>

@@ -100,10 +100,22 @@ class Company
      */
     private Collection $invitations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Account::class, mappedBy="company", orphanRemoval=true)
+     */
+    private Collection $accounts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="company", orphanRemoval=true)
+     */
+    private $transactions;
+
     public function __construct()
     {
         $this->rights = new ArrayCollection();
         $this->invitations = new ArrayCollection();
+        $this->accounts = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
     }
 
     public function getId(): ?UuidInterface
@@ -191,5 +203,67 @@ class Company
     public function getInvitations(): Collection
     {
         return $this->invitations;
+    }
+
+    /**
+     * @return Collection|Account[]
+     */
+    public function getAccounts(): Collection
+    {
+        return $this->accounts;
+    }
+
+    public function addAccount(Account $account): self
+    {
+        if (!$this->accounts->contains($account)) {
+            $this->accounts[] = $account;
+            $account->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccount(Account $account): self
+    {
+        if ($this->accounts->contains($account)) {
+            $this->accounts->removeElement($account);
+            // set the owning side to null (unless already changed)
+            if ($account->getCompany() === $this) {
+                $account->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transaction[]
+     */
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transaction): self
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions[] = $transaction;
+            $transaction->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transaction $transaction): self
+    {
+        if ($this->transactions->contains($transaction)) {
+            $this->transactions->removeElement($transaction);
+            // set the owning side to null (unless already changed)
+            if ($transaction->getCompany() === $this) {
+                $transaction->setCompany(null);
+            }
+        }
+
+        return $this;
     }
 }

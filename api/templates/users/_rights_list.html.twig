@@ -1,0 +1,46 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>{% trans %}User{% endtrans %}</th>
+    <th>{% trans %}Is admin?{% endtrans %}</th>
+    <th>{% trans %}actions{% endtrans %}</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for right in rights %}
+    <tr>
+      <td>{{ right.user.email }}</td>
+      <td>
+        {% if right.admin %}
+          {% trans %}Yes{% endtrans %}
+        {% else %}
+          {% trans %}No{% endtrans %}
+        {% endif %}
+      </td>
+      <td>
+        {% if is_granted('view', right) %}
+          <a
+                  title="{{ 'view'|trans }}"
+                  href="{{ path('right_show', {'user': right.user.id, 'company': right.company.id}) }}"
+          >
+            {% include 'icons/_eye.svg.twig' %}
+          </a>
+        {% endif %}
+
+        {% if is_granted('edit', right) %}
+          <a
+                  title="{{ 'edit'|trans }}"
+                  href="{{ path('right_edit', right.id) }}"
+          >
+            {% include 'icons/_pencil.svg.twig' %}
+          </a>
+        {% endif %}
+
+        {% if is_granted('delete', right) %}
+          {% include 'right/_delete_form.html.twig' %}
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

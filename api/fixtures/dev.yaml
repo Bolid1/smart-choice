@@ -29,3 +29,37 @@ App\Entity\Invitation:
     email: 'invited@email.com'
     plainSecret: 'Secret'
     admin: false
+
+App\Entity\Account:
+  my_company_account_salary_card:
+    company: '@my_company'
+    currency: 'rub'
+    name: 'My salary card'
+    balance: 262165.67
+  my_company_account_usd_card:
+    company: '@my_company'
+    currency: 'usd'
+    name: 'USD card'
+    balance: 1356.94
+  my_company_account_credit_card:
+    company: '@my_company'
+    currency: 'rub'
+    name: 'Credit card'
+    balance: -56810.82
+  my_company_account_{1..2}:
+    company: '@my_company'
+    currency: 'rub'
+    name: '<word()>'
+    balance: '<randomFloat(2, -100000, 100000)>'
+
+App\Entity\Transaction:
+  my_spents_{1..70}:
+    company: '@my_company'
+    account: '@my_company_account_*'
+    date: '<dateTimeBetween("-10 days", "now")>'
+    amount: '<randomFloat(2, -10000, -100)>'
+  my_incomings_{1..5}:
+    company: '@my_company'
+    account: '@my_company_account_*'
+    date: '<dateTimeBetween("-10 days", "now")>'
+    amount: '<randomFloat(2, 100, 4000)>'

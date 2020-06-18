@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+  {{ form_widget(form) }}
+
+  <div class="form-group">
+    <button id="submit" class="btn btn-primary" type="submit">
+      {% if transaction.id %}
+        {% trans %}Save changes{% endtrans %}
+      {% else %}
+        {% trans %}Create transaction{% endtrans %}
+      {% endif %}
+    </button>
+    {% if transaction.id and is_granted('delete', transaction) %}
+      <button
+              class="btn btn-danger"
+              type="button"
+              data-toggle="modal"
+              data-target="#{{ 'transaction' ~ transaction.id }}"
+      >
+        {% trans %}Delete{% endtrans %}
+      </button>
+    {% endif %}
+  </div>
+{{ form_end(form) }}
+
+{% if transaction.id and is_granted('delete', transaction) %}
+  {{ include('transaction/_delete_modal.html.twig') }}
+{% endif %}
