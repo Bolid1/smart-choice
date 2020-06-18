@@ -55,6 +55,12 @@
             "./bin/phpunit"
         ],
         "test:local": "./bin/phpunit --testsuite \"Database free tests\" --configuration phpunit.xml.dist",
+        "coverage:junit": [
+            "@fixtures:load",
+            "rm -fr build/logs/phpunit",
+            "mkdir -p build/logs/phpunit",
+            "./bin/phpunit --coverage-html=build/logs/phpunit/junit.xml --colors=always"
+        ],
         "coverage:html": [
             "@fixtures:load",
             "rm -fr var/coverage/html",

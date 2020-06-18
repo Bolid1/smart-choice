@@ -156,7 +156,7 @@ jobs:
       - name: Run PHPUnit tests
         run: |
           mkdir -p build/logs/phpunit
-          bin/phpunit --log-junit build/logs/phpunit/junit.xml --colors=always
+          composer run coverage:junit
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v1
