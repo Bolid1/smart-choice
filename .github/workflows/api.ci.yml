@@ -140,6 +140,14 @@ jobs:
         run: |
           composer global require --prefer-dist --no-progress --no-suggest --ansi \
             symfony/flex
+      - name: Cache project dependencies
+        uses: actions/cache@v1
+        with:
+          path: /tmp/api/core/vendor
+          key: deps-php${{ matrix.php }}-${{ github.sha }}
+          restore-keys: |
+            deps-php${{ matrix.php }}-
+            deps-
       - name: Update project dependencies
         run: |
           mkdir -p /tmp/api/core/vendor
