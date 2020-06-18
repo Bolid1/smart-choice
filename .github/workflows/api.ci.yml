@@ -148,11 +148,16 @@ jobs:
           restore-keys: |
             deps-php${{ matrix.php }}-
             deps-
-      - name: Update project dependencies
+      - name: Install project dependencies
         run: |
           mkdir -p /tmp/api/core/vendor
           ln -s /tmp/api/core/vendor vendor
-          composer update --no-progress --no-suggest --ansi
+          composer install --prefer-dist --no-progress --no-suggest --no-interaction --ansi
+      - name:
+        run: |
+          until bin/console doctrine:query:sql "SELECT 1" >/dev/null 2>&1; do
+              sleep 1
+          done
       - name: Run PHPUnit tests
         run: |
           mkdir -p build/logs/phpunit
