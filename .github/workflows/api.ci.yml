@@ -12,7 +12,7 @@ env:
   COMPOSER_ALLOW_SUPERUSER: '1' # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
   COMPOSER_INSTALLER_COMMIT: fb22b78362d31c0d2bf516d1f8cdfd2745caa431
   COVERAGE: '0'
-  EXT_PCOV_VERSION: '1.0.6'
+  XDEBUG_VERSION: '1.0.6'
   SYMFONY_PHPUNIT_VERSION: '8.5'
   SYMFONY_DEPRECATIONS_HELPER: 'disabled'
 
@@ -123,6 +123,12 @@ jobs:
           ;
           docker-php-ext-install -j$(nproc) \
             pdo_pgsql \
+          ; \
+          pecl install \
+            xdebug-${XDEBUG_VERSION} \
+          ; \
+          docker-php-ext-enable \
+            xdebug \
           ;
       - name: Disable PHP memory limit
         run: echo 'memory_limit=-1' >> /usr/local/etc/php/php.ini
@@ -214,6 +220,12 @@ jobs:
           ;
           docker-php-ext-install -j$(nproc) \
             pdo_pgsql \
+          ; \
+          pecl install \
+            xdebug-${XDEBUG_VERSION} \
+          ; \
+          docker-php-ext-enable \
+            xdebug \
           ;
       - name: Disable PHP memory limit
         run: echo 'memory_limit=-1' >> /usr/local/etc/php/php.ini
