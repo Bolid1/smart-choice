@@ -22,7 +22,7 @@ RUN apk add --no-cache \
 # build for production
 ARG APP_ENV=prod
 ARG APCU_VERSION=5.1.18
-ARG XDEBUG_VERSION=2.9.5
+ARG XDEBUG_VERSION=2.9.6
 RUN set -eux; \
     apk add --no-cache --virtual .build-deps \
         $PHPIZE_DEPS \
