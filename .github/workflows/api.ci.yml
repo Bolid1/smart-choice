@@ -10,6 +10,9 @@ env:
   COVERAGE: '0'
   EXT_PCOV_VERSION: '1.0.6'
 
+defaults:
+  working-directory: api
+
 jobs:
   php-cs-fixer:
     name: PHP-CS-Fixer (PHP ${{ matrix.php }})
@@ -70,69 +73,7 @@ jobs:
         run: |
           export PATH="$PATH:$HOME/.composer/vendor/bin"
           mkdir -p /var/cache/php-cs-fixer
-          php-cs-fixer fix --dry-run --diff --cache-file=/var/cache/php-cs-fixer/.php_cs.cache --ansi
-
-  phpstan:
-    name: PHPStan (PHP ${{ matrix.php }})
-    runs-on: ubuntu-latest
-    container:
-      image: php:${{ matrix.php }}-alpine
-      options: >-
-        --tmpfs /tmp:exec
-        --tmpfs /var/tmp:exec
-    strategy:
-      matrix:
-        php:
-          - '7.4'
-      fail-fast: false
-    timeout-minutes: 5
-    env:
-      APP_DEBUG: '1' # https://github.com/phpstan/phpstan-symfony/issues/37
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Install system packages
-        run: |
-          apk add \
-            unzip \
-      - name: Disable PHP memory limit
-        run: echo 'memory_limit=-1' >> /usr/local/etc/php/php.ini
-      - name: Install Composer
-        run: wget -qO - https://raw.githubusercontent.com/composer/getcomposer.org/$COMPOSER_INSTALLER_COMMIT/web/installer | php -- --install-dir=/usr/local/bin --filename=composer --quiet
-      - name: Cache Composer packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.composer/cache
-          key: composer-php${{ matrix.php }}-${{ github.sha }}
-          restore-keys: |
-            composer-php${{ matrix.php }}-
-            composer-
-        continue-on-error: true
-      - name: Install Symfony Flex
-        run: |
-          composer global require --prefer-dist --no-progress --no-suggest --ansi \
-            symfony/flex
-      - name: Update project dependencies
-        run: |
-          mkdir -p /tmp/api-platform/core/vendor
-          ln -s /tmp/api-platform/core/vendor vendor
-          composer update --no-progress --no-suggest --ansi
-      - name: Clear test app cache
-        run: |
-          mkdir -p /tmp/api-platform/core/var
-          ln -s /tmp/api-platform/core/var tests/Fixtures/app/var
-          tests/Fixtures/app/console cache:clear --ansi
-      - name: Cache PHPStan results
-        uses: actions/cache@v1
-        with:
-          path: /tmp/phpstan
-          key: phpstan-php${{ matrix.php }}-${{ github.sha }}
-          restore-keys: |
-            phpstan-php${{ matrix.php }}-
-            phpstan-
-        continue-on-error: true
-      - name: Run PHPStan analysis
-        run: vendor/bin/phpstan analyse --ansi
+          php-cs-fixer fix --dry-run --diff --ansi
 
   phpunit-postgresql:
     name: PHPUnit (PHP ${{ matrix.php }}) (PostgreSQL)
@@ -146,9 +87,9 @@ jobs:
       postgres:
         image: postgres:12-alpine
         env:
-          POSTGRES_DB: api_platform_test
+          POSTGRES_DB: api_test
           POSTGRES_PASSWORD: hk7dFAByeQVVxpLtmZ6GVUzP
-          POSTGRES_USER: api-platform
+          POSTGRES_USER: api
         options: >-
           --mount type=tmpfs,destination=/var/lib/postgresql/data
           --health-cmd pg_isready
@@ -163,7 +104,7 @@ jobs:
     timeout-minutes: 20
     env:
       APP_ENV: postgres
-      DATABASE_URL: postgres://api-platform:hk7dFAByeQVVxpLtmZ6GVUzP@postgres/api_platform_test
+      DATABASE_URL: postgres://api:hk7dFAByeQVVxpLtmZ6GVUzP@postgres/api_test
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -199,18 +140,13 @@ jobs:
             symfony/flex
       - name: Update project dependencies
         run: |
-          mkdir -p /tmp/api-platform/core/vendor
-          ln -s /tmp/api-platform/core/vendor vendor
+          mkdir -p /tmp/api/core/vendor
+          ln -s /tmp/api/core/vendor vendor
           composer update --no-progress --no-suggest --ansi
-      - name: Clear test app cache
-        run: |
-          mkdir -p /tmp/api-platform/core/var
-          ln -s /tmp/api-platform/core/var tests/Fixtures/app/var
-          tests/Fixtures/app/console cache:clear --ansi
       - name: Run PHPUnit tests
         run: |
           mkdir -p build/logs/phpunit
-          vendor/bin/phpunit --log-junit build/logs/phpunit/junit.xml --colors=always
+          bin/phpunit --log-junit build/logs/phpunit/junit.xml --colors=always
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v1
@@ -267,8 +203,8 @@ jobs:
           jq '. + {"minimum-stability": "dev"}' composer.json | sponge composer.json
       - name: Update project dependencies
         run: |
-          mkdir -p /tmp/api-platform/core/vendor
-          ln -s /tmp/api-platform/core/vendor vendor
+          mkdir -p /tmp/api/core/vendor
+          ln -s /tmp/api/core/vendor vendor
           composer update --no-progress --no-suggest --ansi
       - name: Flag held back Symfony packages
         env:
@@ -284,15 +220,10 @@ jobs:
           symfony_packages=$(composer show symfony/* | tr -s ' ' '\t' | cut -f1-2 | grep -vE 'polyfill|contracts|mercure')
           ! echo "$symfony_packages" | grep -vE "$version_pattern"
         continue-on-error: true
-      - name: Clear test app cache
-        run: |
-          mkdir -p /tmp/api-platform/core/var
-          ln -s /tmp/api-platform/core/var tests/Fixtures/app/var
-          tests/Fixtures/app/console cache:clear --ansi
       - name: Run PHPUnit tests
         run: |
           mkdir -p build/logs/phpunit
-          vendor/bin/phpunit --log-junit build/logs/phpunit/junit.xml --colors=always
+          bin/phpunit --log-junit build/logs/phpunit/junit.xml --colors=always
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v1
