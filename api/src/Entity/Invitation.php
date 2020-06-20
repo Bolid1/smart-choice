@@ -58,7 +58,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *         "accept"={
  *             "method"="DELETE",
  *             "path"="/invitations/{id}/accept",
- *             "controller"=V0\AcceptInvitation::class,
+ *             "controller"=V0\AcceptInvitationAction::class,
  *             "security"="is_granted('accept', object)",
  *             "security_message"="You can't accept of another users.",
  *             "denormalization_context"={
