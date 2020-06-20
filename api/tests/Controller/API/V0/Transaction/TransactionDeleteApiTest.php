@@ -48,6 +48,36 @@ class TransactionDeleteApiTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\TransactionVoter::supports()
+     * @covers \App\Security\TransactionVoter::voteOnAttribute()
+     *
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function testDeleteTransactionOfAnother(): void
+    {
+        $client = static::createAuthenticatedClient();
+
+        /** @var Account $account */
+        $account = $this->findItemBy(
+            Account::class,
+            ['name' => 'Another card']
+        );
+
+        $client->request(
+            'DELETE',
+            $this->findIriBy(
+                Transaction::class,
+                [
+                    'account' => $account->getId(),
+                ],
+            ),
+        )
+        ;
+
+        static::assertResponseIsForbidden();
+    }
+
+    /**
      * @return string|null
      */
     private function getTransactionIri(): ?string
