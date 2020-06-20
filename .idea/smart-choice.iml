@@ -132,6 +132,8 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/web-profiler-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/yaml" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/theofidry/alice-data-fixtures" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/twig/extra-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/twig/intl-extra" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/twig/twig" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/webimpress/safe-writer" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/webmozart/assert" />
