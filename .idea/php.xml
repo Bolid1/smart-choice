@@ -139,10 +139,6 @@
       <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/api/vendor/twig/intl-extra" />
       <path value="$PROJECT_DIR$/api/vendor/twig/extra-bundle" />
-      <path value="$PROJECT_DIR$/api/vendor/jms/metadata" />
-      <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-intl-idn" />
-      <path value="$PROJECT_DIR$/api/vendor/symfony/mime" />
-      <path value="$PROJECT_DIR$/api/vendor/vich/uploader-bundle" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Test;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
+use App\Entity\Company;
 use App\Entity\User;
 use RuntimeException;
 
@@ -197,5 +198,18 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
     {
         /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->findItemBy(User::class, \compact('email'));
+    }
+
+    protected function findCompanyIriBy(string $name): ?string
+    {
+        return $this->findIriBy(Company::class, \compact('name'));
+    }
+
+    protected function findCompanyIdBy(string $name): ?string
+    {
+        /** @var Company|null $company */
+        $company = $this->findItemBy(Company::class, \compact('name'));
+
+        return $company ? (string)$company->getId() : null;
     }
 }

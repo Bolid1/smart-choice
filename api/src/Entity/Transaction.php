@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Helper\DateTimeHelper;
 use App\Repository\TransactionRepository;
-use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,7 +15,6 @@ use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use UnexpectedValueException;
 
 /**
  * @ApiResource(
@@ -40,6 +39,7 @@ use UnexpectedValueException;
  *                 "swagger_definition_name": "Create",
  *             },
  *             "validation_groups"={"Default", "transaction:create"},
+ *             "security"="is_granted('ROLE_USER')",
  *             "security_post_denormalize"="is_granted('create', object)",
  *             "security_message"="You can't create transaction.",
  *         },
@@ -164,15 +164,7 @@ class Transaction
 
     public function setDate(?DateTimeInterface $date): self
     {
-        if ($date instanceof DateTime) {
-            $this->date = DateTimeImmutable::createFromMutable($date);
-        } elseif ($date instanceof DateTimeImmutable) {
-            $this->date = $date;
-        } elseif (null === $date) {
-            $this->date = null;
-        } else {
-            throw new UnexpectedValueException('Unexpected implementation of DateTimeInterface: ', \get_class($date));
-        }
+        $this->date = null === $date ? null : DateTimeHelper::toImmutable($date);
 
         return $this;
     }
