@@ -47,11 +47,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     itemOperations={
  *         "get"={
  *             "security"="is_granted('view', object)",
- *             "security_message"="You can't view transaction.",
+ *             "security_message"="You can't view this task.",
  *         },
  *         "delete"={
  *             "security"="is_granted('delete', object)",
- *             "security_message"="You can't delete transaction.",
+ *             "security_message"="You can't delete this task.",
  *         },
  *     },
  * )
