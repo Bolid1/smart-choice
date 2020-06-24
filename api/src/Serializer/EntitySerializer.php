@@ -60,6 +60,7 @@ class EntitySerializer
      * @param array $context
      *
      * @return object|null
+     *
      * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
      */
     public function denormalize($data, string $resourceClass, string $format, array $context): ?object
