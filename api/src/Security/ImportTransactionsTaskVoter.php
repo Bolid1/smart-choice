@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ImportTransactionsTaskVoter extends Voter
 {
-    public const PRE_CREATE = 'pre_create_transaction';
+    public const PRE_CREATE = 'pre_create_import_transactions_task';
     public const CREATE = 'create';
     public const VIEW = 'view';
     public const EDIT = 'edit';
@@ -47,10 +47,15 @@ class ImportTransactionsTaskVoter extends Voter
             case self::CREATE:
             case self::VIEW:
             case self::EDIT:
-            case self::DELETE:
                 return
                     // User can manage imports in his companies
                     null !== $task->company->getRightOf($user);
+            case self::DELETE:
+                return
+                    // User can manage imports in his companies
+                    null !== $task->company->getRightOf($user)
+                    // User can't cancel task in progress
+                    && ImportTransactionsTask::STATUS_STARTED !== $task->status;
         }
 
         throw new LogicException('This code should not be reached!');

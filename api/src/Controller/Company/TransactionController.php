@@ -29,35 +29,34 @@ class TransactionController extends AbstractController
      * @Route("s/{page}", name="company_transactions", methods={"GET"}, requirements={"page"="\d+"})
      *
      * @param company $company
-     * @param TransactionRepository $transactionRepository
+     * @param TransactionRepository $repository
      * @param int $page
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(Company $company, TransactionRepository $transactionRepository, int $page = 1): Response
+    public function index(Company $company, TransactionRepository $repository, int $page = 1): Response
     {
-        $total = $transactionRepository->count(\compact('company'));
+        $total = $repository->count(\compact('company'));
         $pagination = new Pagination($page, $total);
 
         return $this->render(
             'transaction/list.html.twig',
             [
                 'company' => $company,
-                'transactions' => $transactionRepository->findBy(
+                'transactions' => $repository->findBy(
                     \compact('company'),
                     ['date' => 'desc'],
                     $pagination->getLimit(),
                     $pagination->getOffset()
                 ),
                 'pagination' => $pagination,
-                'page' => $page,
-                'total_pages' => $pagination->getPages(),
             ]
         );
     }
 
     /**
      * @Route("/new", name="transaction_new", methods={"GET","POST"})
+     * @IsGranted(TransactionVoter::PRE_CREATE, subject="company")
      *
      * @param Company $company
      * @param Request $request

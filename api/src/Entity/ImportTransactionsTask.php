@@ -73,6 +73,17 @@ class ImportTransactionsTask
     public const STATUS_STARTED = 'started';
     public const STATUS_FINISHED = 'finished';
 
+    public const MIME_TYPES_VARIANTS = [
+        'jsonld',
+        'jsonhal',
+        'jsonapi',
+        'json',
+        'xml',
+        'yaml',
+        'csv',
+        'html',
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
@@ -90,7 +101,7 @@ class ImportTransactionsTask
      * @Assert\NotBlank()
      * @Assert\Length(min="10")
      */
-    public string $data;
+    public string $data = '';
 
     /**
      * Mime type of data.
@@ -112,7 +123,7 @@ class ImportTransactionsTask
      * @Assert\NotBlank()
      * @Assert\Choice(choices={"jsonld", "jsonhal", "jsonapi", "json", "xml", "yaml", "csv", "html"})
      */
-    public string $mimeType;
+    public string $mimeType = 'csv';
 
     /**
      * Errors, that occurred during task process.
@@ -212,7 +223,7 @@ class ImportTransactionsTask
      * )
      * @Groups({"import_transactions_task:read"})
      */
-    public ?DateTimeImmutable $startTime;
+    private ?DateTimeImmutable $startTime;
 
     /**
      * Task process finished at.
@@ -225,7 +236,7 @@ class ImportTransactionsTask
      * )
      * @Groups({"import_transactions_task:read"})
      */
-    public ?DateTimeImmutable $endTime;
+    private ?DateTimeImmutable $endTime;
 
     /**
      * Count of transactions, that was successfully imported.
@@ -251,11 +262,11 @@ class ImportTransactionsTask
     }
 
     /**
-     * @return DateTimeImmutable
+     * @return DateTimeImmutable|null
      */
-    public function getScheduledTime(): DateTimeImmutable
+    public function getScheduledTime(): ?DateTimeImmutable
     {
-        return $this->scheduledTime;
+        return $this->scheduledTime ?? null;
     }
 
     /**
@@ -266,6 +277,46 @@ class ImportTransactionsTask
     public function setScheduledTime(DateTimeInterface $scheduledTime): self
     {
         $this->scheduledTime = DateTimeHelper::toImmutable($scheduledTime);
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeImmutable|null
+     */
+    public function getStartTime(): ?DateTimeImmutable
+    {
+        return $this->startTime;
+    }
+
+    /**
+     * @param DateTimeInterface $startTime
+     *
+     * @return ImportTransactionsTask
+     */
+    public function setStartTime(DateTimeInterface $startTime): self
+    {
+        $this->startTime = DateTimeHelper::toImmutable($startTime);
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeImmutable|null
+     */
+    public function getEndTime(): ?DateTimeImmutable
+    {
+        return $this->endTime;
+    }
+
+    /**
+     * @param DateTimeInterface $endTime
+     *
+     * @return ImportTransactionsTask
+     */
+    public function setEndTime(DateTimeInterface $endTime): self
+    {
+        $this->endTime = DateTimeHelper::toImmutable($endTime);
 
         return $this;
     }

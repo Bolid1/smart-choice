@@ -254,3 +254,54 @@ msgstr "Минута"
 
 msgid "The date, when transaction occurred"
 msgstr "Дата, когда произошла транзакция"
+
+msgid "Create task for import transactions"
+msgstr "Создать задачу на импорт транзакций"
+
+msgid "Are you sure you want to delete this task?"
+msgstr "Вы уверены, что хотите удалить эту задачу?"
+
+msgid "Import transactions page info."
+msgstr "Страница импорта транзакций."
+
+msgid "(You can add) a new import task"
+msgstr "новую задачу импорта"
+
+msgid "Scheduled"
+msgstr "Запланировано"
+
+msgid "after"
+msgstr "через"
+
+msgid "Successfully imported"
+msgstr "Успешно импортировано"
+
+msgid "Failed to import"
+msgstr "Не удалось импортировать"
+
+msgid "Show content"
+msgstr "Показать содержимое"
+
+msgid "Show errors"
+msgstr "Показать ошибки"
+
+msgid "Not started yet"
+msgstr "Ещё не запущена"
+
+msgid "Started"
+msgstr "Запущено"
+
+msgid "Finished"
+msgstr "Завершено"
+
+msgid "You have not created any tasks yet"
+msgstr "Вы ещё не создали ни одной задачи"
+
+msgid "In another section you"
+msgstr "На другой странице вы"
+
+msgid "can manage"
+msgstr "можете управлять"
+
+msgid "transactions imports"
+msgstr "импортом транзакций"
