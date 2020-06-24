@@ -76,15 +76,30 @@
             <pre class="m-0 p-4">{{ import_transactions_task.data|trim() }}</pre>
           </div>
           {% if import_transactions_task.errors %}
-            <div class="collapse col-12 border border-danger" id="{{ errorsId }}">
-              <pre class="m-0 p-4">{{ import_transactions_task.errors|join("\n") }}</pre>
+            <div class="collapse col-12" id="{{ errorsId }}">
+              {% for line, error in import_transactions_task.errors %}
+                <div class="alert alert-danger" role="alert">
+                  #{{ line }}: {{ error|trans }}
+                </div>
+              {% endfor %}
             </div>
           {% endif %}
         </div>
         <div class="card-footer d-flex">
           {% if import_transactions_task.status == 'accepted' %}
             <div>
-              {% trans %}Not started yet{% endtrans %}
+              {% trans %}Not started yet{% endtrans %},
+              {% set startModalId = 'start-import_transactions_task' ~ import_transactions_task.id %}
+              <button
+                      class="btn btn-link p-0"
+                      type="button"
+                      data-toggle="modal"
+                      data-target="#{{ startModalId }}"
+                      title="{{ title|default('delete' | trans) }}"
+              >
+                {% trans %}start now{% endtrans %}
+              </button>
+              {% include 'import_transactions_task/_start_modal.html.twig' with { startModalId: startModalId } %}
             </div>
           {% endif %}
 
@@ -112,11 +127,11 @@
             </div>
           {% endif %}
 
-          <div class="flex-grow-1 d-flex justify-content-end">
-            {% if is_granted('delete', import_transactions_task) %}
+          {% if is_granted('delete', import_transactions_task) %}
+            <div class="flex-grow-1 d-flex justify-content-end">
               {% include 'import_transactions_task/_delete_form.html.twig' %}
-            {% endif %}
-          </div>
+            </div>
+          {% endif %}
         </div>
       </div>
     {% else %}

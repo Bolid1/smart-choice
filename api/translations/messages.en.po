@@ -301,3 +301,9 @@ msgstr "can manage"
 
 msgid "transactions imports"
 msgstr "transactions imports"
+
+msgid "start now"
+msgstr "start now"
+
+msgid "Are you sure you want to start this task?"
+msgstr "Are you sure you want to start this task?"

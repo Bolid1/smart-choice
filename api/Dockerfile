@@ -23,6 +23,7 @@ RUN apk add --no-cache \
 ARG APP_ENV=prod
 ARG APCU_VERSION=5.1.18
 ARG XDEBUG_VERSION=2.9.6
+ARG AMQP_VERSION=1.10.0
 RUN set -eux; \
     apk add --no-cache --virtual .build-deps \
         $PHPIZE_DEPS \
@@ -30,6 +31,7 @@ RUN set -eux; \
         libzip-dev \
         postgresql-dev \
         zlib-dev \
+        rabbitmq-c-dev \
     ; \
     \
     docker-php-ext-configure zip; \
@@ -41,12 +43,14 @@ RUN set -eux; \
     pecl install \
         apcu-${APCU_VERSION} \
         xdebug-${XDEBUG_VERSION} \
+        amqp-${AMQP_VERSION} \
     ; \
     pecl clear-cache; \
     docker-php-ext-enable \
         apcu \
         opcache \
         xdebug \
+        amqp \
     ; \
     \
     runDeps="$( \

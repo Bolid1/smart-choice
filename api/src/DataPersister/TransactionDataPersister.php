@@ -39,14 +39,26 @@ class TransactionDataPersister implements DataPersisterInterface
      */
     public function persist($transaction): Transaction
     {
-        if (!$this->manager->contains($transaction)) {
-            $this->manager->persist($transaction);
-        }
+        $this->justPersist($transaction);
 
         $this->manager->flush();
         $this->manager->refresh($transaction);
 
         return $transaction;
+    }
+
+    public function justPersist(Transaction $transaction): Transaction
+    {
+        if (!$this->manager->contains($transaction)) {
+            $this->manager->persist($transaction);
+        }
+
+        return $transaction;
+    }
+
+    public function flush(): void
+    {
+        $this->manager->flush();
     }
 
     /**

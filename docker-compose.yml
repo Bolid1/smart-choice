@@ -53,5 +53,8 @@ services:
         published: 5432
         protocol: tcp
 
+  queue:
+    image: rabbitmq:3-alpine
+
 volumes:
   db-data: {}

@@ -11,10 +11,12 @@ use App\Repository\ImportTransactionsTaskRepository;
 use App\Security\CompanyVoter;
 use App\Security\ImportTransactionsTaskVoter;
 use App\ValueObject\Pagination;
+use DateTimeImmutable;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -94,6 +96,28 @@ class ImportTransactionsTaskController extends AbstractController
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/{id}", name="import_transactions_task_start", methods={"PATCH"})
+     * @IsGranted(ImportTransactionsTaskVoter::EDIT, subject="importTransactionsTask")
+     *
+     * @param \App\Entity\Company $company
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \App\Entity\ImportTransactionsTask $importTransactionsTask
+     * @param \Symfony\Component\Messenger\MessageBusInterface $bus
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function start(Company $company, Request $request, ImportTransactionsTask $importTransactionsTask, MessageBusInterface $bus): Response
+    {
+        if ($this->isCsrfTokenValid('start'.$importTransactionsTask->getId(), $request->request->get('_token'))) {
+            $importTransactionsTask->setScheduledTime(new DateTimeImmutable());
+            $this->getDoctrine()->getManager()->flush();
+            $bus->dispatch(new \App\Message\ImportTransactionsTask($importTransactionsTask->getId()));
+        }
+
+        return $this->redirectToRoute('company_import_transactions_tasks', ['company' => $company->getId()]);
     }
 
     /**

@@ -139,6 +139,10 @@
       <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/api/vendor/twig/intl-extra" />
       <path value="$PROJECT_DIR$/api/vendor/twig/extra-bundle" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/messenger" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/amqp-messenger" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/doctrine-messenger" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/redis-messenger" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

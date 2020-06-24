@@ -320,4 +320,34 @@ class ImportTransactionsTask
 
         return $this;
     }
+
+    /**
+     * @return ImportTransactionsTask
+     */
+    public function onStart(): self
+    {
+        $this->failedToImport = $this->successfullyImported = 0;
+        $this->startTime = new DateTimeImmutable();
+        $this->status = static::STATUS_STARTED;
+        $this->errors = [];
+
+        return $this;
+    }
+
+    /**
+     * @param array $errors
+     *
+     * @return ImportTransactionsTask
+     */
+    public function onFinish(?array $errors = null): self
+    {
+        $this->endTime = new DateTimeImmutable();
+        $this->status = static::STATUS_FINISHED;
+
+        if ($errors) {
+            $this->errors = \array_merge($this->errors, $errors);
+        }
+
+        return $this;
+    }
 }

@@ -46,15 +46,15 @@ class ImportTransactionsTaskVoter extends Voter
         switch ($attribute) {
             case self::CREATE:
             case self::VIEW:
-            case self::EDIT:
                 return
                     // User can manage imports in his companies
                     null !== $task->company->getRightOf($user);
+            case self::EDIT:
             case self::DELETE:
                 return
                     // User can manage imports in his companies
                     null !== $task->company->getRightOf($user)
-                    // User can't cancel task in progress
+                    // User can't change task in progress
                     && ImportTransactionsTask::STATUS_STARTED !== $task->status;
         }
 

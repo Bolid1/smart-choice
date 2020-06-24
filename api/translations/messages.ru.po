@@ -305,3 +305,9 @@ msgstr "можете управлять"
 
 msgid "transactions imports"
 msgstr "импортом транзакций"
+
+msgid "start now"
+msgstr "запустить сейчас"
+
+msgid "Are you sure you want to start this task?"
+msgstr "Вы уверены, что хотите запустить задачу?"
