@@ -41,6 +41,9 @@ class InvitationSecretEncoderTest extends TestCase
         $this->assertSame($expected, $this->encoder->encodeSecret($invitation, $plain));
     }
 
+    /**
+     * @covers \App\Security\InvitationSecretEncoder::isSecretValid
+     */
     public function testIsSecretValid(): void
     {
         $invitation = new Invitation();
@@ -59,6 +62,9 @@ class InvitationSecretEncoderTest extends TestCase
         $this->assertTrue($this->encoder->isSecretValid($invitation, $raw));
     }
 
+    /**
+     * @covers \App\Security\InvitationSecretEncoder::needsRehash
+     */
     public function testNeedsRehash(): void
     {
         $invitation = new Invitation();

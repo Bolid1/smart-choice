@@ -11,6 +11,9 @@ use JsonException;
 class ViewImportTransactionsTaskActionTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\ImportTransactionsTaskVoter::supports()
+     * @covers \App\Security\ImportTransactionsTaskVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -47,6 +50,9 @@ class ViewImportTransactionsTaskActionTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\ImportTransactionsTaskVoter::supports()
+     * @covers \App\Security\ImportTransactionsTaskVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      * @throws JsonException
      */

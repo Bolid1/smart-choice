@@ -41,7 +41,7 @@ class TransactionDataPersister implements DataPersisterInterface
     {
         $this->justPersist($transaction);
 
-        $this->manager->flush();
+        $this->flush();
         $this->manager->refresh($transaction);
 
         return $transaction;

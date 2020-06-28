@@ -16,6 +16,8 @@ class TransactionAffectsAccountBalanceApiTest extends ApiTestCase
      * @covers \App\DataPersister\TransactionDataPersister::__construct()
      * @covers \App\DataPersister\TransactionDataPersister::supports()
      * @covers \App\DataPersister\TransactionDataPersister::persist()
+     * @covers \App\DataPersister\TransactionDataPersister::justPersist()
+     * @covers \App\DataPersister\TransactionDataPersister::flush()
      *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
@@ -50,6 +52,8 @@ class TransactionAffectsAccountBalanceApiTest extends ApiTestCase
      * @covers \App\DataPersister\TransactionDataPersister::__construct()
      * @covers \App\DataPersister\TransactionDataPersister::supports()
      * @covers \App\DataPersister\TransactionDataPersister::persist()
+     * @covers \App\DataPersister\TransactionDataPersister::justPersist()
+     * @covers \App\DataPersister\TransactionDataPersister::flush()
      *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
@@ -99,6 +103,8 @@ class TransactionAffectsAccountBalanceApiTest extends ApiTestCase
      * @covers \App\DataPersister\TransactionDataPersister::__construct()
      * @covers \App\DataPersister\TransactionDataPersister::supports()
      * @covers \App\DataPersister\TransactionDataPersister::persist()
+     * @covers \App\DataPersister\TransactionDataPersister::justPersist()
+     * @covers \App\DataPersister\TransactionDataPersister::flush()
      *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */

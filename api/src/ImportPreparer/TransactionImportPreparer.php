@@ -8,6 +8,7 @@ use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Converter\AccountConverter;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\NullLogger;
 
 class TransactionImportPreparer implements LoggerAwareInterface
 {
@@ -28,6 +29,7 @@ class TransactionImportPreparer implements LoggerAwareInterface
     ) {
         $this->accountConverter = $accountConverter;
         $this->converter = $converter;
+        $this->logger = new NullLogger();
     }
 
     public function prepare(array $data, array $context): array

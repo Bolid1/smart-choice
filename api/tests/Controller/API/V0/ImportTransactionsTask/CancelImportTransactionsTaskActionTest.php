@@ -10,6 +10,9 @@ use App\Test\ApiTestCase;
 class CancelImportTransactionsTaskActionTest extends ApiTestCase
 {
     /**
+     * @covers \App\Security\ImportTransactionsTaskVoter::supports()
+     * @covers \App\Security\ImportTransactionsTaskVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testCancelImportTransactionsTask(): void
@@ -28,6 +31,9 @@ class CancelImportTransactionsTaskActionTest extends ApiTestCase
     }
 
     /**
+     * @covers \App\Security\ImportTransactionsTaskVoter::supports()
+     * @covers \App\Security\ImportTransactionsTaskVoter::voteOnAttribute()
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function testCancelImportTransactionsTaskInAnotherAccount(): void

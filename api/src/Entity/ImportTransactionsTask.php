@@ -286,7 +286,7 @@ class ImportTransactionsTask
      */
     public function getStartTime(): ?DateTimeImmutable
     {
-        return $this->startTime;
+        return $this->startTime ?? null;
     }
 
     /**
@@ -306,7 +306,7 @@ class ImportTransactionsTask
      */
     public function getEndTime(): ?DateTimeImmutable
     {
-        return $this->endTime;
+        return $this->endTime ?? null;
     }
 
     /**
@@ -345,7 +345,7 @@ class ImportTransactionsTask
         $this->status = static::STATUS_FINISHED;
 
         if ($errors) {
-            $this->errors = \array_merge($this->errors, $errors);
+            $this->errors = \array_merge((array)$this->errors, $errors);
         }
 
         return $this;
