@@ -121,6 +121,7 @@ jobs:
           apk add \
             $PHPIZE_DEPS \
             postgresql-dev \
+            rabbitmq-c-dev \
           ;
           docker-php-ext-install -j$(nproc) \
             pdo_pgsql \
@@ -220,6 +221,7 @@ jobs:
           apk add \
             $PHPIZE_DEPS \
             postgresql-dev \
+            rabbitmq-c-dev \
           ;
           docker-php-ext-install -j$(nproc) \
             pdo_pgsql \
