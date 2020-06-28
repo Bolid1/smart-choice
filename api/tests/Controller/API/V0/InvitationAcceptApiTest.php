@@ -11,7 +11,7 @@ use App\Test\ApiTestCase;
 class InvitationAcceptApiTest extends ApiTestCase
 {
     /**
-     * @covers \App\Controller\API\V0\AcceptInvitation::__invoke()
+     * @covers \App\Controller\API\V0\AcceptInvitationAction::__invoke()
      * @covers \App\Security\InvitationVoter::__construct()
      * @covers \App\Security\InvitationVoter::supports()
      * @covers \App\Security\InvitationVoter::voteOnAttribute()

@@ -213,6 +213,30 @@ class Company
         return $this->accounts;
     }
 
+    public function getAccountByName(string $name): ?Account
+    {
+        /** @var Account $account */
+        foreach ($this->accounts as $account) {
+            if ($account->getName() === $name) {
+                return $account;
+            }
+        }
+
+        return null;
+    }
+
+    public function getAccountById(string $id): ?Account
+    {
+        /** @var Account $account */
+        foreach ($this->accounts as $account) {
+            if ($id === (string)$account->getId()) {
+                return $account;
+            }
+        }
+
+        return null;
+    }
+
     public function addAccount(Account $account): self
     {
         if (!$this->accounts->contains($account)) {

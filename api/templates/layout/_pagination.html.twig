@@ -11,7 +11,7 @@
 
     <div class="btn-group mr-2" role="group" aria-label="Second group">
       {% for p in pagination.closest(8) %}
-        {% set from_current = (p - page) | abs %}
+        {% set from_current = (p - pagination.page) | abs %}
 
         {% set show_mobile = from_current < 3 %}
         {% set show_tablet = from_current < 6 %}
@@ -20,7 +20,7 @@
                       btn btn-link d-lg-inline-block
                       {% if not show_mobile %}d-none{% endif %}
                       {% if show_tablet %}d-md-inline-block{% endif %}
-                      {% if p == page %}disabled{% endif %}
+                      {% if p == pagination.page %}disabled{% endif %}
                     "
                 href="{{ path('company_transactions', {company: company.id, page: p}) }}"
         >{{ p }}</a>
@@ -28,11 +28,11 @@
     </div>
 
     <a
-            href="{{ path('company_transactions', {company: company.id, page: page + 1}) }}"
+            href="{{ path('company_transactions', {company: company.id, page: pagination.page + 1}) }}"
             class="btn btn-link mr-2 {% if not pagination.next %}disabled{% endif %}"
     >></a>
     <a
-            href="{{ path('company_transactions', {company: company.id, page: total_pages}) }}"
+            href="{{ path('company_transactions', {company: company.id, page: pagination.pages}) }}"
             class="btn btn-link mr-2 {% if not pagination.next %}disabled{% endif %}"
     >{% trans %}end{% endtrans %}</a>
   </div>

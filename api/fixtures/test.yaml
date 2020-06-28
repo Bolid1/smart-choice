@@ -78,3 +78,17 @@ App\Entity\Transaction:
     account: '@account_another_company'
     date: '<dateTimeBetween("-10 days", "now")>'
     amount: '<randomFloat(2, 1, 10000)>'
+
+App\Entity\ImportTransactionsTask:
+  account_company_import_transactions_task:
+    company: '@company'
+    user: '@admin'
+    data: '{"account":"Salary card","date":"2020-06-21 21:38"}'
+    mimeType: 'json'
+    scheduledTime: '<dateTimeBetween("now", "+10 minutes")>'
+  account_another_company_import_transactions_task:
+    company: '@another_company'
+    user: '@another_admin'
+    data: '{"account":"Another card","date":"2020-06-21 21:38"}'
+    mimeType: 'json'
+    scheduledTime: '<dateTimeBetween("now", "+10 minutes")>'

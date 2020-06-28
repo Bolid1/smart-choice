@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+  {{ form_widget(form) }}
+
+  <div class="form-group">
+    <button id="submit" class="btn btn-primary" type="submit">
+      {% if import_transactions_task.id %}
+        {% trans %}Save changes{% endtrans %}
+      {% else %}
+        {% trans %}Create task for import transactions{% endtrans %}
+      {% endif %}
+    </button>
+    {% if import_transactions_task.id and is_granted('delete', import_transactions_task) %}
+      <button
+              class="btn btn-danger"
+              type="button"
+              data-toggle="modal"
+              data-target="#{{ 'import_transactions_task' ~ import_transactions_task.id }}"
+      >
+        {% trans %}Delete{% endtrans %}
+      </button>
+    {% endif %}
+  </div>
+{{ form_end(form) }}
+
+{% if import_transactions_task.id and is_granted('delete', import_transactions_task) %}
+  {{ include('import_transactions_task/_delete_modal.html.twig') }}
+{% endif %}

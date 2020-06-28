@@ -13,6 +13,7 @@ env:
   COMPOSER_INSTALLER_COMMIT: fb22b78362d31c0d2bf516d1f8cdfd2745caa431
   COVERAGE: '0'
   XDEBUG_VERSION: '2.9.6'
+  AMQP_VERSION: '1.10.0'
   SYMFONY_PHPUNIT_VERSION: '8.5'
   SYMFONY_DEPRECATIONS_HELPER: 'disabled'
 
@@ -120,15 +121,18 @@ jobs:
           apk add \
             $PHPIZE_DEPS \
             postgresql-dev \
+            rabbitmq-c-dev \
           ;
           docker-php-ext-install -j$(nproc) \
             pdo_pgsql \
           ; \
           pecl install \
             xdebug-${XDEBUG_VERSION} \
+            amqp-${AMQP_VERSION} \
           ; \
           docker-php-ext-enable \
             xdebug \
+            amqp \
           ;
       - name: Disable PHP memory limit
         run: echo 'memory_limit=-1' >> /usr/local/etc/php/php.ini
@@ -217,15 +221,18 @@ jobs:
           apk add \
             $PHPIZE_DEPS \
             postgresql-dev \
+            rabbitmq-c-dev \
           ;
           docker-php-ext-install -j$(nproc) \
             pdo_pgsql \
           ; \
           pecl install \
             xdebug-${XDEBUG_VERSION} \
+            amqp-${AMQP_VERSION} \
           ; \
           docker-php-ext-enable \
             xdebug \
+            amqp \
           ;
       - name: Disable PHP memory limit
         run: echo 'memory_limit=-1' >> /usr/local/etc/php/php.ini

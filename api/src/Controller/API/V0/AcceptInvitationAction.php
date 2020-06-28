@@ -16,14 +16,14 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @IsGranted("accept", subject="data")
  */
-class AcceptInvitation
+class AcceptInvitationAction
 {
     private InvitationAcceptor $acceptor;
     private Security $security;
     private ValidatorInterface $validator;
 
     /**
-     * AcceptInvitation constructor.
+     * AcceptInvitationAction constructor.
      *
      * @param InvitationAcceptor $acceptor
      * @param ValidatorInterface $validator

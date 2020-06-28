@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Import transactions tasks{% endblock %}
+
+{% block main_content %}
+  <div class="card mb-2">
+    <div class="card-body">
+      <p>
+        {% trans %}Import transactions page info.{% endtrans %}
+      </p>
+
+      {% if is_granted('pre_create_import_transactions_task', company) %}
+        <p>
+          {% trans %}You can add{% endtrans %}
+          <a href="{{ path('import_transactions_task_new', {company: company.id}) }}">
+            {% trans %}(You can add) a new import task{% endtrans %}
+          </a>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if pagination.pages > 1 %} {% include 'layout/_pagination.html.twig' %} {% endif %}
+
+  <div>
+    {% for import_transactions_task in import_transactions_tasks %}
+      <div class="card mb-2">
+        <div
+                class="card-header"
+                data-toggle="tooltip"
+                data-placement="right"
+                title="{{ import_transactions_task.scheduledTime|format_datetime('medium') }}"
+        >
+          {% trans %}Scheduled{% endtrans %}
+          {% if import_transactions_task.scheduledTime < date() %}
+            {{ import_transactions_task.scheduledTime|date_ago }} {% trans %}ago{% endtrans %}
+          {% else %}
+            {% trans %}after{% endtrans %} {{ import_transactions_task.scheduledTime|date_ago }}
+          {% endif %}
+        </div>
+        <div class="card-body row">
+          <div class="col-4">
+            <p>{% trans %}Successfully imported{% endtrans %}: {{ import_transactions_task.successfullyImported }}</p>
+            <p>{% trans %}Failed to import{% endtrans %}: {{ import_transactions_task.failedToImport }}</p>
+          </div>
+
+          <div class="col-4">
+            {% set collapseId = 'collapse' ~ import_transactions_task.id %}
+            <button
+                    class="btn btn-primary"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#{{ collapseId }}"
+                    aria-expanded="false"
+                    aria-controls="{{ collapseId }}"
+            >
+              {% trans %}Show content{% endtrans %} ({{ import_transactions_task.mimeType }})
+            </button>
+          </div>
+          <div class="col-4">
+            {% if import_transactions_task.errors %}
+              {% set errorsId = 'errors' ~ import_transactions_task.id %}
+              <button
+                      class="btn btn-danger"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#{{ errorsId }}"
+                      aria-expanded="false"
+                      aria-controls="{{ errorsId }}"
+              >
+                {% trans %}Show errors{% endtrans %} ({{ import_transactions_task.mimeType }})
+              </button>
+            {% endif %}
+          </div>
+          <div class="collapse col-12 bg-light" id="{{ collapseId }}">
+            <pre class="m-0 p-4">{{ import_transactions_task.data|trim() }}</pre>
+          </div>
+          {% if import_transactions_task.errors %}
+            <div class="collapse col-12" id="{{ errorsId }}">
+              {% for line, error in import_transactions_task.errors %}
+                <div class="alert alert-danger" role="alert">
+                  #{{ line }}: {{ error|trans }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <div class="card-footer d-flex">
+          {% if import_transactions_task.status == 'accepted' %}
+            <div>
+              {% trans %}Not started yet{% endtrans %},
+              {% set startModalId = 'start-import_transactions_task' ~ import_transactions_task.id %}
+              <button
+                      class="btn btn-link p-0"
+                      type="button"
+                      data-toggle="modal"
+                      data-target="#{{ startModalId }}"
+                      title="{{ title|default('delete' | trans) }}"
+              >
+                {% trans %}start now{% endtrans %}
+              </button>
+              {% include 'import_transactions_task/_start_modal.html.twig' with { startModalId: startModalId } %}
+            </div>
+          {% endif %}
+
+          {% if import_transactions_task.status in ['started', 'finished'] %}
+            <div class="mr-2">
+              {% trans %}Started{% endtrans %}
+              {% if import_transactions_task.startTime %}
+                <span data-toggle="tooltip" data-placement="right">
+                  {{ import_transactions_task.startTime|date_ago }}
+                </span>
+                {% trans %}ago{% endtrans %}
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if import_transactions_task.status == 'finished' %}
+            <div>
+              {% trans %}Finished{% endtrans %}
+              {% if import_transactions_task.endTime %}
+                <span data-toggle="tooltip" data-placement="right">
+                  {{ import_transactions_task.endTime|date_ago }}
+                </span>
+                {% trans %}ago{% endtrans %}
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if is_granted('delete', import_transactions_task) %}
+            <div class="flex-grow-1 d-flex justify-content-end">
+              {% include 'import_transactions_task/_delete_form.html.twig' %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <h4>{% trans %}You have not created any tasks yet{% endtrans %}</h4>
+    {% endfor %}
+  </div>
+
+  {% if pagination.pages > 1 %} {% include 'layout/_pagination.html.twig' %} {% endif %}
+{% endblock %}
