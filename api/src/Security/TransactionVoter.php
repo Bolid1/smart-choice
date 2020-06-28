@@ -52,8 +52,9 @@ class TransactionVoter extends Voter
             case self::EDIT:
             case self::DELETE:
                 return
+                    $account
                     // Transfer between companies are forbidden
-                    $transaction->getCompany() === $account->getCompany()
+                    && $transaction->getCompany() === $account->getCompany()
                     // User can view, edit and delete transactions of his company
                     && $isUserInCompany;
         }

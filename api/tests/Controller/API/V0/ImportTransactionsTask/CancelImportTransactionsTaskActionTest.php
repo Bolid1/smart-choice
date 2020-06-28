@@ -12,6 +12,9 @@ class CancelImportTransactionsTaskActionTest extends ApiTestCase
     /**
      * @covers \App\Security\ImportTransactionsTaskVoter::supports()
      * @covers \App\Security\ImportTransactionsTaskVoter::voteOnAttribute()
+     * @covers \App\DataPersister\ImportTransactionsTaskDataPersister::__construct()
+     * @covers \App\DataPersister\ImportTransactionsTaskDataPersister::supports()
+     * @covers \App\DataPersister\ImportTransactionsTaskDataPersister::remove()
      *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */

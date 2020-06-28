@@ -172,12 +172,12 @@ class ImportTransactionsTask
     public User $user;
 
     /**
-     * Task process should be started at.
+     * Task process was started at.
      *
      * @ApiProperty(iri="https://schema.org/scheduledTime")
      *
      * @ORM\Column(type="datetimetz_immutable", options={"comment": "Task process should be started at"})
-     * @Groups({"import_transactions_task:read", "import_transactions_task:create", "import_transactions_task:edit"})
+     * @Groups({"import_transactions_task:read"})
      *
      * @Assert\Type(DateTimeImmutable::class)
      */
@@ -319,6 +319,11 @@ class ImportTransactionsTask
         $this->endTime = DateTimeHelper::toImmutable($endTime);
 
         return $this;
+    }
+
+    public function beforeSchedule(): void
+    {
+        $this->scheduledTime = new DateTimeImmutable();
     }
 
     /**

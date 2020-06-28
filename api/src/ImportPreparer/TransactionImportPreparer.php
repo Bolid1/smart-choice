@@ -6,6 +6,7 @@ namespace App\ImportPreparer;
 
 use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Converter\AccountConverter;
+use App\Entity\Company;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
@@ -55,6 +56,10 @@ class TransactionImportPreparer implements LoggerAwareInterface
 
         if (empty($data['date'])) {
             unset($data['date']);
+        }
+
+        if (isset($context['company']) && $context['company'] instanceof Company) {
+            $data['company'] = $this->converter->getIriFromItem($context['company']);
         }
 
         $this->logger->info('Prepared data', \compact('data'));

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\MessageHandler;
 
+use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
+use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\DataPersister\TransactionDataPersister;
 use App\Entity\Transaction;
 use App\ImportPreparer\TransactionImportPreparer;
@@ -28,29 +30,34 @@ class ImportTransactionsTaskHandler implements MessageHandlerInterface, LoggerAw
     private TransactionVoter $voter;
     private TransactionImportPreparer $preparer;
     private TransactionDataPersister $persister;
+    private ValidatorInterface $validator;
 
     /**
      * ImportTransactionsTaskHandler constructor.
      *
-     * @param \App\Repository\ImportTransactionsTaskRepository $repository
-     * @param \App\Serializer\EntitySerializer $serializer
-     * @param \App\Security\TransactionVoter $voter
-     * @param \App\ImportPreparer\TransactionImportPreparer $preparer
-     * @param \App\DataPersister\TransactionDataPersister $persister
+     * @param ImportTransactionsTaskRepository $repository
+     * @param EntitySerializer $serializer
+     * @param TransactionVoter $voter
+     * @param TransactionImportPreparer $preparer
+     * @param TransactionDataPersister $persister
+     * @param ValidatorInterface $validator
      */
     public function __construct(
         ImportTransactionsTaskRepository $repository,
         EntitySerializer $serializer,
         TransactionVoter $voter,
         TransactionImportPreparer $preparer,
-        TransactionDataPersister $persister
+        TransactionDataPersister $persister,
+        ValidatorInterface $validator
     ) {
         $this->repository = $repository;
         $this->serializer = $serializer;
         $this->voter = $voter;
         $this->preparer = $preparer;
         $this->persister = $persister;
+        $this->validator = $validator;
     }
+
 
     public function __invoke(ImportTransactionsTask $message)
     {
@@ -74,6 +81,8 @@ class ImportTransactionsTaskHandler implements MessageHandlerInterface, LoggerAw
         $format = $task->mimeType;
         /** @noinspection PhpUnhandledExceptionInspection */
         $context = $this->serializer->createContext(Transaction::class, 'post', $format);
+        $this->logger->debug('Context for creation', $context);
+
         $data = $this->serializer->decode($task->data, $format, $context);
 
         if (!\is_array(\reset($data))) {
@@ -85,11 +94,23 @@ class ImportTransactionsTaskHandler implements MessageHandlerInterface, LoggerAw
             try {
                 $item = $this->preparer->prepare($item, ['company' => $task->company]);
                 $transaction = $this->createTransaction($item, $format, $context);
+                $this->validator->validate($transaction, $context);
+
                 if (!$this->isGranted($token, TransactionVoter::CREATE, $transaction)) {
                     throw new UnexpectedValueException('You have no rights for create such transaction.');
                 }
                 $this->persister->justPersist($transaction);
                 ++$task->successfullyImported;
+            } catch (ValidationException $exception) {
+                $this->handleException($exception, $task);
+                $violations = $exception->getConstraintViolationList();
+                $errors = [];
+                /** @var \Symfony\Component\Validator\ConstraintViolationInterface $error */
+                foreach ($violations as $error) {
+                    $errors[] = $error->getMessage();
+                }
+
+                $task->errors[$key] = \implode('; ', $errors);
             } catch (UnexpectedValueException $exception) {
                 $this->handleException($exception, $task);
                 $task->errors[$key] = $exception->getMessage();

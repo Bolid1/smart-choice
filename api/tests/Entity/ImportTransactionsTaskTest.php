@@ -51,6 +51,18 @@ class ImportTransactionsTaskTest extends TestCase
     }
 
     /**
+     * @covers \App\Entity\ImportTransactionsTask::beforeSchedule()
+     */
+    public function testBeforeSchedule(): void
+    {
+        $this->assertNull($this->task->getScheduledTime());
+
+        $this->task->beforeSchedule();
+
+        $this->assertEquals(\time(), $this->task->getScheduledTime()->getTimestamp());
+    }
+
+    /**
      * @covers \App\Entity\ImportTransactionsTask::onStart()
      */
     public function testOnStart(): void

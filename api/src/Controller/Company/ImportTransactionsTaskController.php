@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Controller\Company;
 
+use App\DataPersister\ImportTransactionsTaskDataPersister;
 use App\Entity\Company;
 use App\Entity\ImportTransactionsTask;
 use App\Form\ImportTransactionsTaskType;
 use App\Repository\ImportTransactionsTaskRepository;
 use App\Security\CompanyVoter;
 use App\Security\ImportTransactionsTaskVoter;
+use App\Service\TaskStarter;
 use App\ValueObject\Pagination;
-use DateTimeImmutable;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -59,12 +59,13 @@ class ImportTransactionsTaskController extends AbstractController
      * @Route("/new", name="import_transactions_task_new", methods={"GET","POST"})
      * @IsGranted(ImportTransactionsTaskVoter::PRE_CREATE, subject="company")
      *
-     * @param \App\Entity\Company $company
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Company $company
+     * @param Request $request
+     * @param ImportTransactionsTaskDataPersister $persister
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function new(Company $company, Request $request): Response
+    public function new(Company $company, Request $request, ImportTransactionsTaskDataPersister $persister): Response
     {
         $importTransactionsTask = new ImportTransactionsTask();
         $importTransactionsTask->company = $company;
@@ -81,9 +82,7 @@ class ImportTransactionsTaskController extends AbstractController
                 $importTransactionsTask
             )
         ) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($importTransactionsTask);
-            $entityManager->flush();
+            $persister->persist($importTransactionsTask);
 
             return $this->redirectToRoute('company_import_transactions_tasks', ['company' => $company->getId()]);
         }
@@ -102,19 +101,17 @@ class ImportTransactionsTaskController extends AbstractController
      * @Route("/{id}", name="import_transactions_task_start", methods={"PATCH"})
      * @IsGranted(ImportTransactionsTaskVoter::EDIT, subject="importTransactionsTask")
      *
-     * @param \App\Entity\Company $company
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \App\Entity\ImportTransactionsTask $importTransactionsTask
-     * @param \Symfony\Component\Messenger\MessageBusInterface $bus
+     * @param Company $company
+     * @param Request $request
+     * @param ImportTransactionsTask $importTransactionsTask
+     * @param TaskStarter $starter
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function start(Company $company, Request $request, ImportTransactionsTask $importTransactionsTask, MessageBusInterface $bus): Response
+    public function start(Company $company, Request $request, ImportTransactionsTask $importTransactionsTask, TaskStarter $starter): Response
     {
         if ($this->isCsrfTokenValid('start'.$importTransactionsTask->getId(), $request->request->get('_token'))) {
-            $importTransactionsTask->setScheduledTime(new DateTimeImmutable());
-            $this->getDoctrine()->getManager()->flush();
-            $bus->dispatch(new \App\Message\ImportTransactionsTask($importTransactionsTask->getId()));
+            $starter->start($importTransactionsTask);
         }
 
         return $this->redirectToRoute('company_import_transactions_tasks', ['company' => $company->getId()]);

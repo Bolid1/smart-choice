@@ -14,6 +14,9 @@ class CreateImportTransactionsTaskActionTest extends ApiTestCase
     /**
      * @covers \App\Security\ImportTransactionsTaskVoter::supports()
      * @covers \App\Security\ImportTransactionsTaskVoter::voteOnAttribute()
+     * @covers \App\DataPersister\ImportTransactionsTaskDataPersister::__construct()
+     * @covers \App\DataPersister\ImportTransactionsTaskDataPersister::supports()
+     * @covers \App\DataPersister\ImportTransactionsTaskDataPersister::persist()
      *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
@@ -51,7 +54,6 @@ class CreateImportTransactionsTaskActionTest extends ApiTestCase
                               JSON_THROW_ON_ERROR
                           ),
                           'mimeType' => 'json',
-                          'scheduledTime' => \date(DateTimeInterface::RFC3339),
                       ],
                   ]
               )
