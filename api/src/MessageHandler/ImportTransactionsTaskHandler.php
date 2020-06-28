@@ -58,7 +58,6 @@ class ImportTransactionsTaskHandler implements MessageHandlerInterface, LoggerAw
         $this->validator = $validator;
     }
 
-
     public function __invoke(ImportTransactionsTask $message)
     {
         $taskId = $message->getTaskId();
