@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+  {{ form_widget(form) }}
+
+  <div class="form-group">
+    <button id="submit" class="btn btn-primary" type="submit">
+      {% if category.id %}
+        {% trans %}Save changes{% endtrans %}
+      {% else %}
+        {% trans %}Create category{% endtrans %}
+      {% endif %}
+    </button>
+    {% if category.id and is_granted('delete', category) %}
+      <button
+              class="btn btn-danger"
+              type="button"
+              data-toggle="modal"
+              data-target="#{{ 'category' ~ category.id }}"
+      >
+        {% trans %}Delete{% endtrans %}
+      </button>
+    {% endif %}
+  </div>
+{{ form_end(form) }}
+
+{% if category.id and is_granted('delete', category) %}
+  {{ include('category/_delete_modal.html.twig') }}
+{% endif %}

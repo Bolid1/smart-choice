@@ -196,12 +196,19 @@ class Nested extends \Gedmo\Tree\Strategy\ORM\Nested
                 $wrapped->setPropertyValue($config['right'], $right);
             }
             $newRoot = $parentRoot;
+            // @FIXME: Changes here!
+            $newRootHash = \is_object($newRoot) ? \spl_object_hash($newRoot) : $newRoot;
+            if (isset($this->treeEdges[$meta->name][$newRootHash])) {
+                $this->treeEdges[$meta->name][$newRootHash] += 2;
+            }
+            // Changes end
         } elseif (
             !isset($config['root'])
             || ($meta->isSingleValuedAssociation($config['root'])
                 && ($newRoot =
                     $meta->getFieldValue($node, $config['root'])))
         ) {
+            // @FIXME: Changes here!
             $newRootHash = \is_object($newRoot) ? \spl_object_hash($newRoot) : $newRoot;
 
             if (!isset($this->treeEdges[$meta->name][$newRootHash])) {
@@ -213,6 +220,7 @@ class Nested extends \Gedmo\Tree\Strategy\ORM\Nested
             $parentLeft = 0;
             $parentRight = $this->treeEdges[$meta->name][$newRootHash];
             $this->treeEdges[$meta->name][$newRootHash] += 2;
+            // Changes end
 
             switch ($position) {
                 case self::PREV_SIBLING:

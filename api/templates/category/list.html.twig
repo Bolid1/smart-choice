@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block main_content %}
+  <div class="card">
+    <div class="card-body">
+      <p>
+        {% trans %}Categories page info.{% endtrans %}
+      </p>
+
+      {% if is_granted('pre_create_category', company) %}
+        <p>
+          {% trans %}You can add{% endtrans %}
+          <a href="{{ path('category_new', {company: company.id}) }}">
+            {% trans %}new category{% endtrans %}
+          </a>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for category in categories %}
+      <tr>
+        <td>
+          {% for i in 0..category.level %}
+            {% if i > 0 %}
+              -
+            {% endif %}
+          {% endfor %}
+          {{ category.name }}
+        </td>
+        <td>
+          {% if is_granted('edit', category) %}
+            <a href="{{ path('category_edit', {id: category.id, company: company.id}) }}">
+              {% include 'icons/_pencil.svg.twig' %}
+            </a>
+          {% endif %}
+          {% if is_granted('delete', category) %}
+            {% include 'category/_delete_form.html.twig' %}
+          {% endif %}
+        </td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="2">no records found</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

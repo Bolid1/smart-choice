@@ -106,9 +106,15 @@ class Company
     private Collection $accounts;
 
     /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="company", orphanRemoval=true)
+     * @ORM\OrderBy({"left" = "ASC"})
+     */
+    private Collection $categories;
+
+    /**
      * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="company", orphanRemoval=true)
      */
-    private $transactions;
+    private Collection $transactions;
 
     public function __construct()
     {
@@ -203,6 +209,14 @@ class Company
     public function getInvitations(): Collection
     {
         return $this->invitations;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
     }
 
     /**

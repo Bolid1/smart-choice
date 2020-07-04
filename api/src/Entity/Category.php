@@ -71,7 +71,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @uses \App\DataPersister\CategoryDataPersister::persist()
  * @uses \App\Security\Voter\CategoryVoter::voteOnAttribute()
  *
- * @Assert\Expression("not this.parent or this.company == this.parent.company", message="You can't transfer category to another company.")
+ * @Assert\Expression("not this.getParent() or this.company == this.getParent().company", message="You can't transfer category to another company.")
  */
 class Category
 {
@@ -99,7 +99,7 @@ class Category
      * @Assert\NotBlank()
      * @Assert\Length(min=3)
      */
-    public string $name;
+    public string $name = '';
 
     /**
      * @Gedmo\TreeLeft()
@@ -121,7 +121,7 @@ class Category
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
      * @Groups({"category:read", "category:create", "category:edit"})
      */
-    public ?Category $parent = null;
+    private ?Category $parent = null;
 
     /**
      * @Gedmo\TreeLevel()
@@ -181,6 +181,28 @@ class Category
     public function getLevel(): int
     {
         return $this->level;
+    }
+
+    /**
+     * @return Category|null
+     */
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param Category|null $parent
+     *
+     * @return \$this
+     */
+    public function setParent(?self $parent): self
+    {
+        if (!$this->parent = $parent) {
+            $this->level = 0;
+        }
+
+        return $this;
     }
 
     public function __toString(): string

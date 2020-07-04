@@ -74,6 +74,12 @@
               {% trans %}Transactions{% endtrans %}
             </a>
           </li>
+
+          <li class="nav-item {% if route_name == 'company_categories' %}active{% endif %}">
+            <a class="nav-link" href="{{ path('company_categories', {company: company.id}) }}">
+              {% trans %}Categories{% endtrans %}
+            </a>
+          </li>
         </ul>
       {% endif %}
 
