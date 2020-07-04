@@ -17,7 +17,7 @@ class CategoryType extends AbstractType
     {
         $category = $options['data'] ?? null;
         $category = $category instanceof Category ? $category : null;
-        $company = $category ? $category->company : null;
+        $company = $category && isset($category->company) ? $category->company : null;
         $categories = $company
             ? $company
                 ->getCategories()
