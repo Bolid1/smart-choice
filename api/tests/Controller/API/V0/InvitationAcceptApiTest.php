@@ -18,6 +18,8 @@ class InvitationAcceptApiTest extends ApiTestCase
      * @covers \App\DataPersister\InvitationDataPersister::__construct()
      * @covers \App\DataPersister\InvitationDataPersister::supports()
      * @covers \App\DataPersister\InvitationDataPersister::persist()
+     * @covers \App\Service\InvitationAcceptor::__construct
+     * @covers \App\Service\InvitationAcceptor::accept
      *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */

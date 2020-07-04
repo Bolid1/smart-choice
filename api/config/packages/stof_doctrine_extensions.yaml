@@ -6,3 +6,7 @@ stof_doctrine_extensions:
     default:
       blameable: true
       timestampable: true
+      tree: true
+
+  class:
+    tree: App\Doctrine\Gedmo\Tree\TreeListener
