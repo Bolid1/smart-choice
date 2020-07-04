@@ -63,6 +63,7 @@ class Nested extends \Gedmo\Tree\Strategy\ORM\Nested
 
     /**
      * {@inheritdoc}
+     *
      * @noinspection PhpParamsInspection
      */
     public function updateNode(EntityManagerInterface $em, $node, $parent, $position = 'FirstChild')
