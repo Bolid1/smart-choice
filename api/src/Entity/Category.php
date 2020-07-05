@@ -119,7 +119,7 @@ class Category
      * @Gedmo\TreeParent()
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
-     * @Groups({"category:read", "category:create", "category:edit"})
+     * @Groups({"category:read", "category:create"})
      */
     private ?Category $parent = null;
 
