@@ -92,3 +92,19 @@ App\Entity\ImportTransactionsTask:
     data: '{"account":"Another card","date":"2020-06-21 21:38"}'
     mimeType: 'json'
     scheduledTime: '<dateTimeBetween("now", "+10 minutes")>'
+
+App\Entity\Category:
+  category_company:
+    company: '@company'
+    name: 'Category'
+  sub_category_company:
+    company: '@company'
+    parent: '@category_company'
+    name: 'Children category'
+  category_another_company:
+    company: '@another_company'
+    name: 'Another category'
+  sub_category_another_company:
+    company: '@another_company'
+    parent: '@category_another_company'
+    name: 'Another children category'

@@ -109,7 +109,6 @@ msgstr "Are you sure you want to cancel this invitation?"
 msgid "No"
 msgstr "No"
 
-# Used in rights form
 msgid "Is user admin"
 msgstr "Is user admin"
 
@@ -131,25 +130,21 @@ msgstr "By opening the link, a person will be able to accept your invitation."
 msgid "Accept invitation"
 msgstr "Accept invitation"
 
-#: /srv/src/Twig/DateTimeExtension.php:39
 msgid "day"
 msgid_plural "%count% days"
 msgstr[0] "day"
 msgstr[1] "%count% days"
 
-#: /srv/src/Twig/DateTimeExtension.php:43
 msgid "hour"
 msgid_plural "%count% hours"
 msgstr[0] "hour"
 msgstr[1] "%count% hours"
 
-#: /srv/src/Twig/DateTimeExtension.php:47
 msgid "minute"
 msgid_plural "%count% minutes"
 msgstr[0] "minute"
 msgstr[1] "%count% minutes"
 
-#: /srv/src/Twig/DateTimeExtension.php:51
 msgid "second"
 msgid_plural "%count% seconds"
 msgstr[0] "second"
@@ -203,9 +198,6 @@ msgstr "As admin?"
 msgid "Yes"
 msgstr "Yes"
 
-msgid "No"
-msgstr "No"
-
 msgid "Date"
 msgstr "Date"
 
@@ -223,33 +215,6 @@ msgstr "You can add"
 
 msgid "new transaction"
 msgstr "new transaction"
-
-msgid "Transfer type"
-msgstr "Transfer type"
-
-msgid "Expense"
-msgstr "Expense"
-
-msgid "Incoming"
-msgstr "Incoming"
-
-msgid "Year"
-msgstr "Year"
-
-msgid "Month"
-msgstr "Month"
-
-msgid "Day"
-msgstr "Day"
-
-msgid "Hour"
-msgstr "Hour"
-
-msgid "Minute"
-msgstr "Minute"
-
-msgid "The date, when transaction occurred"
-msgstr "The date, when transaction occurred"
 
 msgid "Create task for import transactions"
 msgstr "Create import_transactions_task"
@@ -307,3 +272,21 @@ msgstr "start now"
 
 msgid "Are you sure you want to start this task?"
 msgstr "Are you sure you want to start this task?"
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Create category"
+msgstr "Create category"
+
+msgid "Are you sure you want to delete this category?"
+msgstr "Are you sure you want to delete this category?"
+
+msgid "Category creation"
+msgstr "Category creation"
+
+msgid "Categories page info."
+msgstr "Categories page info."
+
+msgid "new category"
+msgstr "new category"

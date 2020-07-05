@@ -17,6 +17,8 @@ class CreateImportTransactionsTaskActionTest extends ApiTestCase
      * @covers \App\DataPersister\ImportTransactionsTaskDataPersister::__construct()
      * @covers \App\DataPersister\ImportTransactionsTaskDataPersister::supports()
      * @covers \App\DataPersister\ImportTransactionsTaskDataPersister::persist()
+     * @covers \App\Service\TaskStarter::__construct
+     * @covers \App\Service\TaskStarter::start
      *
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface

@@ -73,7 +73,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @uses \App\DataPersister\TransactionDataPersister::persist()
  * @uses \App\Security\TransactionVoter::voteOnAttribute()
  *
- * @Assert\Expression("this.getCompany() == this.getAccount().getCompany()", message="You can't transfer transaction to another account.")
+ * @Assert\Expression("this.getCompany() == this.getAccount().getCompany()", message="You can't transfer transaction to another company.")
  */
 class Transaction
 {

@@ -63,3 +63,25 @@ App\Entity\Transaction:
     account: '@my_company_account_*'
     date: '<dateTimeBetween("-10 days", "now")>'
     amount: '<randomFloat(2, 100, 4000)>'
+
+App\Entity\Category:
+  category_my_company_food:
+    company: '@my_company'
+    name: 'Food'
+  category_my_company_transport:
+    company: '@my_company'
+    name: 'Transport'
+  category_my_company_taxi:
+    company: '@my_company'
+    parent: '@category_my_company_transport'
+    name: 'Taxi'
+  category_my_company_metro:
+    company: '@my_company'
+    parent: '@category_my_company_transport'
+    name: 'Metro'
+  category_my_company_entertainment:
+    company: '@my_company'
+    name: 'Entertainment'
+  category_my_company_home:
+    company: '@my_company'
+    name: 'Home'
