@@ -9,6 +9,8 @@ use App\Helper\DateTimeHelper;
 use App\Repository\TransactionRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
@@ -128,6 +130,16 @@ class Transaction
      */
     private ?DateTimeImmutable $updatedAt = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity=TransactionCategory::class, mappedBy="transaction", orphanRemoval=true)
+     */
+    private Collection $transactionCategories;
+
+    public function __construct()
+    {
+        $this->transactionCategories = new ArrayCollection();
+    }
+
     public function getId(): ?UuidInterface
     {
         return $this->id;
@@ -217,5 +229,32 @@ class Transaction
     public function removeFromAccountBeforeDelete(): void
     {
         $this->account->removeTransaction($this);
+    }
+
+    /**
+     * @return Collection|TransactionCategory[]
+     */
+    public function getTransactionCategories(): Collection
+    {
+        return $this->transactionCategories;
+    }
+
+    public function addTransactionCategory(TransactionCategory $transactionCategory): self
+    {
+        if (!$this->transactionCategories->contains($transactionCategory)) {
+            $this->transactionCategories[] = $transactionCategory;
+            $transactionCategory->setTransaction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransactionCategory(TransactionCategory $transactionCategory): self
+    {
+        if ($this->transactionCategories->contains($transactionCategory)) {
+            $this->transactionCategories->removeElement($transactionCategory);
+        }
+
+        return $this;
     }
 }

@@ -116,12 +116,18 @@ class Company
      */
     private Collection $transactions;
 
+    /**
+     * @ORM\OneToMany(targetEntity=TransactionCategory::class, mappedBy="company", orphanRemoval=true)
+     */
+    private Collection $transactionCategories;
+
     public function __construct()
     {
         $this->rights = new ArrayCollection();
         $this->invitations = new ArrayCollection();
         $this->accounts = new ArrayCollection();
         $this->transactions = new ArrayCollection();
+        $this->transactionCategories = new ArrayCollection();
     }
 
     public function getId(): ?UuidInterface
@@ -303,5 +309,13 @@ class Company
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|TransactionCategory[]
+     */
+    public function getTransactionCategories(): Collection
+    {
+        return $this->transactionCategories;
     }
 }

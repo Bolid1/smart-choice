@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace App\Test;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
+use App\Entity\Category;
 use App\Entity\Company;
+use App\Entity\Transaction;
 use App\Entity\User;
 use RuntimeException;
 
 class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase
 {
+    protected const COMPANY_NAME = 'Richards family';
+    protected const ANOTHER_COMPANY_NAME = 'Corporation LTD';
+
     /**
      * @return \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client
      *
@@ -211,5 +216,37 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
         $company = $this->findItemBy(Company::class, \compact('name'));
 
         return $company ? (string)$company->getId() : null;
+    }
+
+    protected function findTransactionByCompany(string $name): ?Transaction
+    {
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
+        return $this->findItemBy(Transaction::class, ['company' => $this->findCompanyIdBy($name)]);
+    }
+
+    protected function findTransactionIriByCompany(string $name): ?string
+    {
+        return $this->getIriFromItem($this->findTransactionByCompany($name));
+    }
+
+    protected function findCategoryByCompany(string $name): ?Category
+    {
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
+        return $this->findItemBy(Category::class, ['company' => $this->findCompanyIdBy($name)]);
+    }
+
+    protected function findCategoryIriByCompany(string $name): ?string
+    {
+        return $this->getIriFromItem($this->findCategoryByCompany($name));
+    }
+
+    protected function findByCompany(string $className, string $name = self::COMPANY_NAME): ?object
+    {
+        return $this->findItemBy($className, ['company' => $this->findCompanyIdBy($name)]);
+    }
+
+    protected function findIriByCompany(string $className, string $name = self::COMPANY_NAME): ?string
+    {
+        return $this->getIriFromItem($this->findByCompany($className, $name));
     }
 }

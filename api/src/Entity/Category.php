@@ -149,9 +149,15 @@ class Category
      */
     private ?DateTimeImmutable $updatedAt = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity=TransactionCategory::class, mappedBy="category", orphanRemoval=true)
+     */
+    private Collection $transactionCategories;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->transactionCategories = new ArrayCollection();
     }
 
     public function getId(): ?UuidInterface
@@ -208,5 +214,13 @@ class Category
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|TransactionCategory[]
+     */
+    public function getTransactionCategories(): Collection
+    {
+        return $this->transactionCategories;
     }
 }
