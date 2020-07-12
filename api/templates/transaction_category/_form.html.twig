@@ -1,0 +1,68 @@
+<form
+        name="transaction_category"
+        method="post"
+        {% if transactionCategory.id %}
+          action="{{ path(
+            'transaction_category_edit',
+            {
+              company: company.id,
+              transaction: transaction.id,
+              id: transactionCategory.id
+            }
+          ) }}"
+        {% endif %}
+>
+  <div id="transaction_category">
+    <div class="form-group">
+      <label class="required" for="transaction_category_category">{% trans %}Category{% endtrans %}</label>
+
+      <select id="transaction_category_category" name="transaction_category[category]" class="form-control">
+        {% for category in categories %}
+          <option
+                  value="{{ category.id }}"
+                  {% if category == transactionCategory.category %}selected="selected"{% endif %}
+          >{{ category }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="transaction_category_amount" class="required">{% trans %}Amount{% endtrans %}</label>
+      <input
+              type="number"
+              id="transaction_category_amount"
+              name="transaction_category[amount]"
+              required="required"
+              step="0.01"
+              min="0"
+              class="form-control"
+              value="{{ transactionCategory.amount }}"
+      />
+    </div>
+
+    <div class="form-group">
+      <button id="submit" class="btn btn-primary" type="submit">
+        {% if transactionCategory.id %}
+          {% trans %}Save changes{% endtrans %}
+        {% else %}
+          {% trans %}Create transaction category{% endtrans %}
+        {% endif %}
+      </button>
+
+      {% if transactionCategory.id and is_granted('delete', transactionCategory) %}
+        <button
+                class="btn btn-danger"
+                type="button"
+                data-toggle="modal"
+                data-target="#{{ 'transactionCategory' ~ transactionCategory.id }}"
+        >
+          {% trans %}Delete{% endtrans %}
+        </button>
+      {% endif %}
+    </div>
+  </div>
+</form>
+
+{% if transactionCategory.id and is_granted('delete', transactionCategory) %}
+  {{ include('transaction_category/_delete_modal.html.twig') }}
+{% endif %}

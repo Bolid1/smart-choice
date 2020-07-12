@@ -72,7 +72,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @uses \App\Security\Voter\TransactionCategoryVoter::voteOnAttribute()
  *
  * @Assert\Expression(
- *     "this.category.company == this.getTransaction().getCompany()",
+ *     "this.category and this.getTransaction() and this.category.company == this.getTransaction().getCompany()",
  *     message="Transaction and category should from one company.",
  * )
  */
@@ -97,13 +97,15 @@ class TransactionCategory
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="transactionCategories")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"transaction_category:read", "transaction_category:create", "transaction_category:edit"})
+     * @Assert\NotBlank()
      */
-    public Category $category;
+    public ?Category $category = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Transaction::class, inversedBy="transactionCategories")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"transaction_category:read", "transaction_category:create"})
+     * @Assert\NotBlank()
      */
     private Transaction $transaction;
 
@@ -111,7 +113,6 @@ class TransactionCategory
      * @ORM\Column(type="float", nullable=false)
      * @Groups({"transaction_category:read", "transaction_category:create", "transaction_category:edit"})
      * @Assert\Type("float")
-     * @Assert\LessThanOrEqual(propertyPath="transaction.amount")
      */
     public float $amount = 0.;
 

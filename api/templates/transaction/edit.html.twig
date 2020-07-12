@@ -3,5 +3,21 @@
 {% block title %}Edit transaction{% endblock %}
 
 {% block main_content %}
-    {{ include('transaction/_form.html.twig') }}
+  {{ include('transaction/_form.html.twig') }}
+
+  <h4>
+    {% trans %}Categories{% endtrans %}
+  </h4>
+
+  {% for transactionCategory in transaction.transactionCategories %}
+    <hr/>
+
+    <div>
+      {{ include('transaction_category/_form.html.twig') }}
+    </div>
+  {% endfor %}
+
+  <a href="{{ path('transaction_category_new', {company: company.id, transaction: transaction.id}) }}">
+    {% trans %}Add transaction category{% endtrans %}
+  </a>
 {% endblock %}

@@ -35,6 +35,7 @@
     <tr>
       <th>{% trans %}Date{% endtrans %}</th>
       <th>{% trans %}Account{% endtrans %}</th>
+      <th>{% trans %}Categories{% endtrans %}</th>
       <th class="text-right">{% trans %}Amount{% endtrans %}</th>
       <th>{% trans %}actions{% endtrans %}</th>
     </tr>
@@ -50,6 +51,11 @@
           <td></td>
         {% endif %}
         <td>{{ transaction.account }}</td>
+        <td>
+          {% for transactionCategory in transaction.transactionCategories %}
+            <span class="px-1">{{ transactionCategory.category }}</span>
+          {% endfor %}
+        </td>
         <td class="text-right">{{ transaction.amount|format_currency(transaction.account.currency) }}</td>
         <td>
           {% if is_granted('edit', transaction) %}

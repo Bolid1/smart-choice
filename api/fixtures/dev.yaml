@@ -85,3 +85,9 @@ App\Entity\Category:
   category_my_company_home:
     company: '@my_company'
     name: 'Home'
+
+App\Entity\TransactionCategory:
+  transaction_category_my_company_{1..70}:
+    transaction: '@my_spents_*'
+    category: '@category_my_company_*'
+    amount: '@account_company_transaction_*->amount'
