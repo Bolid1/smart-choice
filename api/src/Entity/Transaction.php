@@ -238,23 +238,4 @@ class Transaction
     {
         return $this->transactionCategories;
     }
-
-    public function addTransactionCategory(TransactionCategory $transactionCategory): self
-    {
-        if (!$this->transactionCategories->contains($transactionCategory)) {
-            $this->transactionCategories[] = $transactionCategory;
-            $transactionCategory->setTransaction($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTransactionCategory(TransactionCategory $transactionCategory): self
-    {
-        if ($this->transactionCategories->contains($transactionCategory)) {
-            $this->transactionCategories->removeElement($transactionCategory);
-        }
-
-        return $this;
-    }
 }
