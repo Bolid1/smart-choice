@@ -123,6 +123,7 @@ class TransactionController extends AbstractController
             'transaction/edit.html.twig',
             [
                 'company' => $company,
+                'categories' => $company->getCategories(),
                 'transaction' => $transaction,
                 'form' => $form->createView(),
             ]

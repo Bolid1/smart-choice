@@ -108,3 +108,21 @@ App\Entity\Category:
     company: '@another_company'
     parent: '@category_another_company'
     name: 'Another children category'
+
+App\Entity\TransactionCategory:
+  transaction_category_company:
+    transaction: '@account_company_transaction_1'
+    category: '@category_company'
+    amount: '@account_company_transaction_1->amount'
+  transaction_sub_category_company:
+    transaction: '@account_company_transaction_2'
+    category: '@sub_category_company'
+    amount: '@account_company_transaction_2->amount'
+  transaction_category_another_company:
+    transaction: '@account_another_company_transaction_1'
+    category: '@category_another_company'
+    amount: '@account_another_company_transaction_1->amount'
+  transaction_sub_category_another_company:
+    transaction: '@account_another_company_transaction_2'
+    category: '@sub_category_another_company'
+    amount: '@account_another_company_transaction_2->amount'
