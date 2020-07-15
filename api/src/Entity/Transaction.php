@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Helper\DateTimeHelper;
 use App\Repository\TransactionRepository;
 use DateTimeImmutable;
@@ -131,7 +132,14 @@ class Transaction
     private ?DateTimeImmutable $updatedAt = null;
 
     /**
-     * @ORM\OneToMany(targetEntity=TransactionCategory::class, mappedBy="transaction", orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity=TransactionCategory::class,
+     *     mappedBy="transaction",
+     *     orphanRemoval=true,
+     *     cascade={"persist"}
+     * )
+     * @Groups({"transaction:read", "transaction:create", "transaction:edit"})
+     * @ApiSubresource(maxDepth=1)
      */
     private Collection $transactionCategories;
 
@@ -237,5 +245,15 @@ class Transaction
     public function getTransactionCategories(): Collection
     {
         return $this->transactionCategories;
+    }
+
+    public function addTransactionCategory(TransactionCategory $item): self
+    {
+        if (!$this->transactionCategories->contains($item)) {
+            $this->transactionCategories->add($item);
+            $item->setTransaction($this);
+        }
+
+        return $this;
     }
 }
