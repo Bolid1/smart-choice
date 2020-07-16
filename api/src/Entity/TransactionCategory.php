@@ -96,7 +96,12 @@ class TransactionCategory
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="transactionCategories")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     * @Groups({"transaction_category:read", "transaction_category:create", "transaction_category:edit"})
+     * @Groups({
+     *     "transaction_category:read",
+     *     "transaction_category:create",
+     *     "transaction_category:edit",
+     *     "transaction:read",
+     * })
      * @Assert\NotBlank()
      */
     public ?Category $category = null;
@@ -111,7 +116,12 @@ class TransactionCategory
 
     /**
      * @ORM\Column(type="float", nullable=false)
-     * @Groups({"transaction_category:read", "transaction_category:create", "transaction_category:edit"})
+     * @Groups({
+     *     "transaction_category:read",
+     *     "transaction_category:create",
+     *     "transaction_category:edit",
+     *     "transaction:read",
+     * })
      * @Assert\Type("float")
      */
     public float $amount = 0.;

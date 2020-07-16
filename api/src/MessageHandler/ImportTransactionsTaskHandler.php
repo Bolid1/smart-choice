@@ -8,6 +8,7 @@ use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
 use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\DataPersister\TransactionDataPersister;
 use App\Entity\Transaction;
+use App\Entity\TransactionCategory;
 use App\ImportPreparer\TransactionImportPreparer;
 use App\Message\ImportTransactionsTask;
 use App\Repository\ImportTransactionsTaskRepository;
@@ -93,6 +94,16 @@ class ImportTransactionsTaskHandler implements MessageHandlerInterface, LoggerAw
             try {
                 $item = $this->preparer->prepare($item, ['company' => $task->company]);
                 $transaction = $this->createTransaction($item, $format, $context);
+                // Replace with subResource, when post operation become available
+                $categories = $item['categories'] ?? [];
+                $categoriesCount = \count($categories);
+                foreach ($categories as $category) {
+                    $transactionCategory = new TransactionCategory();
+                    $transactionCategory->category = $category;
+                    $transactionCategory->amount = $transaction->getAmount() / $categoriesCount;
+                    $transaction->addTransactionCategory($transactionCategory);
+                }
+
                 $this->validator->validate($transaction, $context);
 
                 if (!$this->isGranted($token, TransactionVoter::CREATE, $transaction)) {

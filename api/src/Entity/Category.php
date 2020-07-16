@@ -98,6 +98,7 @@ class Category
      * @Assert\Type("string")
      * @Assert\NotBlank()
      * @Assert\Length(min=3)
+     * @Assert\Regex("/^[^,]+$/", message="Category name shouldn't contains comma character")
      */
     public string $name = '';
 

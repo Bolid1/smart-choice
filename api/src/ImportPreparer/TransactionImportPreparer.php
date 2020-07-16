@@ -6,6 +6,7 @@ namespace App\ImportPreparer;
 
 use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Converter\AccountConverter;
+use App\Converter\CategoryConverter;
 use App\Entity\Company;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -16,19 +17,23 @@ class TransactionImportPreparer implements LoggerAwareInterface
     use LoggerAwareTrait;
 
     private AccountConverter $accountConverter;
+    private CategoryConverter $categoryConverter;
     private IriConverterInterface $converter;
 
     /**
      * TransactionImportPreparer constructor.
      *
      * @param \App\Converter\AccountConverter $accountConverter
+     * @param \App\Converter\CategoryConverter $categoryConverter
      * @param \ApiPlatform\Core\Api\IriConverterInterface $converter
      */
     public function __construct(
         AccountConverter $accountConverter,
+        CategoryConverter $categoryConverter,
         IriConverterInterface $converter
     ) {
         $this->accountConverter = $accountConverter;
+        $this->categoryConverter = $categoryConverter;
         $this->converter = $converter;
         $this->logger = new NullLogger();
     }
@@ -38,7 +43,8 @@ class TransactionImportPreparer implements LoggerAwareInterface
         $this->logger->info('Prepare new transaction data', \compact('data', 'context'));
 
         if (isset($data['account']) && \is_string($data['account'])) {
-            $account = $this->accountConverter->convert($identifier = $data['account'], $context);
+            $identifier = \trim($data['account']);
+            $account = $this->accountConverter->convert($identifier, $context);
             if (null !== $account) {
                 $data['account'] = $this->converter->getIriFromItem($account);
                 $this->logger->debug("Found account '{$data['account']}' by identifier '{$identifier}'");
@@ -56,6 +62,21 @@ class TransactionImportPreparer implements LoggerAwareInterface
 
         if (empty($data['date'])) {
             unset($data['date']);
+        }
+
+        if (isset($data['categories'])) {
+            $categories = [];
+            foreach (\explode(',', $data['categories']) as $identifier) {
+                $category = $this->categoryConverter->convert(\trim($identifier), $context);
+                if (null !== $category) {
+                    $categories[] = $category;
+                    $this->logger->debug("Found category '{$category}' by identifier '{$identifier}'");
+                } else {
+                    $this->logger->notice("Category not found by identifier '{$identifier}'");
+                }
+            }
+
+            $data['categories'] = $categories;
         }
 
         if (isset($context['company']) && $context['company'] instanceof Company) {

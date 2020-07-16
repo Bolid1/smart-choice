@@ -225,6 +225,30 @@ class Company
         return $this->categories;
     }
 
+    public function getCategoryByName(string $name): ?Category
+    {
+        /** @var Category $category */
+        foreach ($this->categories as $category) {
+            if ($category->name === $name) {
+                return $category;
+            }
+        }
+
+        return null;
+    }
+
+    public function getCategoryById(string $id): ?Category
+    {
+        /** @var Category $category */
+        foreach ($this->categories as $category) {
+            if ($id === (string)$category->getId()) {
+                return $category;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * @return Collection|Account[]
      */

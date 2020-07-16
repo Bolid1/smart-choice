@@ -45,7 +45,7 @@ class TransactionCreateApiTest extends ApiTestCase
         )
         ;
 
-        $this->assertIsString($date, 'Date should be of type string');
+        self::assertIsString($date, 'Date should be of type string');
 
         static::assertResponseIsSuccessfulItemJsonSchema(
             [
